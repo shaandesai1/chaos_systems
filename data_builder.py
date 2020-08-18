@@ -4,9 +4,74 @@ generates double pendulum dataset
 
 import numpy as np
 from scipy.integrate import solve_ivp as rk
-import pickle 
+import autograd
+from autograd.numpy import cos
 
-def doublepend(name, num_trajectories, NUM_PARTS, T_max, dt, sub_sample_rate, seed, yflag=False):
+def pendulum(num_samples, T_max, dt, srate, noise_std=0, seed=3):
+    """simple pendulum"""
+    def hamiltonian_fn(coords):
+        q, p = np.split(coords, 2)
+        H = 9.81 * (1 - cos(q)) + (p ** 2)/2 # pendulum hamiltonian
+        return H
+
+    def hamiltonian_eval(coords):
+        H = 9.81 * (1 - np.cos(coords[:,0])) + (coords[:,1] ** 2)/2 # pendulum hamiltonian
+        return H
+
+    def dynamics_fn(t, coords):
+        dcoords = autograd.grad(hamiltonian_fn)(coords)
+        dqdt, dpdt = np.split(dcoords, 2)
+        S = np.concatenate([dpdt, -dqdt], axis=-1)
+        return S
+
+    def get_trajectory(t_span=[0, T_max], timescale=dt, radius=None, y0=None, **kwargs):
+        t_eval = np.arange(t_span[0], t_span[1], timescale)
+        if y0 is None:
+            y0 = np.random.rand(2) * 2. - 1
+        if radius is None:
+            radius = np.random.rand() + 1.3
+        y0 = y0 / np.sqrt((y0 ** 2).sum()) * radius
+
+        spring_ivp = rk(fun=dynamics_fn, t_span=t_span, y0=y0, t_eval=t_eval, rtol=1e-10, **kwargs)
+        q, p = spring_ivp['y'][0], spring_ivp['y'][1]
+        dydt = [dynamics_fn(None, y) for y in spring_ivp['y'].T]
+        dydt = np.stack(dydt).T
+        dqdt, dpdt = np.split(dydt, 2)
+
+        # add noise
+        q += np.random.randn(*q.shape) * noise_std
+        p += np.random.randn(*p.shape) * noise_std
+        return q, p, dqdt, dpdt, t_eval
+
+
+    data = {'meta': locals()}
+
+    # randomly sample inputs
+    np.random.seed(seed)
+    xs, dxs = [], []
+    ssr = int(srate/dt)
+    ms = []
+    ks = []
+    energies = []
+    for s in range(num_samples):
+        x, y, dx, dy, t = get_trajectory()
+        x = x[::ssr]
+        y = y[::ssr]
+        ms.append([1.])
+        ks.append([9.81])
+        xs.append(np.stack([x, y]).T)
+        energies.append(hamiltonian_eval(xs[-1]))
+        dxs.append(np.stack([dx, dy]).T)
+
+    data['x'] = np.concatenate(xs)
+    data['dx'] = np.concatenate(dxs)
+    data['mass'] = np.concatenate(ms)
+    data['ks'] = np.concatenate(ks)
+    data['energy'] = np.concatenate(energies)
+    return data
+
+
+def doublepend(num_trajectories, T_max, dt, sub_sample_rate, gen_coords = False,seed=3, yflag=False):
     def hamiltonian(vec):
         m1, m2, l1, l2 = 1, 1, 1, 1
         g = 9.81
@@ -40,6 +105,43 @@ def doublepend(name, num_trajectories, NUM_PARTS, T_max, dt, sub_sample_rate, se
               m2 * p1 * np.cos(t1 - t2)) / (L2 * m2 * C0)
 
         return np.array([t1, w1, t2, w2])
+
+    def tdot_to_p(state):
+        pt1 = state[:, 2] + state[:, 3] * np.cos(state[:, 0] - state[:, 1])
+        pt2 = state[:, 3] + state[:, 2] * np.cos(state[:, 0] - state[:, 1])
+        return np.concatenate([state[:, :2], pt1.reshape(-1, 1), pt2.reshape(-1, 1)], 1)
+
+    def hamilton_rhs(t1, t2, p1, p2):
+        """
+        Computes the right-hand side of the Hamilton's equations for
+        the double pendulum and returns it as an array.
+        t1 - The angle of bob #1.
+        t2 - The angle of bob #2.
+        p1 - The canonical momentum of bob #1.
+        p2 - The canonical momentum of bob #2.
+        """
+
+        m1 = 1
+        L1 = 1
+        m2 = 1
+        L2 = 1
+
+        g = 9.81
+
+        C0 = L1 * L2 * (m1 + m2 * math.sin(t1 - t2) ** 2)
+        C1 = (p1 * p2 * math.sin(t1 - t2)) / C0
+        C2 = (m2 * (L2 * p1) ** 2 + (m1 + m2) * (L1 * p2) ** 2 -
+              2 * L1 * L2 * m2 * p1 * p2 * math.cos(t1 - t2)) * \
+             math.sin(2 * (t1 - t2)) / (2 * C0 ** 2)
+
+        # F is the right-hand side of the Hamilton's equations
+        F_t1 = (L2 * p1 - L1 * p2 * math.cos(t1 - t2)) / (L1 * C0)
+        F_t2 = (L1 * (m1 + m2) * p2 - L2 *
+                m2 * p1 * math.cos(t1 - t2)) / (L2 * m2 * C0)
+        F_p1 = -(m1 + m2) * g * L1 * math.sin(t1) - C1 + C2
+        F_p2 = -m2 * g * L2 * math.sin(t2) + C1 - C2
+
+        return np.array([F_t1, F_t2, F_p1, F_p2])
 
     def f_analytical(t, state, m1, m2, l1, l2):
         g = 9.81
@@ -95,8 +197,11 @@ def doublepend(name, num_trajectories, NUM_PARTS, T_max, dt, sub_sample_rate, se
     collater['energy'] = np.concatenate(energy)
     collater['mass'] = mass_arr
     collater['ks'] = ls_arr
-    f = open(name + ".pkl", "wb")
-    pickle.dump(collater, f)
-    f.close()
+
+    if gen_coords is False:
+        theta_ps = tdot_to_p(collater['x'])
+        theta_ps_dot = [hamilton_rhs(*theta_ps_i) for theta_ps_i in theta_ps]
+        collater['x'] = theta_ps
+        collater['dx'] = theta_ps_dot
 
     return collater
