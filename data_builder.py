@@ -6,7 +6,7 @@ import numpy as np
 from scipy.integrate import solve_ivp as rk
 import autograd
 from autograd.numpy import cos
-
+import math
 def pendulum(num_samples, T_max, dt, srate, noise_std=0, seed=3):
     """simple pendulum"""
     def hamiltonian_fn(coords):
@@ -57,6 +57,8 @@ def pendulum(num_samples, T_max, dt, srate, noise_std=0, seed=3):
         x, y, dx, dy, t = get_trajectory()
         x = x[::ssr]
         y = y[::ssr]
+        dx = dx[::ssr]
+        dy = dy[::ssr]
         ms.append([1.])
         ks.append([9.81])
         xs.append(np.stack([x, y]).T)
@@ -64,7 +66,7 @@ def pendulum(num_samples, T_max, dt, srate, noise_std=0, seed=3):
         dxs.append(np.stack([dx, dy]).T)
 
     data['x'] = np.concatenate(xs)
-    data['dx'] = np.concatenate(dxs)
+    data['dx'] = np.concatenate(dxs).squeeze()
     data['mass'] = np.concatenate(ms)
     data['ks'] = np.concatenate(ks)
     data['energy'] = np.concatenate(energies)
@@ -165,8 +167,8 @@ def doublepend(num_trajectories, T_max, dt, sub_sample_rate, gen_coords = False,
 
     for traj in range(num_trajectories):
 
-        t1init = np.random.uniform(-np.pi, np.pi)
-        t2init = np.random.uniform(-np.pi, np.pi)
+        t1init = np.random.uniform(-np.pi/10, np.pi/10)
+        t2init = np.random.uniform(-np.pi/10, np.pi/10)
         y0 = np.array([t1init, t2init, 0, 0])
         if yflag:
             y0 = [-0.53202021, -0.38343444, -2.70467816, 0.98074028]
@@ -202,6 +204,157 @@ def doublepend(num_trajectories, T_max, dt, sub_sample_rate, gen_coords = False,
         theta_ps = tdot_to_p(collater['x'])
         theta_ps_dot = [hamilton_rhs(*theta_ps_i) for theta_ps_i in theta_ps]
         collater['x'] = theta_ps
-        collater['dx'] = theta_ps_dot
-
+        collater['dx'] = np.array(theta_ps_dot)
     return collater
+
+
+def heinon_heiles(name, num_trajectories, NUM_PARTS, T_max, dt, sub_sample_rate, noise_std, seed):
+    """heinon heiles data generator"""
+    def hamiltonian_fn(coords):
+        x, y, px, py = np.split(coords, 4)
+        lambda_ = 1
+        H = 0.5 * px ** 2 + 0.5 * py ** 2 + 0.5 * (x ** 2 + y ** 2) + lambda_ * (
+                    (x ** 2) * y - (y ** 3) / 3)
+        return H
+
+    def dynamics_fn(t, coords):
+        dcoords = autograd.grad(hamiltonian_fn)(coords)
+        dxdt, dydt, dpxdt, dpydt = np.split(dcoords, 4)
+        S = np.concatenate([dpxdt, dpydt, -dxdt, -dydt], axis=-1)
+        return S
+
+    def get_trajectory(t_span=[0, 3], timescale=0.01, ssr=sub_sample_rate, radius=None, y0=None, noise_std=0.1,
+                       **kwargs):
+
+        # get initial state
+        x = np.random.uniform(-0.5, 0.5)
+        y = np.random.uniform(-0.5, 0.5)
+        px = np.random.uniform(-.5, .5)
+        py = np.random.uniform(-.5, .5)
+
+        y0 = np.array([x, y, px, py])
+
+        spring_ivp = rk(lambda t, y: dynamics_fn(t, y), t_span, y0,
+                        t_eval=np.arange(0, t_span[1], timescale),
+                        rtol=1e-10)
+        accum = spring_ivp.y.T
+        ssr = int(ssr / timescale)
+        accum = accum[::ssr]
+        daccum = [dynamics_fn(None, accum[i]) for i in range(accum.shape[0])]
+        energies = []
+        for i in range(accum.shape[0]):
+            energies.append(np.sum(hamiltonian_fn(accum[i])))
+
+        return accum, np.array(daccum), energies
+
+    def get_dataset(name, num_trajectories, NUM_PARTS, T_max, dt, sub_sample_rate, seed=seed, test_split=0.5,
+                    **kwargs):
+        data = {'meta': locals()}
+
+        # randomly sample inputs
+        np.random.seed(seed)
+        data = {}
+        ssr = int(sub_sample_rate / dt)
+
+        xs, dxs, energies, ks, ms = [], [], [], [], []
+        for s in range(num_trajectories):
+            x, dx, energy = get_trajectory(t_span=[0, T_max], timescale=dt, ssr=sub_sample_rate)
+
+            x += np.random.randn(*x.shape) * noise_std
+            dx += np.random.randn(*dx.shape) * noise_std
+
+            xs.append(x)
+            dxs.append(dx)
+            energies.append(energy)
+            ks.append([1])
+            ms.append([1])
+
+        data['x'] = np.concatenate(xs)
+        data['dx'] = np.concatenate(dxs)
+        data['energy'] = np.concatenate(energies)
+        data['ks'] = np.concatenate(ks)
+        data['mass'] = np.concatenate(ms)
+
+        return data
+
+    return get_dataset(name, num_trajectories, NUM_PARTS, T_max, dt, sub_sample_rate)
+
+
+from autograd.numpy import cos, sin
+
+
+def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False):
+    """heinon heiles data generator"""
+
+    def hamiltonian_fn(coords):
+        t1, t2, pt1, pt2 = np.split(coords, 4)
+        numerator = pt1 ** 2 + 2 * pt2 ** 2 - 2 * pt1 * pt2 * cos(t1 - t2)
+        denominator = 2 * (1 + sin(t1 - t2) ** 2)
+        H = (numerator / denominator) - 2 * 9.81 * cos(t1) - 9.81 * cos(t2)
+        return H
+
+    def dynamics_fn(t, coords):
+        dcoords = autograd.grad(hamiltonian_fn)(coords)
+        dxdt, dydt, dpxdt, dpydt = np.split(dcoords, 4)
+        S = np.concatenate([dpxdt, dpydt, -dxdt, -dydt], axis=-1)
+        return S
+
+    def get_trajectory(t_span=[0, 3], timescale=0.01, ssr=sub_sample_rate, radius=None, y0=None, noise_std=0.1,
+                       **kwargs):
+
+        # get initial state
+        t1 = np.random.uniform(-np.pi, np.pi)
+        t2 = np.random.uniform(-np.pi, np.pi)
+        pt1 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
+        pt2 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
+
+        y0 = np.array([t1, t2, pt1, pt2])
+
+        if yflag:
+            y0 = [-0.53202021, -0.38343444, -2.70467816, 0.98074028]
+
+        spring_ivp = rk(lambda t, y: dynamics_fn(t, y), t_span, y0,
+                        t_eval=np.arange(0, t_span[1], timescale),
+                        rtol=1e-10)
+        accum = spring_ivp.y.T
+        ssr = int(ssr / timescale)
+        accum = accum[::ssr]
+        daccum = [dynamics_fn(None, accum[i]) for i in range(accum.shape[0])]
+        energies = []
+        for i in range(accum.shape[0]):
+            energies.append(np.sum(hamiltonian_fn(accum[i])))
+
+        return accum, np.array(daccum), energies
+
+    def get_dataset(num_trajectories, T_max, dt, sub_sample_rate, seed=seed, test_split=0.5,
+                    **kwargs):
+        data = {'meta': locals()}
+
+        # randomly sample inputs
+
+        data = {}
+        ssr = int(sub_sample_rate / dt)
+
+        xs, dxs, energies, ks, ms = [], [], [], [], []
+        for s in range(num_trajectories):
+            x, dx, energy = get_trajectory(t_span=[0, T_max], timescale=dt, ssr=sub_sample_rate)
+
+            #             x += np.random.randn(*x.shape) * noise_std
+            #             dx += np.random.randn(*dx.shape) * noise_std
+
+            xs.append(x)
+            dxs.append(dx)
+            energies.append(energy)
+            ks.append([1])
+            ms.append([1])
+
+        data['x'] = np.concatenate(xs)
+        data['dx'] = np.concatenate(dxs)
+        data['energy'] = np.concatenate(energies)
+        data['ks'] = np.concatenate(ks)
+        data['mass'] = np.concatenate(ms)
+
+        return data
+
+    np.random.seed(seed)
+    return get_dataset(num_trajectories, T_max, dt, sub_sample_rate)
