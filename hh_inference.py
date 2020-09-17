@@ -9,14 +9,14 @@ from utils import *
 import numpy as np
 import matplotlib.pyplot as plt
 n_test_traj = 10
-T_max_t = 2.01
+T_max_t = 20.01
 dt = 0.01
 srate = 0.01
 noise_std = 0.0
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print(device)
 
-valid_data = dpend_adapted(n_test_traj, T_max_t, dt, srate,2)
+valid_data = dpend_adapted(n_test_traj, T_max_t, dt, srate,12)
 vnow, vnext,venergy,dvnow = nownext(valid_data, n_test_traj, T_max_t, dt, srate)
 valdat = pendpixdata(vnow, vnext,venergy,dvnow)
 val_dataloader = DataLoader(valdat, batch_size=int(T_max_t//srate), num_workers=2, shuffle=False)

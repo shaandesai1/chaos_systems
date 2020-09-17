@@ -11,7 +11,7 @@ import numpy as np
 import copy
 import matplotlib.pyplot as plt
 from torch.optim.lr_scheduler import StepLR
-num_trajectories = 100
+num_trajectories = 20
 n_test_traj = 1
 num_nodes = 2
 T_max = 5.01
@@ -84,17 +84,17 @@ def train_model(model, optimizer, scheduler,num_epochs=1,integrator_embedded=Tru
                     next_step_pred = model.next_step(renorm(q))
                     state_loss = torch.mean((renorm(next_step_pred) - renorm(q_next)) ** 2)
                 else:
-                    curr_deriv = model.time_deriv(q)
+                    curr_deriv = model.time_deriv(renorm(q))
                     state_loss = torch.mean((curr_deriv-dq)**2)
                 loss = state_loss
                 if phase == 'train':
                     loss.backward()
                     optimizer.step()
                 running_loss += loss
-
+                print('{} Loss: {:.10f}'.format(phase, loss))
             loss_collater[phase].append(running_loss)
             epoch_loss = running_loss
-            print('{} Loss: {:.10f}'.format(phase, epoch_loss))
+            print('{} Epoch Loss: {:.10f}'.format(phase, epoch_loss))
 
     plt.figure()
     plt.plot(loss_collater['train'], label='train')
@@ -112,7 +112,7 @@ def train_model(model, optimizer, scheduler,num_epochs=1,integrator_embedded=Tru
         preds.append(next_step_pred)
         qinit = next_step_pred
     preds = torch.cat(preds)
-    print(torch.mean((preds-q_next)**2))
+    print(torch.mean((preds-renorm(q_next))**2))
     preds = preds.detach().numpy()
     q_next = q_next.detach().numpy()
 
@@ -139,9 +139,9 @@ def train_model(model, optimizer, scheduler,num_epochs=1,integrator_embedded=Tru
     return model
 
 
-model_ft = HNN(4,500,1,srate)
+model_ft = HNN(4,1000,1,srate)
 params = list(model_ft.parameters())
 optimizer_ft = torch.optim.Adam(params, 1e-3)
 scheduler = StepLR(optimizer_ft, step_size=30, gamma=0.1)
-model_ft = train_model(model_ft, optimizer_ft,scheduler, num_epochs=100, integrator_embedded=True)
-torch.save(model_ft,'mdl_s2')
+model_ft = train_model(model_ft, optimizer_ft,scheduler, num_epochs=100, integrator_embedded=False)
+torch.save(model_ft,'mdl_s1_nointeg')
