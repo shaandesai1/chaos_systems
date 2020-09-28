@@ -306,7 +306,7 @@ def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False
                        **kwargs):
 
         # get initial state
-        t1 = np.random.uniform(-np.pi, np.pi)
+        t1 = np.random.uniform(-np.pi/2, np.pi/2)
         t2 = np.random.uniform(-np.pi, np.pi)
         pt1 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
         pt2 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
@@ -326,8 +326,8 @@ def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False
         energies = []
         for i in range(accum.shape[0]):
             energies.append(np.sum(hamiltonian_fn(accum[i])))
-
-        return accum, np.array(daccum), energies
+        print(energies[-1]-energies[0],len(energies))
+        return accum, np.array(daccum), energies,np.arange(0, t_span[1], timescale)
 
     def get_dataset(num_trajectories, T_max, dt, sub_sample_rate, seed=seed, test_split=0.5,
                     **kwargs):
@@ -339,8 +339,9 @@ def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False
         ssr = int(sub_sample_rate / dt)
 
         xs, dxs, energies, ks, ms = [], [], [], [], []
+        time = []
         for s in range(num_trajectories):
-            x, dx, energy = get_trajectory(t_span=[0, T_max], timescale=dt, ssr=sub_sample_rate)
+            x, dx, energy,times = get_trajectory(t_span=[0, T_max], timescale=dt, ssr=sub_sample_rate)
 
             #             x += np.random.randn(*x.shape) * noise_std
             #             dx += np.random.randn(*dx.shape) * noise_std
@@ -350,14 +351,23 @@ def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False
             energies.append(energy)
             ks.append([1])
             ms.append([1])
+            time.append(times)
 
         data['x'] = np.concatenate(xs)
         data['dx'] = np.concatenate(dxs)
         data['energy'] = np.concatenate(energies)
         data['ks'] = np.concatenate(ks)
         data['mass'] = np.concatenate(ms)
+        data['tvalues'] = np.concatenate(time)
 
         return data
 
     np.random.seed(seed)
     return get_dataset(num_trajectories, T_max, dt, sub_sample_rate)
+
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    train_data = dpend_adapted(20, 1.01, 0.01, 0.01, 3)
+    plt.hist(train_data['x'][:,0])
+    plt.show()

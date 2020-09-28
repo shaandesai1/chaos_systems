@@ -30,8 +30,14 @@ class HNN(nn.Module):
         x_tp1 = x_t + (1. / 6) * (k1 + k2 * 2. + k3 * 2. + k4)
         return x_tp1
 
+    def refactor(self,x):
+        with torch.no_grad():
+            cos_vals = torch.cos(x[:,:2])
+            sin_vals = torch.sin(x[:,:2])
+        return torch.cat([cos_vals,sin_vals,x[:,2:]],1)
     def get_H(self, x):
-        h = self.nonlin(self.mlp1(x))
+        h = self.refactor(x)
+        h = self.nonlin(self.mlp1(h))
         h = self.nonlin(self.mlp2(h))
         fin = self.mlp3(h)
         return fin
