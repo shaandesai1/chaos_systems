@@ -53,6 +53,7 @@ def pendulum(num_samples, T_max, dt, srate, noise_std=0, seed=3):
     ms = []
     ks = []
     energies = []
+    tvalues = []
     for s in range(num_samples):
         x, y, dx, dy, t = get_trajectory()
         x = x[::ssr]
@@ -64,12 +65,14 @@ def pendulum(num_samples, T_max, dt, srate, noise_std=0, seed=3):
         xs.append(np.stack([x, y]).T)
         energies.append(hamiltonian_eval(xs[-1]))
         dxs.append(np.stack([dx, dy]).T)
+        tvalues.append(t)
 
     data['x'] = np.concatenate(xs)
     data['dx'] = np.concatenate(dxs).squeeze()
     data['mass'] = np.concatenate(ms)
     data['ks'] = np.concatenate(ks)
     data['energy'] = np.concatenate(energies)
+    data['tvalues'] = np.concatenate(tvalues)
     return data
 
 

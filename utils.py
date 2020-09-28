@@ -7,6 +7,7 @@ def nownext(train_data, ntraj, T_max, dt, srate):
     next_xs = []
     ener_xs = []
     curr_dxs = []
+    curr_times = []
     dex = int(np.ceil(T_max / dt) / (srate / dt))
     for i in range(ntraj):
         same_batch = train_data['x'][i * dex:(i + 1) * dex, :]
@@ -20,8 +21,11 @@ def nownext(train_data, ntraj, T_max, dt, srate):
         curr_dx = train_data['dx'][i * dex:(i + 1) * dex, :][:-1, :]
         curr_dxs.append(curr_dx)
 
+        curr_time = train_data['tvalues'][i * dex:(i + 1) * dex][:-1]
+        curr_times.append(curr_time)
 
-    return np.concatenate(curr_xs,0), np.concatenate(next_xs,0), np.concatenate(ener_xs,0),np.concatenate(curr_dxs)
+
+    return np.concatenate(curr_xs,0), np.concatenate(next_xs,0), np.concatenate(ener_xs,0),np.concatenate(curr_dxs),np.concatenate(curr_times)
 
 
 def theta_to_cart(sub_preds):
@@ -35,7 +39,7 @@ def theta_to_cart(sub_preds):
 class pendpixdata(Dataset):
     """Face Landmarks dataset."""
 
-    def __init__(self, x, nextx,energy,dx, transform=None):
+    def __init__(self, x, nextx,energy,dx,time, transform=None):
         """
         Args:
             x: original data 2*28*28 * bs
@@ -45,8 +49,9 @@ class pendpixdata(Dataset):
         self.next_x = nextx
         self.energy = energy
         self.dx = dx
+        self.time = time
     def __len__(self):
         return len(self.x)
 
     def __getitem__(self, idx):
-        return self.x[idx], self.next_x[idx], self.energy[idx], self.dx[idx]
+        return self.x[idx], self.next_x[idx], self.energy[idx], self.dx[idx],self.time[idx]

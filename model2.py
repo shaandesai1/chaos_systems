@@ -1,46 +1,9 @@
 import torch.nn as nn
 import torch
 import numpy as np
-from typing import Union, Iterable, Tuple, Dict
-from torchdiffeq import odeint as odeint
+from typing import Union
 
 torch.pi = torch.tensor(np.pi)
-
-
-def attach_dim(v, n_dim_to_prepend=0, n_dim_to_append=0):
-    return v.reshape(
-        torch.Size([1] * n_dim_to_prepend)
-        + v.shape
-        + torch.Size([1] * n_dim_to_append))
-
-
-def tensor(v: Union[float, np.ndarray, torch.Tensor],
-           min_ndim=1,
-           device=None,
-           **kwargs):
-    """
-    Construct a tensor if the input is not; otherwise return the input as is,
-    but return None as is for convenience when input is not passed.
-    Same as enforce_tensor
-    :param v:
-    :param min_ndim:
-    :param device:
-    :param kwargs:
-    :return:
-    """
-    # if device is None:
-    #     device = device0
-
-    if v is None:
-        pass
-    else:
-        if not torch.is_tensor(v):
-            v = torch.tensor(v, **kwargs)
-        if v.ndimension() < min_ndim:
-            v = v.expand(v.shape
-                         + torch.Size([1] * (min_ndim - v.ndimension())))
-    return v
-
 
 class HNN2(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_size, deltat):
@@ -49,7 +12,7 @@ class HNN2(nn.Module):
         self.mlp1 = nn.Linear(input_dim, hidden_dim)
         self.mlp2 = nn.Linear(hidden_dim, hidden_dim)
         self.mlp3 = nn.Linear(hidden_dim, output_size)
-        self.nonlin = torch.cos
+        self.nonlin = torch.tanh
 
         for l in [self.mlp1, self.mlp2, self.mlp3]:
             torch.nn.init.orthogonal_(l.weight)
