@@ -368,6 +368,7 @@ def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
-    train_data = dpend_adapted(20, 1.01, 0.01, 0.01, 3)
-    plt.hist(train_data['x'][:,0])
+
+    train_data = pendulum(1,60.05,0.05,0.05, noise_std=0, seed=44)
+    plt.scatter(train_data['x'][:,0],train_data['x'][:,1])
     plt.show()
