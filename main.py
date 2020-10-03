@@ -148,9 +148,9 @@ def train_model(model, optimizer, num_epochs=1, energy_term=False, integrator_em
     # plt.show()
     return model
 # model_ft = HNN(2, 200, 1, 0.01)
-model_ft = HNN_VI(3, 200, 1, srate)
+model_ft = HNN(3, 200, 1, srate)
 params = list(model_ft.parameters())
 optimizer_ft = torch.optim.Adam(params, 1e-3,weight_decay=1e-4)
-trained_model = train_model(model_ft, optimizer_ft, num_epochs=100, energy_term=False,integrator_embedded=False, reg_grad=False)
+trained_model = train_model(model_ft, optimizer_ft, num_epochs=100, energy_term=False,integrator_embedded=True, reg_grad=False)
 
 torch.save(trained_model,'HNN')

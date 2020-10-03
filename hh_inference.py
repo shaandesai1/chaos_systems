@@ -8,8 +8,11 @@ from data_builder import *
 from utils import *
 import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
+
+
 n_test_traj = 10
-T_max_t = 20.01
+T_max_t = 10.01
 dt = 0.01
 srate = 0.01
 noise_std = 0.0
@@ -17,8 +20,8 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print(device)
 
 valid_data = dpend_adapted(n_test_traj, T_max_t, dt, srate,12)
-vnow, vnext,venergy,dvnow = nownext(valid_data, n_test_traj, T_max_t, dt, srate)
-valdat = pendpixdata(vnow, vnext,venergy,dvnow)
+vnow, vnext,venergy,dvnow,vtime = nownext(valid_data, n_test_traj, T_max_t, dt, srate)
+valdat = pendpixdata(vnow, vnext,venergy,dvnow,vtime)
 val_dataloader = DataLoader(valdat, batch_size=int(T_max_t//srate), num_workers=2, shuffle=False)
 
 data_dict = {'valid': val_dataloader}
@@ -37,22 +40,25 @@ def renorm(xnow):
     return torch.cat([firsts, xnow[:, 2:]], 1)
     #return xnow
 
-model= torch.load('mdl_s1')
+model= torch.load('mdl_s1_coord')
 model.eval()
 
-for batch_i, (q, q_next, energy_, dq) in enumerate(data_dict['valid']):
+for batch_i, (q, q_next, energy_, dq,tevals) in enumerate(data_dict['valid']):
 
-    q, q_next, dq = q.float(), q_next.float(), dq.float()
+    q, q_next, dq,tevals = q.float(), q_next.float(), dq.float(),tevals.float()
 
     q.to(device)
     q_next.to(device)
     energy_.to(device)
     dq.to(device)
     q.requires_grad = True
+    tevals.to(device)
+    tevals.requires_grad = True
+
     preds = []
     qinit = q[0].reshape(1, -1)
-    for i in range(len(q_next)):
-        next_step_pred = model.next_step(renorm(qinit))
+    for i in tqdm(range(len(q_next))):
+        next_step_pred = model.next_step(renorm(qinit),tevals[i])
         preds.append(next_step_pred)
         qinit = next_step_pred
     preds = torch.cat(preds)

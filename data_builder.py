@@ -307,7 +307,7 @@ def dpend_adapted(num_trajectories, T_max, dt, sub_sample_rate, seed,yflag=False
 
         # get initial state
         t1 = np.random.uniform(-np.pi/2, np.pi/2)
-        t2 = np.random.uniform(-np.pi, np.pi)
+        t2 = np.random.uniform(-np.pi/2, np.pi/2)
         pt1 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
         pt2 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
 
