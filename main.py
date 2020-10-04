@@ -104,31 +104,31 @@ def train_model(model, optimizer, num_epochs=1, energy_term=False, integrator_em
             epoch_loss = running_loss
             print('{} Loss: {:.10f}'.format(phase, epoch_loss))
 
-    # plt.figure()
-    # plt.plot(loss_collater['train'], label='train')
-    # plt.plot(loss_collater['valid'], label='valid')
-    # plt.yscale('log')
-    # plt.title(f'simple pendulum: ntrain_inits:{num_trajectories},ntest_inits:{n_test_traj},tmax:{T_max},dt:{dt}')
-    # plt.legend()
-    # plt.show()
+    plt.figure()
+    plt.plot(loss_collater['train'], label='train')
+    plt.plot(loss_collater['valid'], label='valid')
+    plt.yscale('log')
+    plt.title(f'simple pendulum: ntrain_inits:{num_trajectories},ntest_inits:{n_test_traj},tmax:{T_max},dt:{dt}')
+    plt.legend()
+    plt.show()
     #
     #
     #
-    # preds = []
-    # pred_ham = []
-    # qinit = q[0].reshape(1, -1)
-    # for i in range(len(q_next)):
-    #     next_step_pred = model.next_step(qinit,tevals[i])
-    #     pred_ham.append(model.get_H(torch.cat([qinit,tevals[i].reshape(-1,1)],1)))
-    #     preds.append(next_step_pred)
-    #     qinit = next_step_pred
-    #
-    # pred_ham = torch.cat(pred_ham)
-    #
-    # plt.figure()
-    # plt.scatter(range(len(q_next)),pred_ham.detach().numpy())
-    # plt.show()
-    #
+    preds = []
+    pred_ham = []
+    qinit = q[0].reshape(1, -1)
+    for i in range(len(q_next)):
+        next_step_pred = model.next_step(qinit,tevals[i])
+        pred_ham.append(model.get_H(torch.cat([qinit,tevals[i].reshape(-1,1)],1)))
+        preds.append(next_step_pred)
+        qinit = next_step_pred
+
+    pred_ham = torch.cat(pred_ham)
+
+    plt.figure()
+    plt.scatter(range(len(q_next)),pred_ham.detach().numpy())
+    plt.show()
+
     # preds = torch.cat(preds)
     # preds = preds.detach().numpy()
     # q_next = q_next.detach().numpy()
@@ -139,18 +139,18 @@ def train_model(model, optimizer, num_epochs=1, energy_term=False, integrator_em
     #
     #
     # print(np.mean((preds-q_next)**2))
-    # plt.figure()
-    # plt.plot(preds[:, 0], preds[:, 1], label='predicted')
-    # plt.plot(q_next[:, 0], q_next[:, 1], label='true')
-    # plt.scatter(preds[:, 0], preds[:, 1], label='predicted', s=3)
-    # plt.scatter(q_next[:, 0], q_next[:, 1], label='true', s=3)
-    # plt.legend()
-    # plt.show()
+    plt.figure()
+    plt.plot(preds[:, 0], preds[:, 1], label='predicted')
+    plt.plot(q_next[:, 0], q_next[:, 1], label='true')
+    plt.scatter(preds[:, 0], preds[:, 1], label='predicted', s=3)
+    plt.scatter(q_next[:, 0], q_next[:, 1], label='true', s=3)
+    plt.legend()
+    plt.show()
     return model
 # model_ft = HNN(2, 200, 1, 0.01)
 model_ft = HNN(3, 200, 1, srate)
 params = list(model_ft.parameters())
-optimizer_ft = torch.optim.Adam(params, 1e-3,weight_decay=1e-4)
-trained_model = train_model(model_ft, optimizer_ft, num_epochs=100, energy_term=False,integrator_embedded=True, reg_grad=False)
+optimizer_ft = torch.optim.Adam(params, 1e-3)
+trained_model = train_model(model_ft, optimizer_ft, num_epochs=100, energy_term=False,integrator_embedded=False, reg_grad=True)
 
-torch.save(trained_model,'HNN')
+torch.save(trained_model,'HNN_l2')
