@@ -5,6 +5,7 @@
 % aistats2021 as follows:
 %
 \usepackage[accepted]{aistats2021}
+\usepackage{amsfonts}
 %
 % This option will print headings for the title of your paper and
 % headings for the authors names, plus a copyright note at the end of
@@ -41,39 +42,81 @@
 
 \twocolumn[
 
-\aistatstitle{Instructions for Paper Submissions to AISTATS 2021}
+\aistatstitle{Consistent Energy Preserving Neural Networks }
 
-\aistatsauthor{ Shaan A. Desai \And David Sondak \And  Marios Mathiakis }
+\aistatsauthor{ Shaan A. Desai$^{1,2}$ \And David Sondak$^{2}$ \And  Marios Mathiakis$^{2}$ }
 
-\aistatsaddress{ Institution 1 \And  Institution 2 \And Institution 3 } ]
+\aistatsaddress{ Machine Learning Research Group \\University of Oxford $^1$ \And Institute of Applied Computational Science \\ Harvard University $^2$ } ]
 
 \begin{abstract}
-	
+Unlike vanilla Artificial Neural Networks, Neural Networks embedded with physically-informed priors achieve remarkable results in accurately learning and predicting non-linear dynamical systems.
+% despite this success, their generalization is often limited by the available training data which in practice only consists of a few short-range trajectories. naturally we might ask how we can generalize to unseen timesteps better?
+ Despite this success, their generalization performance is often limited to short-range trajectories that run for less than the final training time. The performance degradation is due to state and energy drift induced by errors accumulating over time and it poses a critical challenge to learning highly non-linear and chaotic long-range dynamics precisely when data for only a limited number of short-range trajectories are available. One proposed solution to this challenge has been to incorporate symplectic integrators that aim to preserve the symplectic flow. Here, we present an alternative, an L1 penalty of the Hamiltonian derivative with respect to time: $d\mathcal{H}(p,q,t)/dt$. The inclusion of this term, a straightforward addition to the network, enforces the Hamiltonian to remain constant in time for a given trajectory. We empirically illustrate the stabilising effect this penalty has on our network. In addition, we use it solve problems in non-linear dynamics such as heinon-heiles, 3-body problem and double pendulum.
 \end{abstract}
 
 \section{Introduction}
 
-The camera-ready versions of the accepted papers are 8 pages,
-plus any additional pages needed for references.
+- Physicists have long been interested in learning the governing equations of complex dynamical systems. 
+- Neural networks, as universal function approximators, have shown resounding success across a host of domains.
+- Naturally, physicists decided to use neural networks to learn dynamical systems.
+- However, their performance in learning physical systems has often been limited.
+- Physicists, as a consequence, have not been encouraged by the initial excitement of machine learning.
+- However, new research aimed at \textit{scientific machine learning} - a branch that tackles science problems with domain-specific ML, is paving a way to address numerous challenges.
+- One crucial method has been to incorporate prior theoretical information into the network, such as hamiltonian mechanics.
+- This excitement has spurred others to work with lagrangians, ODEs and even graphs in order to tackle dyanamical systems.
+- Despite their widespread adoption, Hamiltonian Neural Networks still struggle to predict long-range trajectories precisely. This is in part due to the energy drift that ensues as we accumulate errors over time.
+- A major topic of discussion to address this issue has been to adopt symplectic integrators that preserve the symplectic flow. 
+- However, we identify an additional component, often neglected when stating Hamilton's equations, that significantly stabilises learning.
+- We show that the addition of the dh/dt penalty induces the network to conserve energy across time for a given trajectory, a facet not yet invoked by neural networks.
+- We extensively benchmark this addition across multiple datasets and consistently find the inclusion to be of benefit.
+- Furthermore, we emphasise that the constraint is an easy plug-and-play addition to existing networks and illustrate how existing networks such as HNN, Symp ODEN and Hnets benefit from its inclusion.
+- Most importantly, we take the HNN model used for Heinon-Heiles and include a symplectic integrator with dhdt.
 
-Papers are in 2 columns with the overall line width of 6.75~inches (41~picas).
-Each column is 3.25~inches wide (19.5~picas).  The space
-between the columns is .25~inches wide (1.5~picas).  The left margin is 0.88~inches (5.28~picas).
-Use 10~point type with a vertical spacing of
-11~points. Please use US Letter size paper instead of A4.
 
-Paper title is 16~point, caps/lc, bold, centered between 2~horizontal rules.
-Top rule is 4~points thick and bottom rule is 1~point thick.
-Allow 1/4~inch space above and below title to rules.
+\section{Background}
 
-Author descriptions are center-justified, initial caps.  The lead
-author is to be listed first (left-most), and the Co-authors are set
-to follow.  If up to three authors, use a single row of author
-descriptions, each one center-justified, and all set side by side;
-with more authors or unusually long names or institutions, use more
-rows.
+\subsection{Hamiltonian Neural Networks}
 
-Use one-half line space between paragraphs, with no indent.
+Recently, \cite{greydanus_hamiltonian_2019} demonstrated that dynamic predictions through time can be improved using Hamiltonian Neural Networks (HNNs) which endow models with a Hamiltonian constraint. The Hamiltonian is an important representation of a dynamical system because it is one of two approaches that generalizes classical mechanics. The Hamiltonian $\mathcal{H}$ is a scalar function of position $\mathbf{q} = (q_1,q_2,....,q_M)$ and momentum $\mathbf{p} = (p_1,p_2,....,p_M)$. In representing physical systems with a Hamiltonian, one can simply extract the time derivatives of the inputs by differentiating the Hamiltonian with respect to its inputs (see Eqn. \ref{eqn.hamiltonian}.)
+\begin{equation}
+\frac{\mathrm{d}\mathbf{q}}{\mathrm{d}t} = \frac{\partial \mathcal{H}}{\partial \mathbf{p}}, ~~~
+\frac{\mathrm{d}\mathbf{p}}{\mathrm{d}t} = -\frac{\partial \mathcal{H}}{\partial \mathbf{q}}
+\label{eqn.hamiltonian}
+\end{equation}
+As a consequence, it is noted in \cite{greydanus_hamiltonian_2019} that by accurately learning a Hamiltonian, the system's dynamics can be naturally extracted through backpropagation. This information allows us to build two 1st-order differential equations which can be used to update the state space, $(\mathbf{q},\mathbf{p})$. Equation \ref{eqn.action_int} shows this integral, in which we define the symplectic gradient $\mathbf{S}  = \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ] $:
+\begin{equation}
+(\mathbf{q},\mathbf{p})_{t+1} = (\mathbf{q},\mathbf{p})_t + \int_t^{t+1} \mathbf{S}(\mathbf{q},\mathbf{p}) \mathrm{d}t
+\label{eqn.action_int}
+\end{equation}
+%However, this is not the only benefit in learning a Hamiltonian. Another key attribute of the Hamiltonian is that the vector field $\mathbf{S}$ is a symplectic gradient meaning $\mathcal{H}$ remains constant as long as state vectors are integrated along $\mathbf{S}$. This result links the Hamiltonian with the total energy of the system $\mathcal{H}(\mathbf{q},\mathbf{p}) = E_{tot}$. 
+It can be shown that the Hamiltonian in many systems also represents the total energy of the system. Therefore, the Hamiltonian is a powerful inductive bias that can be utilised to evolve a physical state while maintaining energy conservation.
+
+\section{Method}
+
+The time-derivative of a Hamiltonian $\mathcal{H}(\mathbf{q},\mathbf{p},t)$ can be obtained using the chain rule:
+
+\begin{equation}
+\frac{\mathrm{d}\mathcal{H}}{\mathrm{d}t} = \frac{\partial H}{\partial \mathbf{q}} \frac{\partial \mathbf{q}}{\partial t} + \frac{\partial H}{\partial \mathbf{p}} \frac{\partial \mathbf{p}}{\partial t} + \frac{\partial \mathcal{H}}{\partial t}
+\end{equation}
+
+The underlying fact in energy preserving systems is that $H = E$ is a constant. As such, the time derivative should be set to zero. By learning the Hamiltonian and differentiating it with respect to $\mathbf{q},\mathbf{p}$ we obtain the time derivatives of the state vectors which when replaced in the above equation yield:
+
+\begin{equation}
+\frac{\mathrm{d}\mathcal{H}}{\mathrm{d}t} = -\frac{\partial \mathbf{p}}{\partial t} \frac{\partial \mathbf{q}}{\partial t} + \frac{\partial \mathbf{q} }{\partial t} \frac{\partial \mathbf{p}}{\partial t} + \frac{\partial \mathcal{H}}{\partial t} = 0
+\end{equation}
+
+which leaves us with:
+
+\begin{equation}
+\frac{\mathrm{d}\mathcal{H}}{\mathrm{d}t} =  \frac{\partial \mathcal{H}}{\partial t} = 0
+\end{equation}
+
+
+To enforce this additional constraint in our networks, all we need to do is simply provide the time to the network, which extends the input dimension by 1, and allow the time component to be differentiable. We then compute the gradient and use an L1 penalty such that the final loss is:
+
+\begin{equation}
+\mathcal{L}_{EPNN} =\left\| \frac{\partial \mathcal{H_{\theta}}}{\partial \mathbf{q}} +  \frac{\partial \mathbf{p}}{\partial t} \right\| +\left\| \frac{\partial \mathcal{H} }{\partial \mathbf{p}} -  \frac{\partial \mathbf{q}}{\partial t} \right\|+ | \frac{\partial \mathcal{H}}{\partial t}|
+\end{equation}
 
 \section{FIRST LEVEL HEADINGS}
 
