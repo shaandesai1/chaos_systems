@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  5 OCT 2020 07:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  15 OCT 2020 07:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -143,35 +143,35 @@ Overfull \hbox (5.1225pt too wide) in paragraph at lines 51--51
 
 
 LaTeX Warning: Citation `greydanus_hamiltonian_2019' on page 1 undefined on inp
-ut line 80.
+ut line 68.
+
+
+LaTeX Warning: Citation `greydanus_hamiltonian_2019' on page 1 undefined on inp
+ut line 74.
 
 [1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
 ]
-
-LaTeX Warning: Citation `greydanus_hamiltonian_2019' on page 2 undefined on inp
-ut line 86.
-
 [2]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 242
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 230
 .
-LaTeX Font Info:    No file OMScmtt.fd. on input line 242.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 230.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbackslash' on input line 242.
+(Font)              for symbol `textbackslash' on input line 230.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--280
+Underfull \hbox (badness 10000) in paragraph at lines 258--268
 \OT1/cmr/m/n/10 The op-tion \OT1/cmtt/m/n/10 accepted \OT1/cmr/m/n/10 for the p
 ack-age
  []
 
 
-Underfull \hbox (badness 1810) in paragraph at lines 270--280
+Underfull \hbox (badness 1810) in paragraph at lines 258--268
 \OT1/cmtt/m/n/10 aistats2021.sty \OT1/cmr/m/n/10 will write a copy-right no-
  []
 
@@ -181,7 +181,9 @@ Package Fancyhdr Warning: \headheight is too small (10.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[3] [4] (./sample_paper.aux)
+[3] [4
+
+] (./sample_paper.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -195,11 +197,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  1124 strings out of 492616
  12814 string characters out of 6129481
- 87861 words of memory out of 5000000
+ 86861 words of memory out of 5000000
  5071 multiletter control sequences out of 15000+600000
  12048 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,12n,45p,1073b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,12n,45p,1452b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -216,7 +218,7 @@ e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 19/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on sample_paper.pdf (4 pages, 201140 bytes).
+Output written on sample_paper.pdf (4 pages, 200235 bytes).
 PDF statistics:
  81 PDF objects out of 1000 (max. 8388607)
  58 compressed objects within 1 object stream
