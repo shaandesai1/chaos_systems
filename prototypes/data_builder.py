@@ -387,7 +387,7 @@ def pend_chaos(num_trajectories, T_max, dt, srate, seed):
         f0 = 1
         omega = 3
 
-        return (yvec[1], -yvec[0] + f0 * np.cos(omega * time) / (mass * r))
+        return (yvec[1], -yvec[0] + f0 * np.sin(omega*time) / (mass * r))
 
     def get_trajectory(radius=None, y0=None):
         # get initial state
