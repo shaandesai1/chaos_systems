@@ -15,13 +15,14 @@ import matplotlib.pyplot as plt
 from time import process_time
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-ni', '--num_iters', type=int, default=10000)
+parser.add_argument('-ni', '--num_iters', type=int, default=1000)
 parser.add_argument("-n_test_traj", '--ntesttraj', type=int, default=25)
 parser.add_argument("-n_train_traj", '--ntraintraj', type=int, default=25)
 parser.add_argument('-dt', '--dt', type=float, default=0.1)
 parser.add_argument('-tmax', '--tmax', type=float, default=3.1)
 parser.add_argument('-dname', '--dname', type=str, default='mass_spring')
 parser.add_argument('-noise_std', '--noise', type=float, default=0)
+parser.add_argument('-type','--type',type=int,default=1)
 args = parser.parse_args()
 iters = args.num_iters
 n_test_traj = args.ntesttraj
@@ -31,7 +32,7 @@ T_max_t = T_max
 dt = args.dt
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print(device)
-
+type_vec = args.type
 num_samples_per_traj = int(np.ceil((T_max / dt))) - 1
 
 if args.noise != 0:
@@ -42,8 +43,8 @@ else:
 dataset_name = args.dname
 
 # dataset preprocessing
-train_data = get_dataset(dataset_name, n_train_traj, T_max, dt, noise_std=args.noise, seed=0)
-valid_data = get_dataset(dataset_name, n_test_traj, T_max_t, dt, noise_std=0, seed=1)
+train_data = get_dataset(dataset_name, n_train_traj, T_max, dt, noise_std=args.noise, seed=0,type=type_vec)
+valid_data = get_dataset(dataset_name, n_test_traj, T_max_t, dt, noise_std=0, seed=1,type=type_vec)
 BS = num_samples_per_traj
 
 tnow, tnext, tenergy, tdx, tevals = nownext(train_data, n_train_traj, T_max, dt, dt)
@@ -125,9 +126,9 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
 model_dct = get_models(dt, type=None, hidden_dim=200)
 for model_name, model_type in model_dct.items():
     params = list(model_type.parameters())
-    optimizer_ft = torch.optim.Adam(params, 1e-3)
-    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, 250, gamma=0.1)
-    trained_model = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=100, integrator_embedded=False)
+    optimizer_ft = torch.optim.Adam(params, 1e-3,weight_decay=1e-4)
+    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, 1000, gamma=0.1)
+    trained_model = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False)
     parent_dir = os.getcwd()
     path = f"{dataset_name}/{model_name}"
     if not os.path.exists(path):
