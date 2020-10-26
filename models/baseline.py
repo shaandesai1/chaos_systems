@@ -10,7 +10,7 @@ class base_model(nn.Module):
         self.mlp1 = nn.Linear(input_dim, hidden_dim)
         self.mlp2 = nn.Linear(hidden_dim, hidden_dim)
         self.mlp3 = nn.Linear(hidden_dim, hidden_dim)
-        self.mlp4 = nn.Linear(hidden_dim, output_size)
+        self.mlp4 = nn.Linear(hidden_dim, output_size,bias=None)
         self.nonlin = torch.tanh
         self.M = self.permutation_tensor(2)
         for l in [self.mlp1, self.mlp2, self.mlp4, self.mlp3]:

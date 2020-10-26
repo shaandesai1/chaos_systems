@@ -13,7 +13,7 @@ class TDHNN2(base_model):
         self.f1 = nn.Linear(1, hidden_dim)
         self.f2 = nn.Linear(hidden_dim, hidden_dim)
         self.f2_ = nn.Linear(hidden_dim, hidden_dim)
-        self.f3 = nn.Linear(hidden_dim, 1)
+        self.f3 = nn.Linear(hidden_dim, 1,bias=None)
         self.nonlin = torch.tanh
         for l in [self.f1, self.f2, self.f2_, self.f3]:
             torch.nn.init.orthogonal_(l.weight)

@@ -134,3 +134,4 @@ for model_name, model_type in model_dct.items():
     if not os.path.exists(path):
         os.makedirs(parent_dir+'/'+path)
     torch.save(trained_model, path+'/'+'model')
+    del trained_model
