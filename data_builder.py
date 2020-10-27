@@ -600,7 +600,7 @@ def forced_pendulum(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
-    train_data = get_dataset('duffing', 1, 50.1, 0.1, noise_std=0, seed=1, type=4)
+    train_data = get_dataset('painleve_I', 25, 1.01, 0.01, noise_std=0, seed=1, type=4)
     plt.plot(train_data['x'][:, 0], train_data['x'][:, 1])
     plt.show()
 

@@ -82,12 +82,12 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
                 if phase == 'train':
                     optimizer.zero_grad()
                 q, q_next, qdx = q.float(), q_next.float(), qdx.float()
-                q.to(device)
-                q_next.to(device)
-                energy_.to(device)
-                qdx.to(device)
+                q=q.to(device)
+                q_next=q_next.to(device)
+                # energy_.to(device)
+                qdx=qdx.to(device)
                 tevals = tevals.float()
-                tevals.to(device)
+                tevals =tevals.to(device)
                 loss = 0
                 q.requires_grad = True
                 tevals.requires_grad = True
@@ -100,16 +100,16 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
                     state_loss = torch.mean((next_step_pred - qdx) ** 2)
 
                 loss = state_loss
-                print(f'{phase} state loss {state_loss}')
+                # print(f'{phase} state loss {state_loss}')
 
                 if phase == 'train':
                     loss.backward()
                     optimizer.step()
-                running_loss += state_loss
+                running_loss += loss.detach().item()
 
             loss_collater[phase].append(running_loss)
             epoch_loss = running_loss
-            print('{} Loss: {:.10f}'.format(phase, epoch_loss))
+            print('{} Epoch Loss: {:.10f}'.format(phase, epoch_loss))
 
     plt.figure()
     plt.plot(loss_collater['train'], label='train')
@@ -125,6 +125,7 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
 # model_ft = HNN(2, 200, 1, 0.01)
 model_dct = get_models(dt, type=None, hidden_dim=200)
 for model_name, model_type in model_dct.items():
+    model_type = model_type.to(device)
     params = list(model_type.parameters())
     optimizer_ft = torch.optim.Adam(params, 1e-3,weight_decay=1e-4)
     lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, 1000, gamma=0.1)
