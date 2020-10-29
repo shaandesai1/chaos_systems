@@ -6,6 +6,7 @@
         <serverdata>
           <mappings>
             <mapping deploy="/home/shaan/chaos/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/shaan/vign_test/" local="$PROJECT_DIR$/../VIGN" web="/" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/experiments" />

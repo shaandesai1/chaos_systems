@@ -30,10 +30,13 @@ class TDHNN2(base_model):
 
     def time_deriv(self, x, t):
         H0, F = self.get_H(x), self.get_F(t.reshape(-1, 1))
-        H_full = H0 + torch.mm((x[:,0]*F[:,0]).reshape(-1,1), torch.sigmoid(self.W))
+        wbin = torch.relu(torch.sigmoid(self.W)-0.5)#1#torch.nn.LeakyReLU()(torch.sigmoid(self.W)-0.5)
+        H_full = H0 + torch.mm((x[:,0]*F[:,0]).reshape(-1,1), wbin) #(x[:,0]*F[:,0]).reshape(-1,1)#
         dF2 = torch.autograd.grad(H_full.sum(), x, create_graph=True)[0]
         return dF2@self.M.t()
 
+    def get_weight(self):
+        return torch.relu(torch.sigmoid(self.W)-0.5)
 
 
 
