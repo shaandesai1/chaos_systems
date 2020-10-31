@@ -24,6 +24,7 @@ import autograd.numpy as np
 
 solve_ivp = rk
 
+
 def get_dataset(data_name, num_samples, T_max, dt, noise_std=0, seed=0, type=1):
     """
     Args:
@@ -35,7 +36,8 @@ def get_dataset(data_name, num_samples, T_max, dt, noise_std=0, seed=0, type=1):
         seed: random seed for numpy
     """
 
-    dataset_list = ['mass_spring', 'pendulum', 'dpendulum', 'heinon', 'painleve_I','duffing', 'forced_mass_spring','forced_pendulum']
+    dataset_list = ['mass_spring', 'pendulum', 'dpendulum', 'heinon', 'painleve_I', 'duffing', 'forced_mass_spring',
+                    'forced_pendulum','dpend']
     if data_name not in dataset_list:
         raise ValueError('data name not in data list')
 
@@ -53,7 +55,8 @@ def get_dataset(data_name, num_samples, T_max, dt, noise_std=0, seed=0, type=1):
         return forced_pendulum(num_samples, T_max, dt, noise_std, seed, type)
     if data_name == 'duffing':
         return duffing(num_samples, T_max, dt, noise_std, seed, type)
-
+    if data_name == 'dpend':
+        return dpend_adapted(num_samples, T_max, dt, noise_std,seed, yflag=False)
 
 def pendulum(num_samples, T_max, dt, noise_std=0, seed=3):
     """simple pendulum"""
@@ -188,7 +191,7 @@ def heinon_heiles(num_trajectories, T_max, dt, noise_std=0, seed=0):
 from autograd.numpy import cos, sin
 
 
-def dpend_adapted(num_trajectories, T_max, dt, seed, yflag=False):
+def dpend_adapted(num_trajectories, T_max, dt, noise_std=0,seed=0, yflag=False):
     """heinon heiles data generator"""
 
     def hamiltonian_fn(coords):
@@ -204,12 +207,12 @@ def dpend_adapted(num_trajectories, T_max, dt, seed, yflag=False):
         S = np.concatenate([dpxdt, dpydt, -dxdt, -dydt], axis=-1)
         return S
 
-    def get_trajectory(t_span=[0, 3], timescale=0.01, ssr=sub_sample_rate, radius=None, y0=None, noise_std=0.1,
+    def get_trajectory(t_span=[0, 3], timescale=0.01, ssr=dt, radius=None, y0=None, noise_std=0.1,
                        **kwargs):
 
         # get initial state
-        t1 = np.random.uniform(-np.pi / 2, np.pi / 2)
-        t2 = np.random.uniform(-np.pi / 2, np.pi / 2)
+        t1 = np.random.uniform(-np.pi , np.pi )
+        t2 = np.random.uniform(-np.pi , np.pi )
         pt1 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
         pt2 = 0  # np.random.uniform(-np.pi/10, np.pi/10)
 
@@ -228,7 +231,7 @@ def dpend_adapted(num_trajectories, T_max, dt, seed, yflag=False):
         energies = []
         for i in range(accum.shape[0]):
             energies.append(np.sum(hamiltonian_fn(accum[i])))
-        print(energies[-1] - energies[0], len(energies))
+        # print(energies[-1] - energies[0], len(energies))
         return accum, np.array(daccum), energies, np.arange(0, t_span[1], timescale)
 
     def get_dataset(num_trajectories, T_max, dt, seed=seed, test_split=0.5,
@@ -243,7 +246,7 @@ def dpend_adapted(num_trajectories, T_max, dt, seed, yflag=False):
         xs, dxs, energies = [], [], []
         time = []
         for s in range(num_trajectories):
-            x, dx, energy, times = get_trajectory(t_span=[0, T_max], timescale=dt, ssr=sub_sample_rate)
+            x, dx, energy, times = get_trajectory(t_span=[0, T_max], timescale=dt, ssr=dt)
 
             x += np.random.randn(*x.shape) * noise_std
             dx += np.random.randn(*dx.shape) * noise_std
@@ -332,6 +335,7 @@ def mass_spring(num_trajectories, T_max, dt, noise_std, seed):
 
     return get_dataset(num_trajectories, T_max, dt)
 
+
 def painleve_I(num_samples, T_max, dt, noise_std=0, seed=3):
     """simple pendulum"""
 
@@ -403,15 +407,16 @@ def forced_mass_spring(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
 
         if type == 2:
             omega = 3
-            H = q ** 2 / 2 + p ** 2  - q * sin(omega * t) * sin(2 * omega * t)  # pendulum hamiltonian
+            H = q ** 2 / 2 + p ** 2 / 2 - q * sin(omega * t) * sin(2 * omega * t)  # pendulum hamiltonian
 
         if type == 3:
             omega = 3
-            H = q+q ** 2 / 2 + q ** 3 / 3 + q ** 4 / 4 + p ** 2 / 2 - q * sin(omega * t)  # pendulum hamiltonian
+            H = q + q ** 2 / 2 + q ** 3 / 3 + q ** 4 / 4 + p ** 2 / 2 - q * sin(omega * t)  # pendulum hamiltonian
 
         if type == 4:
             omega = 10
-            H = (q**2/2 + p**2/2 -q*cos(omega*t))*np.exp(-1*t) #* p - q * cos(omega * t)  # pendulum hamiltonian
+            H = (q ** 2 / 2 + p ** 2 / 2 - q * cos(omega * t)) * np.exp(
+                -1 * t)  # * p - q * cos(omega * t)  # pendulum hamiltonian
 
         return H
 
@@ -468,32 +473,33 @@ def forced_mass_spring(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
     return data
 
 
-
 def duffing(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
     """simple pendulum"""
 
     def hamiltonian_fn(coords, t):
         q, p = np.split(coords, 2)
-        alpha = -1
+        alpha = 1
         beta = 1
         omega = 1.2
-        delta = 0.3
-        gamma = 0.2
-        H = alpha*q ** 2 / 2 + p ** 2/2  +beta*q**4/4 - q * gamma*sin(omega * t) # pendulum hamiltonian
-
+        delta = 0
+        gamma = .5
+        H = alpha * (q ** 2) / 2 + (p ** 2) / 2 + beta * (q ** 4) / 4 - q * gamma * sin(
+            omega * t)  # pendulum hamiltonian
         return H
 
     def dynamics_fn(t, coords):
-        dcoords = autograd.grad(hamiltonian_fn)(coords, t)
-        alpha = -1
+        # dcoords = autograd.grad(hamiltonian_fn)(coords, t)
+
+        # dqdt, dpdt = np.split(dcoords, 2)
+        # S = np.concatenate([dpdt, -dqdt], axis=-1)
+        q, p = np.split(coords, 2)
+        alpha = 1
         beta = 1
         omega = 1.2
         delta = 0.3
-        gamma = 0.5
-#         dqdt, dpdt = np.split(dcoords, 2)
-        q,p = np.split(coords,2)
-    
-        S = np.concatenate([p, -delta*p-alpha*q-beta*q**3+gamma*sin(omega*t)], axis=-1)
+        gamma = .2
+        S = np.concatenate([p,-alpha*q-beta*q**3-delta*p+gamma*sin(omega*t)*sin(2*omega*t)],axis=-1)
+
         return S
 
     def get_trajectory(t_span=[0, T_max], timescale=dt):
@@ -501,7 +507,7 @@ def duffing(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
         y0 = np.random.rand(2) * 2 - 1
         radius = np.sqrt(np.random.uniform(0.5, 1.5))  # np.random.rand() * 0.9 + 0.1  # sample a range of radii
         y0 = y0 / np.sqrt((y0 ** 2).sum()) * (radius)
-        y0 = [1,-0.]
+        # y0 = [1, -0.]
         spring_ivp = rk(fun=dynamics_fn, t_span=t_span, y0=y0, t_eval=t_eval, rtol=1e-10)
         q, p = spring_ivp['y'][0], spring_ivp['y'][1]
         dydt = [dynamics_fn(t_eval[i], y) for i, y in enumerate(spring_ivp['y'].T)]
@@ -545,17 +551,14 @@ def forced_pendulum(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
     def hamiltonian_fn(coords, t):
         q, p = np.split(coords, 2)
         omega = 6
-        H = 9.81 * (1 - cos(q)) + (p ** 2) / 2 -q*sin(omega*t) # pendulum hamiltonian
+        H = 9.81 * (1 - cos(q)) + (p ** 2) / 2 - q * sin(omega * t)  # pendulum hamiltonian
         return H
 
     def dynamics_fn(t, coords):
         dcoords = autograd.grad(hamiltonian_fn)(coords, t)
 
         dqdt, dpdt = np.split(dcoords, 2)
-        if type == 5:
-            S = np.concatenate([np.array([coords[1]]), -dqdt], axis=-1)
-        else:
-            S = np.concatenate([dpdt, -dqdt], axis=-1)
+        S = np.concatenate([dpdt, -dqdt], axis=-1)
         return S
 
     def get_trajectory(t_span=[0, T_max], timescale=dt):

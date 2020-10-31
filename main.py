@@ -25,7 +25,7 @@ parser.add_argument('-dname', '--dname', type=str, default='mass_spring')
 parser.add_argument('-noise_std', '--noise', type=float, default=0)
 parser.add_argument('-type','--type',type=int,default=1)
 parser.add_argument('-batch_size','--batch_size',type=int,default=2000)
-parser.add_argument('-learning_rate','--learning_rate',type=int,default=1e-3)
+parser.add_argument('-learning_rate','--learning_rate',type=float,default=1e-3)
 args = parser.parse_args()
 iters = args.num_iters
 n_test_traj = args.ntesttraj
@@ -91,7 +91,7 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         running_loss = 0
         print('epoch:{}'.format(epoch))
         optimizer.zero_grad()
-        lr_sched.step()
+
         if integrator_embedded:
             next_step_pred = model.next_step(q[ixs], tevals[ixs])
             state_loss = torch.mean((next_step_pred - q_next[ixs]) ** 2)
@@ -101,6 +101,10 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
 
         loss = state_loss
 
+        if model_name =='TDHNN3':
+            # print(model.get_weight())
+            loss += 1e-7*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
+            loss += 1e-7*torch.mean(torch.abs(model.get_D(q[ixs,1].reshape(-1,1))))
         loss.backward()
         optimizer.step()
         running_loss += loss.detach().item()
@@ -108,6 +112,7 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         epoch_loss = running_loss
         print('{} Epoch Loss: {:.10f}'.format(phase, epoch_loss))
 
+        lr_sched.step()
     plt.figure()
     plt.plot(loss_collater['train'], label='train')
     plt.plot(loss_collater['valid'], label='valid')
@@ -153,22 +158,26 @@ def test_model(model_name, model):
 
 
 model_dct = get_models(dt, type=None, hidden_dim=200)
-main_pred = {'baseline': [], 'HNN': [], 'TDHNN': [],  'TDHNN2': []}
+# main_pred = {'baseline': [], 'HNN': [], 'TDHNN': [],  'TDHNN2': []}
 
 for model_name, model_type in model_dct.items():
     model_type = model_type.to(device)
-    params = list(model_type.parameters())
-    optimizer_ft = torch.optim.Adam(params, args.learning_rate)
-    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step, gamma=0.1)
+    params_a = list(model_type.parameters())[:]
+    # params_b = list(model_type.parameters())[1:]
+    optimizer_ft = torch.optim.Adam([{"params": params_a},
+          # {"params": params_b, "lr": 1e-1}
+         ],
+         args.learning_rate)
+    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft,lr_step, gamma=0.1)
     trained_model = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False)
     parent_dir = os.getcwd()
     path = f"{dataset_name}/{model_name}"
     if not os.path.exists(path):
         os.makedirs(parent_dir+'/'+path)
     torch.save(trained_model, path+'/'+'model')
-    test_model(model_name,trained_model)
+    # test_model(model_name,trained_model)
     del trained_model
 
-f = open(f"main_pred_{dataset_name}.pkl","wb")
-pickle.dump(main_pred,f)
-f.close()
+# f = open(f"main_pred_{dataset_name}.pkl","wb")
+# pickle.dump(main_pred,f)
+# f.close()

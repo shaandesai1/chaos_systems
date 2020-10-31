@@ -4,3 +4,4 @@ from .TDHNN import TDHNN
 from .TDHNN2 import TDHNN2
 from .TDHNN1 import TDHNN1
 from.TDHNN3 import TDHNN3
+from .HNN_dpend import HNN_dpend
