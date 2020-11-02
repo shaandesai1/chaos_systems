@@ -6,6 +6,7 @@
 %
 \usepackage[accepted]{aistats2021}
 \usepackage{amsfonts}
+\usepackage{graphicx}
 %
 % This option will print headings for the title of your paper and
 % headings for the authors names, plus a copyright note at the end of
@@ -48,63 +49,90 @@
 
 \aistatsaddress{ Machine Learning Research Group \\University of Oxford $^1$ \And Institute of Applied Computational Science \\ Harvard University $^2$ } ]
 
+
+
 \begin{abstract}
 
-Deep networks embedded with physically-informed priors demonstrate  remarkable results in accurately learning and predicting non-linear dynamical systems. In particular, networks designed to learn an energy constraint and exploit the Hamiltonian formalism show strong and consistent performance in learning autonomous dynamics that depend implicitly on time. Here, we extend this work to include an explicit time-dependence with the goal of providing a more general formalism to learn dynamical systems. We illustrate that the inclusion of time allows us increased flexibility at solving non-autonomous systems.
+Deep networks embedded with physically-informed priors demonstrate  remarkable performance in accurately learning and predicting non-linear dynamical systems. In particular, energy-conserving networks designed to exploit the Hamiltonian formalism show strong and consistent performance in learning autonomous systems that depend implicitly on time. Here, we extend this work to include an explicit time-dependence that generalizes the learning to include non-autonomous dynamical systems. We achieve this generalisation by embedding the port-Hamiltonian formalism into our neural network. We show that such a system can learn complex forced and damped dynamics, including the chaotic duffing equation, as well as maintain strong performance in settings that have no explicit time-dependence.
 
 %Unlike vanilla Artificial Neural Networks, Neural Networks embedded with physically-informed priors achieve remarkable results in accurately learning and predicting non-linear dynamical systems.
 % despite this success, their generalization is often limited by the available training data which in practice only consists of a few short-range trajectories. naturally we might ask how we can generalize to unseen timesteps better?
 % Despite this success, their generalization performance is often limited to short-range trajectories that run for less than the final training time. The performance degradation is due to state and energy drift induced by errors accumulating over time and it poses a critical challenge to learning highly non-linear and chaotic long-range dynamics precisely when data for only a limited number of short-range trajectories are available. One proposed solution to this challenge has been to incorporate symplectic integrators that aim to preserve the symplectic flow. Here, we present an alternative, an L1 penalty of the Hamiltonian derivative with respect to time: $d\mathcal{H}(p,q,t)/dt$. The inclusion of this term, a straightforward addition to the network, enforces the Hamiltonian to remain constant in time for a given trajectory. We empirically illustrate the stabilising effect this penalty has on our network. In addition, we use it solve problems in non-linear dynamics such as heinon-heiles, 3-body problem and double pendulum.
 \end{abstract}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth, height=9cm]{figures/Picture1.png}
+\caption{Poincar\'e Section of a duffing oscillator in a chaotic regime. Top is the ground truth and bottom is the predicted. Predictions are made using TDHNN which is trained on 2000 points.}
+\end{figure}
 \section{Introduction}
 
-Neural networks, as universal function approximators, have shown resounding success across a host of domains. However, their performance in learning physical systems has often been limited. Physicists, as a consequence, have not been encouraged by the initial excitement of machine learning. However, new research aimed at \textit{scientific machine learning} - a branch that tackles science problems with domain-specific ML, is paving a way to address numerous challenges. One crucial method has been to incorporate prior theoretical information into the network, such as hamiltonian mechanics. This excitement has spurred others to work with lagrangians, ODEs and even graphs in order to tackle dyanamical systems. Despite their widespread adoption, a major bottleneck of many of the existing methods is the lack of an explicit time dependence. The most general form of Hamilton's equations, includes an explicit time dependence term. We show that the addition of this term, coupled with a few intuitive regularizations can induce networks to learn from both autonomous and non-autonomous settings. We extensively benchmark this addition across multiple datasets and consistently find the inclusion to be of benefit. Furthermore, we emphasise that the constraint is an easy plug-and-play addition to existing networks and illustrate how existing networks such as HNN, Symp ODEN and Hnets benefit from its inclusion. 
+Neural networks, as universal function approximators, have shown resounding success across a host of domains. However, their performance in learning physical systems has often been limited. New research aimed at \textit{scientific machine learning} - a branch that tackles scientific problems with domain-specific ML, is paving a way to address these challenges. It has been shown that prior theoretical information embedded in networks, such as Hamiltonian mechanics \cite{greydanus} demonstrate a significant performance uplift in learning. This excitement has spurred others to work with Lagrangians, ODEs and even graphs in order to tackle the learning of dynamical systems. Despite their widespread adoption, a major bottleneck of many of the existing methods is the lack of an explicit-time dependence as is evident across a host of forced dynamical systems. The most general form of Hamilton's equations, includes an explicit time dependence term. We show that the addition of this term, coupled with a few intuitive regularizations can induce networks to learn from both autonomous and non-autonomous settings. We extensively benchmark this addition across multiple datasets and consistently find the inclusion to be of benefit. Furthermore, we emphasise that the constraint is an easy plug-and-play addition to existing networks and illustrate how existing networks such as HNN, Symp ODEN and Hnets benefit from its inclusion. 
 
 \section{Background}
 
 \subsection{Hamiltonian Neural Networks}
 
-Recently, \cite{greydanus_hamiltonian_2019} demonstrated that dynamic predictions through time can be improved using Hamiltonian Neural Networks (HNNs) which endow models with a Hamiltonian constraint. The Hamiltonian is an important representation of a dynamical system because it is one of two approaches that generalizes classical mechanics. The Hamiltonian $\mathcal{H}$ is a scalar function of position $\mathbf{q} = (q_1,q_2,....,q_M)$ and momentum $\mathbf{p} = (p_1,p_2,....,p_M)$. In representing physical systems with a Hamiltonian, one can simply extract the time derivatives of the inputs by differentiating the Hamiltonian with respect to its inputs (see Eqn. \ref{eqn.hamiltonian}.)
+Recently, \cite{greydanus_hamiltonian_2019} demonstrated that dynamic predictions through time can be improved using Hamiltonian Neural Networks (HNNs) which endow models with a Hamiltonian constraint. The Hamiltonian is an important representation of a dynamical system because it is one of two well-known approaches that generalizes classical mechanics. The Hamiltonian $\mathcal{H}$ is a scalar function of position $\mathbf{q} = (q_1,q_2,....,q_M)$ and momentum $\mathbf{p} = (p_1,p_2,....,p_M)$. It is a powerful representation because it allows us to obtain the time derivatives of the inputs $(\dot{q},\dot{p})$ by simply differentiating the Hamiltonian with respect to its inputs (see Eqn. \ref{eqn.hamiltonian}.)
 \begin{equation}
 \frac{\mathrm{d}\mathbf{q}}{\mathrm{d}t} = \frac{\partial \mathcal{H}}{\partial \mathbf{p}}, ~~~
 \frac{\mathrm{d}\mathbf{p}}{\mathrm{d}t} = -\frac{\partial \mathcal{H}}{\partial \mathbf{q}}
 \label{eqn.hamiltonian}
 \end{equation}
-As a consequence, it is noted in \cite{greydanus_hamiltonian_2019} that by accurately learning a Hamiltonian, the system's dynamics can be naturally extracted through backpropagation. This information allows us to build two 1st-order differential equations which can be used to update the state space, $(\mathbf{q},\mathbf{p})$. Equation \ref{eqn.action_int} shows this integral, in which we define the symplectic gradient $\mathbf{S}  = \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ] $:
+As a consequence, it is noted in \cite{greydanus_hamiltonian_2019} that by parametrizing the Hamiltonian with a neural network e.g. $H_{\theta}(\mathbf{q},\mathbf{p})$ where $\theta$ represents a deep neural network, one can easily obtain the system's dynamics by differentiating (via autograd) the Hamiltonian with its inputs. This information allows us to build two 1st-order differential equations which can be used to update the state space, $(\mathbf{q},\mathbf{p})$. Equation \ref{eqn.action_int} shows this integral, in which we define the symplectic gradient $\mathbf{S}  = \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ] $:
 \begin{equation}
 (\mathbf{q},\mathbf{p})_{t+1} = (\mathbf{q},\mathbf{p})_t + \int_t^{t+1} \mathbf{S}(\mathbf{q},\mathbf{p}) \mathrm{d}t
 \label{eqn.action_int}
 \end{equation}
-%However, this is not the only benefit in learning a Hamiltonian. Another key attribute of the Hamiltonian is that the vector field $\mathbf{S}$ is a symplectic gradient meaning $\mathcal{H}$ remains constant as long as state vectors are integrated along $\mathbf{S}$. This result links the Hamiltonian with the total energy of the system $\mathcal{H}(\mathbf{q},\mathbf{p}) = E_{tot}$. 
-It can be shown that the Hamiltonian in many systems also represents the total energy of the system. Therefore, the Hamiltonian is a powerful inductive bias that can be utilised to evolve a physical state while maintaining energy conservation.
+However, this is not the only benefit in learning a Hamiltonian. Another key attribute of the Hamiltonian is that the vector field $\mathbf{S}$ is a symplectic gradient meaning $\mathcal{H}$ remains constant as long as state vectors are integrated along $\mathbf{S}$. This result links the Hamiltonian with the total energy of the system such that $\mathcal{H}(\mathbf{q},\mathbf{p}) = E_{tot}$ for many physical systems. Therefore, the Hamiltonian is a powerful inductive bias that can be utilised to evolve a physical state while maintaining energy conservation. 
+
+Although this formalism is compact and powerful, it does not readily generalize to damped or forced system. As such, we refer to port-Hamiltonian systems.
+
+\subsection{Port-Hamiltonians}
+
+Port-Hamiltonians are a formalism that allow us to incorporate damping and forcing terms. One formalism outlined in \cite{dissipative sympoden} shows how to represent a general form for such a system. We extend that work to include time-dependent forcing and eliminate the need for an explicit control input $u$. This results in the following equation:
+
+\begin{equation}
+\begin{bmatrix}
+\dot{\mathbf{q}} \\
+\dot{\mathbf{p}}
+\end{bmatrix}
+=
+\Bigg(\begin{bmatrix}
+0 & \mathbf{I} \\
+-\mathbf{I} & 0
+\end{bmatrix} +
+\begin{bmatrix}
+0 & 0 \\
+0 & \mathbf{D}_{\theta_2}(\mathbf{q})
+\end{bmatrix}
+ \Bigg)
+ \begin{bmatrix}
+\frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{q}} \\
+\frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{p}}
+\end{bmatrix}
++
+\begin{bmatrix}
+0 \\
+\mathbf{g}(\mathbf{q})
+\end{bmatrix}
+F_{\theta_3}(t)
+\end{equation}
+
+where $\mathbf{D}_{\theta_2}(q)$ is the damping term and $g(q)F_{\theta_3}(t)$ is the forcing term. 
+
+Given this general formalism, we make some simplifications. Here, instead of using a generalized semi-positive definite damping matrix, we simply aim at learning the lower right term which is most often independent of $\mathbf{q}$. As such, we parametrize $\mathbf{D}$ with a single, scalar learnable parameter. Secondly, for many physical systems, $g(q)$ is also a scalar quantity, so we abstract this scalar learning into $F(t)$ by setting $g(q) = 1$.
+ 
 
 \section{Method}
 
-The time-derivative of a Hamiltonian $\mathcal{H}(\mathbf{q},\mathbf{p},t)$ can be obtained using the chain rule:
-
 \begin{equation}
-\frac{\mathrm{d}\mathcal{H}}{\mathrm{d}t} = \frac{\partial H}{\partial \mathbf{q}} \frac{\partial \mathbf{q}}{\partial t} + \frac{\partial H}{\partial \mathbf{p}} \frac{\partial \mathbf{p}}{\partial t} + \frac{\partial \mathcal{H}}{\partial t}
+Loss =\left\| \frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{q}} +  \frac{\partial \mathbf{p}}{\partial t} \right\| +\left\| \frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{p}} -  \frac{\partial \mathbf{q}}{\partial t} \right\|+ \alpha_{reg}| F_{\theta_3} (t)| + \beta_{reg}|D_{\theta_2}| 
 \end{equation}
 
-The underlying fact in energy preserving systems is that $H = E$ is a constant. As such, the time derivative should be set to zero. By learning the Hamiltonian and differentiating it with respect to $\mathbf{q},\mathbf{p}$ we obtain the time derivatives of the state vectors which when replaced in the above equation yield:
-
-\begin{equation}
-\frac{\mathrm{d}\mathcal{H}}{\mathrm{d}t} = -\frac{\partial \mathbf{p}}{\partial t} \frac{\partial \mathbf{q}}{\partial t} + \frac{\partial \mathbf{q} }{\partial t} \frac{\partial \mathbf{p}}{\partial t} + \frac{\partial \mathcal{H}}{\partial t} = 0
-\end{equation}
-
-which leaves us with:
-
-\begin{equation}
-\frac{\mathrm{d}\mathcal{H}}{\mathrm{d}t} =  \frac{\partial \mathcal{H}}{\partial t} = 0
-\end{equation}
+To learn the dynamics, we feed in a state-vector $S_t = [\mathbf{q},\mathbf{p},\mathbf{t}]$. The first neural-network consists of 3 hidden layers designed to predict $H$ from $[q,p]$ data. The second neural-network consists of a single weight parameter designed to learn the damping coefficient $D$ and the third neural-network consists of 2 hidden layers designed to predict $F(t)$ from t. We use an L2-norm penalty for the predicted state-vectors and an L1-norm for force and damping to encourage sparsity. We do this because we would like our networks to identify classical autonomous systems (which may not have force or time) as well as non-autonomous systems. For our experiments we use 200 hidden layers and find that most activations such as tanh, sin and cos yield comparable results. To benchmark our method, as \cite{greydanus} do, we use a baseline NN that takes in $S_t$ and predicts $[\dot{q},\dot{p}]$. We also take the straightforward extension of HNN to include time as a variable input.
 
 
-To enforce this additional constraint in our networks, all we need to do is simply provide the time to the network, which extends the input dimension by 1, and allow the time component to be differentiable. We then compute the gradient and use an L1 penalty such that the final loss is:
-
-\begin{equation}
-\mathcal{L}_{EPNN} =\left\| \frac{\partial \mathcal{H_{\theta}}}{\partial \mathbf{q}} +  \frac{\partial \mathbf{p}}{\partial t} \right\| +\left\| \frac{\partial \mathcal{H} }{\partial \mathbf{p}} -  \frac{\partial \mathbf{q}}{\partial t} \right\|+ | \frac{\partial \mathcal{H}}{\partial t}|
-\end{equation}
 
 \section{FIRST LEVEL HEADINGS}
 
@@ -299,30 +327,5 @@ If your papers are accepted, you will need to submit the camera-ready version. P
 All acknowledgments go at the end of the paper, including thanks to reviewers who gave useful comments, to colleagues who contributed to the ideas, and to funding agencies and corporate sponsors that provided financial support. 
 To preserve the anonymity, please include acknowledgments \emph{only} in the camera-ready papers.
 
-
-\subsubsection*{References}
-
-References follow the acknowledgements.  Use an unnumbered third level
-heading for the references section.  Please use the same font
-size for references as for the body of the paper---remember that
-references do not count against your page length total.
-
-\begin{thebibliography}{}
-\setlength{\itemindent}{-\leftmargin}
-\makeatletter\renewcommand{\@biblabel}[1]{}\makeatother
-\bibitem{} J.~Alspector, B.~Gupta, and R.~B.~Allen (1989).
-    \newblock Performance of a stochastic learning microchip.
-    \newblock In D. S. Touretzky (ed.),
-    \textit{Advances in Neural Information Processing Systems 1}, 748--760.
-    San Mateo, Calif.: Morgan Kaufmann.
-
-\bibitem{} F.~Rosenblatt (1962).
-    \newblock \textit{Principles of Neurodynamics.}
-    \newblock Washington, D.C.: Spartan Books.
-
-\bibitem{} G.~Tesauro (1989).
-    \newblock Neurogammon wins computer Olympiad.
-    \newblock \textit{Neural Computation} \textbf{1}(3):321--323.
-\end{thebibliography}
-
+\bibliography{references.bib}
 \end{document}

@@ -107,8 +107,8 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         #     loss += 1e-4*torch.mean(torch.abs(model.get_D(q[ixs,0].reshape(-1,1))))
         if model_name =='TDHNN4':
             # print(model.get_weight())
-            loss += 1e-6*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
-            loss += 1e-6*torch.mean(torch.abs(model.get_D()))
+            loss += 1e-5*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
+            loss += 1e-5*torch.mean(torch.abs(model.get_D()))
         loss.backward()
         optimizer.step()
         running_loss += loss.detach().item()
@@ -123,7 +123,7 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
     plt.yscale('log')
     plt.title(f'{dataset_name},{model_name}, ntrain_inits:{n_train_traj},ntest_inits:{n_test_traj},tmax:{T_max},dt:{dt}')
     plt.legend()
-    plt.savefig(f'{dataset_name}_training.jpg')
+    plt.savefig(f'{dataset_name}_{type_vec}_training.jpg')
 
     return model
 
@@ -175,7 +175,7 @@ for model_name, model_type in model_dct.items():
     lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft,lr_step, gamma=0.1)
     trained_model = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False)
     parent_dir = os.getcwd()
-    path = f"{dataset_name}/{model_name}"
+    path = f"{dataset_name}_{type_vec}/{model_name}"
     if not os.path.exists(path):
         os.makedirs(parent_dir+'/'+path)
     torch.save(trained_model, path+'/'+'model')
