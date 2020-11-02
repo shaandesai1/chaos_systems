@@ -6,4 +6,4 @@
 ./runner_files/pendulum.sh
 ./runner_files/forced_pendulum.sh
 ./runner_files/painleve.sh
-./runner_files/heinon.sh
+#./runner_files/heinon.sh

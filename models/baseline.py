@@ -12,7 +12,7 @@ class base_model(nn.Module):
         self.mlp3 = nn.Linear(hidden_dim, hidden_dim)
         self.mlp4 = nn.Linear(hidden_dim, output_size,bias=None)
         self.nonlin = torch.sin
-        self.M = self.permutation_tensor(input_dim)#.cuda()
+        self.M = self.permutation_tensor(2)#.cuda()
         for l in [self.mlp1, self.mlp2, self.mlp4, self.mlp3]:
             torch.nn.init.orthogonal_(l.weight)
 
