@@ -1,0 +1,98 @@
+\begin{thebibliography}{10}
+
+\bibitem{battaglia_interaction_2016}
+P.~W. Battaglia, R.~Pascanu, M.~Lai, D.~Rezende, and K.~Kavukcuoglu.
+\newblock Interaction {Networks} for {Learning} about {Objects}, {Relations}
+  and {Physics}.
+\newblock {\em arXiv:1612.00222 [cs]}, Dec. 2016.
+\newblock arXiv: 1612.00222.
+
+\bibitem{chen_neural_2018}
+R.~T.~Q. Chen, Y.~Rubanova, J.~Bettencourt, and D.~K. Duvenaud.
+\newblock Neural {Ordinary} {Differential} {Equations}.
+\newblock In S.~Bengio, H.~Wallach, H.~Larochelle, K.~Grauman, N.~Cesa-Bianchi,
+  and R.~Garnett, editors, {\em Advances in {Neural} {Information} {Processing}
+  {Systems} 31}, pages 6571--6583. Curran Associates, Inc., 2018.
+
+\bibitem{cranmer_lagrangian_2020}
+M.~Cranmer, S.~Greydanus, S.~Hoyer, P.~Battaglia, D.~Spergel, and S.~Ho.
+\newblock Lagrangian {Neural} {Networks}.
+\newblock {\em arXiv:2003.04630 [physics, stat]}, Mar. 2020.
+\newblock arXiv: 2003.04630.
+
+\bibitem{finzi_generalizing_2020}
+M.~Finzi, S.~Stanton, P.~Izmailov, and A.~G. Wilson.
+\newblock Generalizing {Convolutional} {Neural} {Networks} for {Equivariance}
+  to {Lie} {Groups} on {Arbitrary} {Continuous} {Data}.
+\newblock {\em arXiv:2002.12880 [cs, stat]}, May 2020.
+\newblock arXiv: 2002.12880.
+
+\bibitem{greydanus_hamiltonian_2019}
+S.~Greydanus, M.~Dzamba, and J.~Yosinski.
+\newblock Hamiltonian {Neural} {Networks}.
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d. Alché-Buc,
+  E.~Fox, and R.~Garnett, editors, {\em Advances in {Neural} {Information}
+  {Processing} {Systems} 32}, pages 15379--15389. Curran Associates, Inc.,
+  2019.
+
+\bibitem{hornik_multilayer_1989}
+K.~Hornik, M.~Stinchcombe, and H.~White.
+\newblock Multilayer feedforward networks are universal approximators.
+\newblock {\em Neural Networks}, 2(5):359--366, Jan. 1989.
+
+\bibitem{lutter_deep_2019}
+M.~Lutter, C.~Ritter, and J.~Peters.
+\newblock Deep {Lagrangian} {Networks}: {Using} {Physics} as {Model} {Prior}
+  for {Deep} {Learning}.
+\newblock {\em arXiv:1907.04490 [cs, eess, stat]}, July 2019.
+\newblock arXiv: 1907.04490.
+
+\bibitem{raissi_physics_2017}
+M.~Raissi, P.~Perdikaris, and G.~E. Karniadakis.
+\newblock Physics {Informed} {Deep} {Learning} ({Part} {I}): {Data}-driven
+  {Solutions} of {Nonlinear} {Partial} {Differential} {Equations}.
+\newblock {\em arXiv:1711.10561 [cs, math, stat]}, Nov. 2017.
+\newblock arXiv: 1711.10561.
+
+\bibitem{raissi_physics-informed_2019}
+M.~Raissi, P.~Perdikaris, and G.~E. Karniadakis.
+\newblock Physics-informed neural networks: {A} deep learning framework for
+  solving forward and inverse problems involving nonlinear partial differential
+  equations.
+\newblock {\em Journal of Computational Physics}, 378:686--707, Feb. 2019.
+
+\bibitem{sanchez-gonzalez_hamiltonian_2019}
+A.~Sanchez-Gonzalez, V.~Bapst, K.~Cranmer, and P.~Battaglia.
+\newblock Hamiltonian {Graph} {Networks} with {ODE} {Integrators}.
+\newblock {\em arXiv:1909.12790 [physics]}, Sept. 2019.
+\newblock arXiv: 1909.12790.
+
+\bibitem{sanchez-gonzalez_learning_2020}
+A.~Sanchez-Gonzalez, J.~Godwin, T.~Pfaff, R.~Ying, J.~Leskovec, and P.~W.
+  Battaglia.
+\newblock Learning to {Simulate} {Complex} {Physics} with {Graph} {Networks}.
+\newblock {\em arXiv:2002.09405 [physics, stat]}, Feb. 2020.
+\newblock arXiv: 2002.09405.
+
+\bibitem{sanchez-gonzalez_graph_2018}
+A.~Sanchez-Gonzalez, N.~Heess, J.~T. Springenberg, J.~Merel, M.~Riedmiller,
+  R.~Hadsell, and P.~Battaglia.
+\newblock Graph networks as learnable physics engines for inference and
+  control.
+\newblock {\em arXiv:1806.01242 [cs, stat]}, June 2018.
+\newblock arXiv: 1806.01242.
+
+\bibitem{zhong_dissipative_2020}
+Y.~D. Zhong, B.~Dey, and A.~Chakraborty.
+\newblock Dissipative {SymODEN}: {Encoding} {Hamiltonian} {Dynamics} with
+  {Dissipation} and {Control} into {Deep} {Learning}.
+\newblock {\em arXiv:2002.08860 [cs, eess, stat]}, Apr. 2020.
+\newblock arXiv: 2002.08860.
+
+\bibitem{zhu_deep_2020}
+A.~Zhu, P.~Jin, and Y.~Tang.
+\newblock Deep {Hamiltonian} networks based on symplectic integrators.
+\newblock {\em arXiv:2004.13830 [cs, math]}, Apr. 2020.
+\newblock arXiv: 2004.13830.
+
+\end{thebibliography}

@@ -46,7 +46,7 @@
 
 \aistatstitle{TDHNN: Time-Dependent Hamiltonian Neural Networks }
 
-\aistatsauthor{ Shaan A. Desai$^{1,2}$ \And David Sondak$^{2}$ \And  Marios Mathiakis$^{2}$ }
+\aistatsauthor{ Shaan A. Desai$^{1,2}$ \And David Sondak$^{2}$ \And  Marios Mattheakis$^{2}$ }
 
 \aistatsaddress{ Machine Learning Research Group \\University of Oxford $^1$ \And Institute of Applied Computational Science \\ Harvard University $^2$ } ]
 
@@ -333,6 +333,10 @@ Training Data: 20 initial conditions, sampled uniformly in $[-1,1]^2$ each rolle
 
 Testing: we test the system on a single initial condition, rolled out to $T_{max} = 18,000$ with the same $\delta t$ as training. One additional change we make at inference is a modification to the time variable which is fed in. We work under the assumption that we have explicit knowledge of the period, and as such, we modulo the time variable with the period. This is necessary as the models are not explicitly trained on time steps beyond $T$. Using the unchanged time, our model predictions rapidly diverge from the ground truth. Our results are visually presented in Fig.\ref{fig.chaos}.  
 \subsection{Relativity}
+
+\section{Discussion}
+
+\section{Conclusion}
 
 
 

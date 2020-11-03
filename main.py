@@ -108,7 +108,7 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         if model_name =='TDHNN4':
             # print(model.get_weight())
             loss += 1e-5*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
-            loss += 1e-6*torch.mean(torch.abs(model.get_D()))
+            loss += 1e-5*torch.mean(torch.abs(model.get_D()))
         loss.backward()
         optimizer.step()
         running_loss += loss.detach().item()

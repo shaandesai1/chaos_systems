@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  3 NOV 2020 19:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  3 NOV 2020 20:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -522,21 +522,10 @@ Overfull \hbox (4.15819pt too wide) in paragraph at lines 319--324
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \vbox (badness 1997) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-(./sample_paper.bbl
-Underfull \hbox (badness 1635) in paragraph at lines 4--9
-\OT1/cmr/m/n/10 and K. Kavukcuoglu.  In-ter-ac-tion Net-works
- []
-
-
-Underfull \hbox (badness 3482) in paragraph at lines 4--9
-\OT1/cmr/m/n/10 for Learn-ing about Ob-jects, Re-la-tions and
- []
-
-[6 <./figures/mass_spring_forced_2_errors.pdf> <./figures/mass_spring_forced_2_
-pred.pdf
+ [6 <./figures/mass_spring_forced_2_errors.pdf> <./figures/mass_spring_forced_2
+_pred.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/mass_spring_forced
 _2_pred.pdf): PDF inclusion: multiple pdfs with page group included in a single
@@ -567,7 +556,17 @@ df): PDF inclusion: multiple pdfs with page group included in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/TDHNN4_duffing_dam
 p_1.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
 e
->]
+>] (./sample_paper.bbl
+Underfull \hbox (badness 1635) in paragraph at lines 4--9
+\OT1/cmr/m/n/10 and K. Kavukcuoglu.  In-ter-ac-tion Net-works
+ []
+
+
+Underfull \hbox (badness 3482) in paragraph at lines 4--9
+\OT1/cmr/m/n/10 for Learn-ing about Ob-jects, Re-la-tions and
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 18--22
 []\OT1/cmr/m/n/10 M. Cran-mer, S. Grey-danus, S. Hoyer,
  []
@@ -590,7 +589,7 @@ Here is how much of TeX's memory you used:
  6694 multiletter control sequences out of 15000+600000
  11544 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,45p,1945b,306s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,12n,45p,1945b,269s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/publi
@@ -608,7 +607,7 @@ fb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb>
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
 /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
 sr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on sample_paper.pdf (7 pages, 976087 bytes).
+Output written on sample_paper.pdf (7 pages, 976574 bytes).
 PDF statistics:
  851 PDF objects out of 1000 (max. 8388607)
  201 compressed objects within 3 object streams
