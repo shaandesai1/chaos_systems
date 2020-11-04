@@ -60,7 +60,7 @@ def get_dataset(data_name, num_samples, T_max, dt, noise_std=0, seed=0, type=1):
     if data_name == 'damped':
         return damped(num_samples, T_max, dt, noise_std,seed)
     if data_name == 'relativity':
-        return relativity(num_samples, T_max, dt, noise_std,seed)
+        return relativity(num_samples, T_max, dt, noise_std,seed,type)
 
 def pendulum(num_samples, T_max, dt, noise_std=0, seed=3):
     """simple pendulum"""
@@ -401,38 +401,76 @@ def painleve_I(num_samples, T_max, dt, noise_std=0, seed=3):
 
 
 def relativity(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
-    """simple pendulum"""
 
-
-
-    def hamiltonian_fn(coords, t):
-        q, p = np.split(coords, 2)
-        c =1
+    def hamiltonian_fn(coords,t):
+        q,p = np.split(coords,2)
+        c = 1
         m = 1
-        g = 9.81
-
-        alpha = 1
-        beta = 1
-        omega = 1.2
-        delta = 0
-        gamma = .2
-
-        H = c*np.sqrt(p**2+m**2*c**2) + alpha * (q ** 2) / 2 + beta * (q ** 4) / 4 - q * gamma * sin(
+        if type == 1:
+            omega = 1.2
+            delta = 0
+            gamma = 0.2
+            alpha = 1
+            beta = 1
+        if (type == 2) or (type==3):
+            alpha = -1
+            beta = 1
+            omega = 1.2
+            delta = 0
+            gamma = 10
+        H = c * np.sqrt(p ** 2 + m ** 2 * c ** 2) + alpha * (q ** 2) / 2 + beta * (q ** 4) / 4 - q * gamma * sin(
         omega * t)
+
         return H
-
+    #autograd slows the computation for long trajectories
     def dynamics_fn(t, coords):
-        dcoords = autograd.grad(hamiltonian_fn)(coords, t)
+        q,p = np.split(coords,2)
 
-        dqdt, dpdt = np.split(dcoords, 2)
-        S = np.concatenate([dpdt, -dqdt], axis=-1)
+        c = 1
+        m = 1
+
+        if type == 1:
+            omega = 1.2
+            delta = 0
+            gamma = 0.2
+            alpha = 1
+            beta = 1
+
+        if (type == 2) or (type==3):
+            alpha = -1
+            beta = 1
+            omega = 1.2
+            delta = 0
+            gamma = 10
+
+        xdot = c * p * (p ** 2 + (m ** 2) * (c ** 2)) ** (-.5)
+        pdot = -alpha * q - beta * q ** 3 - delta * xdot + gamma * np.sin(omega * t)
+
+        S = np.concatenate([xdot, pdot], axis=-1)
         return S
 
     def get_trajectory(t_span=[0, T_max], timescale=dt):
         t_eval = np.arange(t_span[0], t_span[1], timescale)
-        y0 = np.random.uniform(0,3,size=2)
-
-        spring_ivp = rk(fun=dynamics_fn, t_span=t_span, y0=y0, t_eval=t_eval, rtol=1e-10)
+        y0 = np.random.uniform(-0.4,.4,size=2)
+        if type == 2:
+            # y0 = [0,0.9]#np.random.rand(2) * 2 - 1
+            y0 = [0., 0.]
+            omega = 1.2
+            dt_per_period = 1000
+            period = 2 * np.pi / omega
+            dt = 2 * np.pi / omega / dt_per_period
+            t_span = [0, 10*period]
+            t_eval = np.arange(0, 10*period, dt)
+        if type == 3:
+            # y0 = np.random.rand(2) * 2 - 1
+            y0 = [0., 0.]
+            omega = 1.2
+            dt_per_period = 100
+            period = 2 * np.pi / omega
+            dt = 2 * np.pi / omega / dt_per_period
+            t_span = [0, T_max]
+            t_eval = np.arange(0, T_max, dt)
+        spring_ivp = rk(fun=dynamics_fn, t_span=t_span, y0=y0, t_eval=t_eval,rtol=1e-10)
         q, p = spring_ivp['y'][0], spring_ivp['y'][1]
         dydt = [dynamics_fn(t_eval[i], y) for i, y in enumerate(spring_ivp['y'].T)]
         dydt = np.stack(dydt).T
@@ -760,8 +798,8 @@ def forced_pendulum(num_samples, T_max, dt, noise_std=0, seed=3, type=1):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
-    train_data = get_dataset('relativity', 10, 20.01, 0.01, noise_std=0, seed=1, type=1)
-    plt.plot(train_data['x'][:, 0], train_data['x'][:, 1])
+    train_data = get_dataset('relativity', 1, 100, 0.01, noise_std=0, seed=1, type=2)
+    plt.scatter(train_data['x'][::1, 0], train_data['x'][::1, 1])
     plt.show()
 
     plt.plot(train_data['x'][:, 0])

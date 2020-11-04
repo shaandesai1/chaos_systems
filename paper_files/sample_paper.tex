@@ -266,7 +266,7 @@ We can see that both baseline NN and TDHNN4 recover the dynamics well, whereas H
 Typically, while we cannot write the Hamiltonian for a damped system, we can write one for a forced system. Here, we study 2 types of forced mass-spring systems. The first has the following Hamiltonian form:
 
 \begin{equation}
-\mathcal{H} = \frac{1}{2}kq^2 + \frac{1}{2m}p^2 - qF_0sin(\omega t) 
+\mathcal{H} = \frac{1}{2}k\mathbf{q}^2 + \frac{1}{2m}\mathbf{p}^2 - \mathbf{q}\mathbf{F_0}sin(\omega \mathbf{t}) 
 \end{equation}
 
 \begin{figure}[h!]
@@ -280,7 +280,7 @@ Typically, while we cannot write the Hamiltonian for a damped system, we can wri
 The second has this Hamiltonian form:
 
 \begin{equation}
-\mathcal{H} = \frac{1}{2}kq^2 + \frac{1}{2m}p^2 - qF_0sin(\omega t)sin(2\omega t)
+\mathcal{H} = \frac{1}{2}k\mathbf{q}^2 + \frac{1}{2m}\mathbf{p}^2 - \mathbf{q}\mathbf{F_0}sin(\omega \mathbf{t})sin(2\omega \mathbf{t})
 \end{equation}
 
 \begin{figure}[h!]
@@ -333,6 +333,14 @@ Training Data: 20 initial conditions, sampled uniformly in $[-1,1]^2$ each rolle
 
 Testing: we test the system on a single initial condition, rolled out to $T_{max} = 18,000$ with the same $\delta t$ as training. One additional change we make at inference is a modification to the time variable which is fed in. We work under the assumption that we have explicit knowledge of the period, and as such, we modulo the time variable with the period. This is necessary as the models are not explicitly trained on time steps beyond $T$. Using the unchanged time, our model predictions rapidly diverge from the ground truth. Our results are visually presented in Fig.\ref{fig.chaos}.  
 \subsection{Relativity}
+
+We investigate the duffing equation with a relativistic kinetic energy term. The general Hamiltonian form is:
+
+\begin{equation}
+\mathcal{H} =  c\sqrt{\mathbf{p}^2 +m^2c^2} + \frac{\alpha}{2}\mathbf{q}^2 +\frac{\beta}{4}\mathbf{q}^4 - \mathbf{q}\mathbf{F_0}sin(\omega \mathbf{t})
+\end{equation}
+
+where c, the speed of light is typically set to 1. For simplicity, we also set $m=1$ though our framework naturally accounts for other values.
 
 \section{Discussion}
 

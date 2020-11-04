@@ -58,7 +58,7 @@ vnow, vnext, venergy, vdx, vevals = nownext(valid_data, n_test_traj, T_max_t, dt
 
 print_every = 1000
 
-traindat = pendpixdata(tnow, tnext, tenergy, tdx, tevals)
+traindat = pendpixdata(tnow,tnext,tenergy,tdx,tevals)
 train_dataloader = DataLoader(traindat, batch_size=len(tnow), num_workers=2, shuffle=True)
 valdat = pendpixdata(vnow, vnext, venergy, vdx, vevals)
 val_dataloader = DataLoader(valdat, batch_size=len(vnow), num_workers=2, shuffle=False)
@@ -107,8 +107,8 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         #     loss += 1e-4*torch.mean(torch.abs(model.get_D(q[ixs,0].reshape(-1,1))))
         if model_name =='TDHNN4':
             # print(model.get_weight())
-            loss += 1e-5*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
-            loss += 1e-5*torch.mean(torch.abs(model.get_D()))
+            loss += 1e-6*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
+            loss += 1e-6*torch.mean(torch.abs(model.get_D()))
         loss.backward()
         optimizer.step()
         running_loss += loss.detach().item()
