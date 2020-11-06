@@ -8,6 +8,7 @@
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{multirow}
+\usepackage{hyperref}
 %
 % This option will print headings for the title of your paper and
 % headings for the authors names, plus a copyright note at the end of
@@ -54,7 +55,7 @@
 \bibliographystyle{abbrv}
 \begin{abstract}
 
-Deep neural-networks embedded with physically-informed priors demonstrate remarkable performance over vanilla neural-networks in accurately learning and predicting non-linear dynamical systems. Recently, it was shown that Hamiltonian Neural Networks (HNNs) - neural networks designed to conserve energy and exploit the Hamiltonian formalism, show strong and consistent performance in learning autonomous systems that depend implicitly on time. Here, we extend this framework to include an explicit time-dependence that generalizes the learning to non-autonomous dynamical systems. We achieve this generalisation by embedding a modified Port-Hamiltonian into our neural networks that extends the general Hamiltonian to capture damped and forced systems alike. We show that our network can learn systems as complex as the duffing equation in the chaotic regime while maintaining comparable performace to HNNs in settings with no explicit time-dependence.
+Deep neural-networks embedded with physically-informed priors demonstrate remarkable performance over vanilla neural-networks in accurately learning and predicting non-linear dynamical systems. Recently, it was shown that Hamiltonian Neural Networks (HNNs) - neural networks designed to conserve energy and exploit the Hamiltonian formalism, show strong and consistent performance in learning autonomous systems that depend implicitly on time. Here, we extend this framework to include an explicit time-dependence that generalizes the learning to non-autonomous dynamical systems. We achieve this generalisation by embedding a modified Port-Hamiltonian into our neural networks that extends the general Hamiltonian to capture damped and forced systems alike. We show that our network can learn systems as complex as the duffing equation in the chaotic regime while maintaining comparable performance to HNNs in settings with no explicit time-dependence.
 
 %Unlike vanilla Artificial Neural Networks, Neural Networks embedded with physically-informed priors achieve remarkable results in accurately learning and predicting non-linear dynamical systems.
 % despite this success, their generalization is often limited by the available training data which in practice only consists of a few short-range trajectories. naturally we might ask how we can generalize to unseen timesteps better?
@@ -65,11 +66,12 @@ Deep neural-networks embedded with physically-informed priors demonstrate remark
 \centering
 \includegraphics[width=0.9\textwidth]{figures/main_fig.pdf}
 \caption{Poincar\'e Sections of a duffing oscillator in a chaotic regime. Both Baseline NN and TDHNN4 are trained for 20000 iterations with 2000 data points. TDHNN4 significantly outperforms Baseline NN at recovering the ground truth Poincar\'e section.}
+\label{fig.chaos1}
 \end{figure*}
-\label{fig.chaos}
+
 \section{Introduction}
 
-Neural networks (NNs), as universal function approximators \cite{hornik_multilayer_1989}, have shown resounding success across a host of domains. However, their performance in learning physical systems has often been limited. New research in \textit{scientific machine learning} - a branch that tackles scientific problems with domain-specific machine learning methods, is paving a way to address these challenges. For example, it has been shown that prior theoretical information embedded in networks, such as Hamiltonian mechanics \cite{greydanus_hamiltonian_2019}, Lagrangians \cite{cranmer_lagrangian_2020, lutter_deep_2019}, Ordinary Differential Equations (ODEs) \cite{chen_neural_2018}, physics equations \cite{raissi_physics_2017} and Graph Neural Networks \cite{battaglia_interaction_2016,sanchez-gonzalez_hamiltonian_2019} can significantly improve learning in complex physical domains. Furthermore, it has been shown that such systems can be adapted to learn trajectories of controlled dynamics \cite{lutter_deep_2019,zhong_dissipative_2020}. Despite this extensive research, there is still no method that accounts for explicit-time dependence, a crucial component in forced dynamical systems. Additionally, many of the existing approaches present no direct way to account for dissipation. Inspired by \cite{zhong_dissipative_2020}, we show that a Port-Hamiltonian - a method designed to account for forcing and dissipation, can be used to learn the dynamics of explicit time-dependent physical systems. We benchmark our network on a range of tasks from the simple mass-spring system to a chaotic duffing equation. Our network consistently outperforms other approaches while actively learning both the driving force and damping coefficient. We also show that our network can visually recover the Poincar\'e section of a duffing equation in the chaotic regime Fig.\ref{fig.chaos}.
+Neural networks (NNs), as universal function approximators \cite{hornik_multilayer_1989}, have shown resounding success across a host of domains. However, their performance in learning physical systems has often been limited. New research in \textit{scientific machine learning} - a branch that tackles scientific problems with domain-specific machine learning methods, is paving a way to address these challenges. For example, it has been shown that prior theoretical information embedded in networks, such as Hamiltonian mechanics \cite{greydanus_hamiltonian_2019}, Lagrangians \cite{cranmer_lagrangian_2020, lutter_deep_2019}, Ordinary Differential Equations (ODEs) \cite{chen_neural_2018}, physics equations \cite{raissi_physics_2017} and Graph Neural Networks \cite{battaglia_interaction_2016,sanchez-gonzalez_hamiltonian_2019} can significantly improve learning in complex physical domains. Furthermore, it has been shown that such systems can be adapted to learn trajectories of controlled dynamics \cite{lutter_deep_2019,zhong_dissipative_2020}. Despite this extensive research, there is still no method that accounts for explicit-time dependence, a crucial component in forced dynamical systems. Additionally, many of the existing approaches present no direct way to account for dissipation. Inspired by \cite{zhong_dissipative_2020}, we show that a Port-Hamiltonian - a method designed to account for forcing and dissipation, can be used to learn the dynamics of explicit time-dependent physical systems. We benchmark our network on a range of tasks from the simple mass-spring system to a chaotic duffing equation. Our network consistently outperforms other approaches while actively learning both the driving force and damping coefficient. We also show that our network can visually recover the Poincar\'e section of a duffing equation in the chaotic regime Fig. \ref{fig.chaos1}.
 
 \section{Background}
 
@@ -198,9 +200,10 @@ $%
 
 To learn the dynamics, we feed in a state-vector $\mathbf{S}_t = [\mathbf{q},\mathbf{p},\mathbf{t}]$ to our model. The first neural-network $\mathcal{H}_{\theta_1}$ consists of 3 hidden layers designed to predict $\mathcal{H}$ from $[\mathbf{q},\mathbf{p}]$ data. The second component $\mathbf{D}_{\theta_2}$ consists of a single weight parameter designed to learn the damping coefficient $\mathbf{D}$ and the third neural-network consists of 2 hidden layers designed to predict $\mathbf{F(\mathbf{t})}$. We use an L2-norm penalty for the predicted state-vectors and an L1-norm for force and damping to encourage sparsity. We do this because we would like our networks to identify classical autonomous systems (which may not have force or time) as well as non-autonomous systems. For our experiments we use 200 hidden layers and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, as \cite{greydanus_hamiltonian_2019} do, we use a modified classic NN that takes in an additional time vector and predicts $[\dot{q},\dot{p}]$. We also take the straightforward extension of HNN to include time as a variable input. At inference, we use a Runge-Kutta 4th order integrator to rollout the initial conditions. 
 
+
 \section{Results}
 
-We benchmark the performance of our models on numerous datasets that canvas time-independent systems to complex chaotic forced systems.
+We benchmark the performance of our models on numerous datasets that canvas time-independent systems to complex chaotic forced systems. At inference, we use our network in a Runge-Kutta integrator to compute an initial state rollout.
 
 \subsection{Simple Mass Spring}
 
@@ -210,14 +213,18 @@ The simple mass spring system is a well known system from classical physics that
 \mathcal{H} = \frac{1}{2}k\mathbf{q}^2 + \frac{1}{2m}\mathbf{p}^2 
 \end{equation}
 
-For simplicity, we set $k$ and $m$ to 1 for our experiments. We sample 25 initial training conditions such that r in $q^2+p^2 = r^2$ is between 0.5 and 1.5 as is done in \cite{greydanus_hamiltonian_2019}. The trajectories are sampled with $\delta t =0.05$ and $T_{max} = 3.05$.  The test error in fig.\ref{mspring} is measured as a Mean Squared Error (MSE) be across for 50 trajectories. We investigate this simple system to show that learning a separate, regularised forcing term results in much better state and energy rollout in comparison to TDHNN and baseline NN. The main reason for this is that while TDHNN and baseline NN will learn dynamics with time-steps within the training regime, they typically cannot generalize to unseen timesteps. Learning a separate forcing term and regularizing it keeps the time component independent of the Hamiltonian and therefore allows us to nearly match the performance of HNN.
+\textbf{Training:} For simplicity, we set $k$ and $m$ to 1 for our experiments. We sample 25 initial training conditions such that r in $q^2+p^2 = r^2$ is between 0.5 and 1.5 as is done in \cite{greydanus_hamiltonian_2019}. The trajectories are sampled with $\delta t =0.05$ and $T_{max} = 3.05$.  
+
+\textbf{Test:} At test time, we feed an initial condition and roll it out to $T_{max}=6.1$ which is double the training time. The test error in fig.\ref{mspring} is measured as the average rollout Mean Squared Error (MSE) across 50 trajectories. 
+
+We investigate this simple system to show that learning a separate, regularised forcing term results in much better state and energy rollout in comparison to TDHNN and baseline NN. The main reason for this is that while TDHNN and baseline NN will learn dynamics with time-steps within the training regime, they typically cannot generalize to unseen timesteps. Learning a separate forcing term and regularizing it keeps the time component independent of the Hamiltonian and therefore allows us to nearly match the performance of the classical time-implicit HNN.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/mass_spring_errors.pdf}
-\includegraphics[width=0.5\textwidth]{figures/mass_spring_long.pdf}
+\includegraphics[width=0.4\textwidth]{figures/mass_spring_errors.pdf}
+\includegraphics[width=0.4\textwidth]{figures/mass_spring_long.pdf}
 \includegraphics[width=0.4\textwidth]{figures/mass_spring_pred_force.pdf}
-\caption{Simple Mass Spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics of HNN which doesn't depend on time. The result is achieved by regularising the force and friction terms as can be seen in the bottom figure. Baseline and TDHNN are unable to achieve the same state-error as their time-dependence }
+\caption{Simple Mass Spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics of HNN. The result is achieved by regularising the force and friction terms as can be seen in the figure. Baseline and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that were within the training regime}
 \label{mspring}
 \end{figure}
 
@@ -245,9 +252,11 @@ The equation above looks like a modified potential function which can be combine
 However, although we can recover the differential equation for $\ddot{\mathbf{q}}$ by $-\frac{\partial\mathcal{H}}{\mathrm{d}\mathbf{q}}  =-\mathbf{q} - \delta\dot{\mathbf{q}} = \ddot{\mathbf{q}}$, we violate the rule that $\dot{\mathbf{q}} = m^{-1}\mathbf{p}$ since $ \frac{\partial\mathcal{H}}{\mathrm{d}\mathbf{p}} =  \dot{\mathbf{q}} +\delta \mathbf{q} \neq \dot{\mathbf{q}} $.
 
 
-However, as we saw with Port-Hamiltonians, there is a straightforward way to account for the damping term without explicitly defining a full Hamiltonian. By combining a regular Hamiltonian with an additional term that learns the damping, we can disentangle the two terms for learning.
+However, as we saw with Port-Hamiltonians, there is a straightforward way to account for the damping term without explicitly defining a full Hamiltonian. By combining a regular Hamiltonian with an additional term that learns the damping, we can disentangle the two terms for learning. Indeed, there are alternative methods to do this, including generalised Hamiltonian decomposition.
 
-For training, we have 20 initial conditions, uniformly sampled in $[-1,1]^2$. Each trajectory is evolved until $T_{max} = 30.1$ with a $\delta t = 0.1$. At inference, we compute the rollout of 25 trajectories, and report the average state and energy rollout MSE in fig.\ref{damped}.
+\textbf{Training:} We have 20 initial conditions, uniformly sampled in $[-1,1]^2$. Each trajectory is evolved until $T_{max} = 30.1$ with a $\delta t = 0.1$. We fix $\delta = 0.3$.
+
+\textbf{Test:} At inference, we compute the average rollout MSE of 25 trajectories sampled and evaluated the same way as training, and report the average state and energy rollout MSE in fig.\ref{damped}.
 
 \begin{figure}[h!]
 \centering
@@ -255,7 +264,7 @@ For training, we have 20 initial conditions, uniformly sampled in $[-1,1]^2$. Ea
 \includegraphics[width=0.49\textwidth]{figures/damped_1_pred.pdf}
 \includegraphics[width=0.49\textwidth]{figures/damped_rollout.pdf}
 \includegraphics[width=0.49\textwidth]{figures/TDHNN4_damped_1.pdf}
-\caption{Forced mass spring setting: HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.}
+\caption{Damped mass spring setting: baseline and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to perfectly learn the damping coefficient as predicted and ground truth friction are indistinguishable.}
 \label{damped}
 \end{figure}
 
@@ -291,7 +300,9 @@ The second has this Hamiltonian form:
 \caption{The time dependent force here is non-trivial, but TDHNN4 shows it can recover it precisely.}
 \end{figure}
 
-In both settings, we use 20 initial conditions, where the state is sampled from a radii between 0.5 and 1.5. The states are rolled out to $T_{max}=10.01$ at a $\delta t = 0.01$. At inference, we compute the rollout of 25 trajectories, and report the average state and energy rollout MSE in the figures.
+\textbf{Training:} In both settings, we use 20 initial conditions, where the state is sampled from a radii between 0.5 and 1.5. The states are rolled out to $T_{max}=10.01$ at a $\delta t = 0.01$. $k$ and $m$ are both set to 1. $\omega =3$. 
+
+\textbf{Test:} At inference, we compute the rollout of 25 trajectories, and report the average state and energy rollout MSE in the figures.
 
 \subsection{Duffing}
 
@@ -301,17 +312,21 @@ The general duffing equation combines both the force and damping terms. Typicall
 \ddot{\mathbf{q}} = -\delta \dot{\mathbf{q}} -\alpha \mathbf{q} -\beta \mathbf{q}^3 +\gamma \sin(\omega \mathbf{t}) 
 \end{equation}
 
-One can see that the unforced and undamped regular Hamiltonian of the duffing system would be:
+One can see that the unforced and undamped regular Hamiltonian of the duffing system is:
 
 \begin{equation}
 \mathcal{H}_{reg} = \frac{\mathbf{p}^2}{2m}+ \alpha \frac{\mathbf{q}^2}{2} + \beta \frac{\mathbf{q}^4}{4}
 \end{equation}
 
-This Hamiltonian therefore has a potential that would either be a single or a double well. A combination of parameters $\alpha,\beta,\delta,\gamma,\omega$ will make the duffing system either chaotic or non-chaotic. We study both regimes.
+This Hamiltonian therefore has a potential that can either be a single or a double well. A combination of parameters $\alpha,\beta,\delta,\gamma,\omega$ will make the duffing system either chaotic or non-chaotic. We study both regimes.
 
 \subsubsection{Non-Chaotic}
 
-Given a set of initial parameters where $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.2,\omega=1.2$ we can obtain training data for the non-chaotic regime of the duffing equation. We uniformly sample initial conditions in $[-1,1]^2$. We use 25 initial conditions for training, rolled out to $T_{max}=10.01$ and $\delta t =0.01$ for the non-chaotice. 
+Given a set of initial parameters where $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.2,\omega=1.2$ we can obtain training data for the non-chaotic regime of the duffing equation. 
+
+\textbf{Training:} We uniformly sample initial conditions in $[-1,1]^2$. We use 25 initial conditions for training, rolled out to $T_{max}=10.01$ and $\delta t =0.01$ for the non-chaotic regime. 
+
+\textbf{Test:} We rollout 25 initial conditions at inference using the same conditions as above and evaluate both energy and state MSE.
 
 
 \begin{figure}[h!]
@@ -321,7 +336,7 @@ Given a set of initial parameters where $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.
 \includegraphics[width=0.49\textwidth]{figures/duffing_ham_1.pdf}
 \includegraphics[width=0.49\textwidth]{figures/TDHNN4_duffing_1.pdf}
 \includegraphics[width=0.4\textwidth]{figures/TDHNN4_duffing_damp_1.pdf}
-\caption{baseline NN and TDHNN4 both perform really well in this setting. With TDHNN4 we are also able to extract the ground truth force and damping coefficient. The predicted Hamiltonian also visually appears closer to the ground truth in comparison to HNN or TDHNN.}
+\caption{baseline NN and TDHNN4 both perform well in this setting. TDHNN4 is also able to extract the ground truth force and damping coefficient. The predicted Hamiltonian also visually appears closer to the ground truth in comparison to HNN or TDHNN.}
 \end{figure}
 
 \subsubsection{Chaotic}
@@ -329,9 +344,11 @@ Given a set of initial parameters where $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.
 In the chaotic regime we use the following parameters:
 $\alpha =1,\beta=1,\delta=0.1,\gamma=0.39,\omega=1.4$. 
 
-Training Data: 20 initial conditions, sampled uniformly in $[-1,1]^2$ each rolled out for one period $T=2\pi/\omega$ where $\delta t = T/100$. This results in 2000 training points.
+\textbf{Training:} 20 initial conditions, sampled uniformly in $[-1,1]^2$ each rolled out for one period $T=2\pi/\omega$ where $\delta t = T/100$. This results in 2000 training points.
 
-Testing: we test the system on a single initial condition, rolled out to $T_{max} = 18,000$ with the same $\delta t$ as training. One additional change we make at inference is a modification to the time variable which is fed in. We work under the assumption that we have explicit knowledge of the period, and as such, we modulo the time variable with the period. This is necessary as the models are not explicitly trained on time steps beyond $T$. Using the unchanged time, our model predictions rapidly diverge from the ground truth. Our results are visually presented in Fig.\ref{fig.chaos}.  
+\textbf{Test:} we test the system on a single initial condition $[0,0]$, rolled out to $T_{max} = 18,000$ with the same $\delta t$ as training. One additional change we make at inference is a modification to the time variable which is fed in. We work under the assumption that we have explicit knowledge of the period, and as such, we modulo the time variable with the period. This is necessary as the models are not explicitly trained on time steps beyond $T$. Our results are visually presented in Fig.\ref{fig.chaos1}.  
+
+
 \subsection{Relativity}
 
 We investigate the duffing equation with a relativistic kinetic energy term. The general Hamiltonian form is:
@@ -342,9 +359,36 @@ We investigate the duffing equation with a relativistic kinetic energy term. The
 
 where c, the speed of light is typically set to 1. For simplicity, we also set $m=1$ though our framework naturally accounts for other values.
 
+\textbf{Training:} We train on 25 initial conditions, sampled in $[0,3]^2$ uniformly. $T_{max} = 20.01$ and $\delta t = 0.01$. We set parameters s.t. $\alpha =1, \beta =1,\delta =0,\gamma = 0.2,\omega = 1.2$.
+
+\textbf{Test:} Using the same parameters as training, we rollout 25 initial conditions and compute their state/energy MSE.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/relativity_1_errors.pdf}
+\includegraphics[width=0.49\textwidth]{figures/relativity_1_pred.pdf}
+\includegraphics[width=0.49\textwidth]{figures/relativity_1_true.pdf}
+\includegraphics[width=0.4\textwidth]{figures/relativity_force_1.pdf}
+\caption{Learned dynamics of a relativistic duffing system. TDHNN4 recovers a shifted force with the right scaling and the $H_{reg}$ component that illustrates a squashed phase space visible when relativistic kinetic energy is used.}
+\end{figure}
+
+
 \section{Discussion}
 
+
 \section{Conclusion}
+
+\section{Questions/Thoughts}
+
+\begin{enumerate}
+\item At present, baseline,HNN and TDHNN all use 3 layers with 200 weights per layer. TDHNN does the same to compute H, but it also has a separate network that learns F. Some could argue this is not fair - so how can we be 'fair' in our comparison?
+\item The math does not checkout for the shifted force - should we keep trying to tune parameters so that force isn't offset? Note: even dissipative SympODEN learn a shifted force
+\item we need to finalize the name for TDHNN4 as well as the title?
+\item do we plan to arxiv this soon - to avoid the scoop?
+\item does it suffice to investigate the mass spring system almost exclusively?
+\item can we explain why baseline does surprisingly well with damping and duffing? Somehow dissipation seems to help the baseline. 
+\end{enumerate}
+
 
 
 
@@ -366,6 +410,20 @@ TDHNN4 &
 \end{tabular}}
 \label{tab:tests}
 \end{table*}
+
+\begin{figure*}[h!]
+\centering
+\includegraphics[width=.9\textwidth]{figures/mass_spring_long.pdf}
+\includegraphics[width=.9\textwidth]{figures/damped_1_pred.pdf}
+\includegraphics[width=.9\textwidth]{figures/mass_spring_forced_1_pred.pdf}
+\includegraphics[width=.9\textwidth]{figures/mass_spring_forced_2_pred.pdf}
+\includegraphics[width=.9\textwidth]{figures/duffing_1_pred.pdf}
+\includegraphics[width=.9\textwidth]{figures/relativity_1_pred.pdf}
+\caption{State and Energy Rollouts/MSEs. Top to bottom: Mass Spring, Damped Mass Spring, Forced Mass Spring (1), Forced Mass Spring(2), Duffing (1), Relativity}
+\label{large_fig_rollout}
+\end{figure*}
+
+
 
 \pagebreak
 
