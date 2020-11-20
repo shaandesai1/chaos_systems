@@ -605,7 +605,7 @@ def duffing(num_samples, T_max, dt, noise_std=0, seed=1, type=1):
         delta = 0.3
         gamma = .2
         if type == 1:
-            S = np.concatenate([p,-alpha*q-beta*q**3-delta*p+gamma*np.cos(omega*t)],axis=-1)
+            S = np.concatenate([p,-alpha*q-beta*q**3-delta*p+gamma*np.sin(omega*t)],axis=-1)
         if type == 2:
             gamma = 0.5
             S = np.concatenate([p, -alpha * q - beta * q ** 3 - delta * p + gamma * sin(omega * t)], axis=-1)

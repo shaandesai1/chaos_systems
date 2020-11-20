@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  19 NOV 2020 21:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  19 NOV 2020 23:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -528,106 +528,21 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/mass_spring_forced
 _1_errors.pdf): PDF inclusion: multiple pdfs with page group included in a sing
 le page
 >]
-<figures/duffing_1_errors.pdf, id=648, 1445.4pt x 361.35pt>
-File: figures/duffing_1_errors.pdf Graphic file (type pdf)
-<use figures/duffing_1_errors.pdf>
-Package pdftex.def Info: figures/duffing_1_errors.pdf  used on input line 349.
-(pdftex.def)             Requested size: 243.91124pt x 60.97655pt.
-<figures/duffing_1_pred.pdf, id=649, 1413.71596pt x 353.56404pt>
-File: figures/duffing_1_pred.pdf Graphic file (type pdf)
-<use figures/duffing_1_pred.pdf>
-Package pdftex.def Info: figures/duffing_1_pred.pdf  used on input line 350.
-(pdftex.def)             Requested size: 239.03569pt x 59.78139pt.
-<figures/duffing_ham_1.pdf, id=650, 1445.4pt x 361.35pt>
-File: figures/duffing_ham_1.pdf Graphic file (type pdf)
-<use figures/duffing_ham_1.pdf>
-Package pdftex.def Info: figures/duffing_ham_1.pdf  used on input line 351.
-(pdftex.def)             Requested size: 239.03569pt x 59.75801pt.
-<figures/TDHNN4_duffing_1.pdf, id=651, 417.1083pt x 297.73672pt>
-File: figures/TDHNN4_duffing_1.pdf Graphic file (type pdf)
-<use figures/TDHNN4_duffing_1.pdf>
-Package pdftex.def Info: figures/TDHNN4_duffing_1.pdf  used on input line 352.
-(pdftex.def)             Requested size: 239.03569pt x 170.6294pt.
-<figures/TDHNN4_duffing_damp_1.pdf, id=652, 429.79633pt x 297.73672pt>
-File: figures/TDHNN4_duffing_damp_1.pdf Graphic file (type pdf)
-<use figures/TDHNN4_duffing_damp_1.pdf>
-Package pdftex.def Info: figures/TDHNN4_duffing_damp_1.pdf  used on input line 
-353.
-(pdftex.def)             Requested size: 195.126pt x 135.17511pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 349--354
- [][] 
- []
-
-
-Overfull \hbox (4.15819pt too wide) in paragraph at lines 349--354
- [] 
- []
-
-
-Overfull \hbox (4.15819pt too wide) in paragraph at lines 349--354
- [] 
- []
-
-
-Overfull \hbox (4.15819pt too wide) in paragraph at lines 349--354
- [] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 2521) in paragraph at lines 379--380
-[]\OT1/cmr/bx/n/10 Test: \OT1/cmr/m/n/10 Us-ing the same pa-ram-e-ters as train
--ing,
- []
-
-<figures/relativity_1_errors.pdf, id=654, 1445.4pt x 361.35pt>
-File: figures/relativity_1_errors.pdf Graphic file (type pdf)
-<use figures/relativity_1_errors.pdf>
-Package pdftex.def Info: figures/relativity_1_errors.pdf  used on input line 38
-3.
-(pdftex.def)             Requested size: 243.91124pt x 60.97655pt.
-<figures/relativity_1_pred.pdf, id=655, 1413.71596pt x 353.56404pt>
-File: figures/relativity_1_pred.pdf Graphic file (type pdf)
-<use figures/relativity_1_pred.pdf>
-Package pdftex.def Info: figures/relativity_1_pred.pdf  used on input line 384.
-
-(pdftex.def)             Requested size: 239.03569pt x 59.78139pt.
-<figures/relativity_1_true.pdf, id=656, 1445.4pt x 361.35pt>
-File: figures/relativity_1_true.pdf Graphic file (type pdf)
-<use figures/relativity_1_true.pdf>
-Package pdftex.def Info: figures/relativity_1_true.pdf  used on input line 385.
-
-(pdftex.def)             Requested size: 239.03569pt x 59.75801pt.
-<figures/relativity_force_1.pdf, id=657, 417.1083pt x 297.73672pt>
-File: figures/relativity_force_1.pdf Graphic file (type pdf)
-<use figures/relativity_force_1.pdf>
-Package pdftex.def Info: figures/relativity_force_1.pdf  used on input line 386
-.
-(pdftex.def)             Requested size: 195.126pt x 139.2866pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 383--387
- [][] 
- []
-
-
-Overfull \hbox (4.15819pt too wide) in paragraph at lines 383--387
- [] 
- []
-
-
-Overfull \hbox (4.15819pt too wide) in paragraph at lines 383--387
- [] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+<figures/duffing_state.pdf, id=648, 693.38866pt x 720.33429pt>
+File: figures/duffing_state.pdf Graphic file (type pdf)
+<use figures/duffing_state.pdf>
+Package pdftex.def Info: figures/duffing_state.pdf  used on input line 349.
+(pdftex.def)             Requested size: 195.126pt x 202.70343pt.
+<figures/dpdt_duffing.pdf, id=649, 1272.2029pt x 331.07755pt>
+File: figures/dpdt_duffing.pdf Graphic file (type pdf)
+<use figures/dpdt_duffing.pdf>
+Package pdftex.def Info: figures/dpdt_duffing.pdf  used on input line 350.
+(pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
+<figures/duffing_errors.pdf, id=650, 1200.34384pt x 335.83592pt>
+File: figures/duffing_errors.pdf Graphic file (type pdf)
+<use figures/duffing_errors.pdf>
+Package pdftex.def Info: figures/duffing_errors.pdf  used on input line 351.
+(pdftex.def)             Requested size: 234.15271pt x 65.51079pt.
  [6 <./figures/forced_mass_spring_2.pdf> <./figures/dpdt_forced_mass_spring_2.p
 df
 
@@ -639,76 +554,77 @@ pring_2.pdf): PDF inclusion: multiple pdfs with page group included in a single
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/mass_spring_forced
 _2_errors.pdf): PDF inclusion: multiple pdfs with page group included in a sing
 le page
->]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+> <./figures/duffing_state.pdf
 
- [7 <./figures/duffing_1_errors.pdf> <./figures/duffing_1_pred.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/duffing_1_pred.pdf
-): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/duffing_ham_1.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/duffing_ham_1.pdf)
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/duffing_state.pdf)
 : PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/TDHNN4_duffing_1.pdf
+> <./figures/dpdt_duffing.pdf
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/TDHNN4_duffing_1.p
-df): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/TDHNN4_duffing_damp_1.pdf
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/dpdt_duffing.pdf):
+ PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/duffing_errors.pdf
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/TDHNN4_duffing_dam
-p_1.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
-e
-> <./figures/relativity_1_errors.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/relativity_1_error
-s.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/relativity_1_pred.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/relativity_1_pred.
-pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/relativity_1_true.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/relativity_1_true.
-pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/relativity_force_1.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/relativity_force_1
-.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/duffing_errors.pdf
+): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-<figures/mass_spring_long.pdf, id=1136, 1406.64694pt x 353.56404pt>
+Underfull \hbox (badness 2521) in paragraph at lines 379--380
+[]\OT1/cmr/bx/n/10 Test: \OT1/cmr/m/n/10 Us-ing the same pa-ram-e-ters as train
+-ing,
+ []
+
+<figures/relativity_pred.pdf, id=924, 691.01602pt x 720.33429pt>
+File: figures/relativity_pred.pdf Graphic file (type pdf)
+<use figures/relativity_pred.pdf>
+Package pdftex.def Info: figures/relativity_pred.pdf  used on input line 383.
+(pdftex.def)             Requested size: 195.126pt x 203.40688pt.
+<figures/dpdt_relativity.pdf, id=925, 1272.2029pt x 331.07755pt>
+File: figures/dpdt_relativity.pdf Graphic file (type pdf)
+<use figures/dpdt_relativity.pdf>
+Package pdftex.def Info: figures/dpdt_relativity.pdf  used on input line 384.
+(pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
+<figures/relativity_errors.pdf, id=926, 1200.34384pt x 335.83592pt>
+File: figures/relativity_errors.pdf Graphic file (type pdf)
+<use figures/relativity_errors.pdf>
+Package pdftex.def Info: figures/relativity_errors.pdf  used on input line 385.
+
+(pdftex.def)             Requested size: 234.15271pt x 65.51079pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/mass_spring_long.pdf, id=927, 1406.64694pt x 353.56404pt>
 File: figures/mass_spring_long.pdf Graphic file (type pdf)
 <use figures/mass_spring_long.pdf>
-Package pdftex.def Info: figures/mass_spring_long.pdf  used on input line 431.
+Package pdftex.def Info: figures/mass_spring_long.pdf  used on input line 430.
 (pdftex.def)             Requested size: 439.03726pt x 110.3536pt.
 File: figures/damped_1_pred.pdf Graphic file (type pdf)
 <use figures/damped_1_pred.pdf>
-Package pdftex.def Info: figures/damped_1_pred.pdf  used on input line 432.
+Package pdftex.def Info: figures/damped_1_pred.pdf  used on input line 431.
 (pdftex.def)             Requested size: 439.03726pt x 457.67099pt.
-<figures/mass_spring_forced_1_pred.pdf, id=1137, 1413.71596pt x 353.56404pt>
+<figures/mass_spring_forced_1_pred.pdf, id=928, 1413.71596pt x 353.56404pt>
 File: figures/mass_spring_forced_1_pred.pdf Graphic file (type pdf)
 <use figures/mass_spring_forced_1_pred.pdf>
 Package pdftex.def Info: figures/mass_spring_forced_1_pred.pdf  used on input l
-ine 433.
+ine 432.
 (pdftex.def)             Requested size: 439.03726pt x 109.79793pt.
-<figures/mass_spring_forced_2_pred.pdf, id=1138, 1413.6689pt x 353.56404pt>
+<figures/mass_spring_forced_2_pred.pdf, id=929, 1413.6689pt x 353.56404pt>
 File: figures/mass_spring_forced_2_pred.pdf Graphic file (type pdf)
 <use figures/mass_spring_forced_2_pred.pdf>
 Package pdftex.def Info: figures/mass_spring_forced_2_pred.pdf  used on input l
-ine 434.
+ine 433.
 (pdftex.def)             Requested size: 439.03726pt x 109.80333pt.
+<figures/duffing_1_pred.pdf, id=930, 1413.71596pt x 353.56404pt>
 File: figures/duffing_1_pred.pdf Graphic file (type pdf)
 <use figures/duffing_1_pred.pdf>
-Package pdftex.def Info: figures/duffing_1_pred.pdf  used on input line 435.
+Package pdftex.def Info: figures/duffing_1_pred.pdf  used on input line 434.
 (pdftex.def)             Requested size: 439.03726pt x 109.79793pt.
+<figures/relativity_1_pred.pdf, id=931, 1413.71596pt x 353.56404pt>
 File: figures/relativity_1_pred.pdf Graphic file (type pdf)
 <use figures/relativity_1_pred.pdf>
-Package pdftex.def Info: figures/relativity_1_pred.pdf  used on input line 436.
+Package pdftex.def Info: figures/relativity_1_pred.pdf  used on input line 435.
 
 (pdftex.def)             Requested size: 439.03726pt x 109.79793pt.
 
-
-LaTeX Warning: Float too large for page by 380.22421pt on input line 439.
+LaTeX Warning: Float too large for page by 380.22421pt on input line 438.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -716,8 +632,15 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [7 <./figures/relativity_pred.pdf> <./figures/dpdt_relativity.pdf
 
-(./sample_paper.bbl
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/dpdt_relativity.pd
+f): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/relativity_errors.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/relativity_errors.
+pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] (./sample_paper.bbl
 Underfull \hbox (badness 1635) in paragraph at lines 4--9
 \OT1/cmr/m/n/10 and K. Kavukcuoglu.  In-ter-ac-tion Net-works
  []
@@ -747,13 +670,13 @@ Underfull \hbox (badness 1776) in paragraph at lines 24--29
 \OT1/cmr/m/n/10 Bidi-rec-tional Trans-form-ers for Lan-guage Un-
  []
 
-[8]
+
 Underfull \hbox (badness 3039) in paragraph at lines 91--96
 []\OT1/cmr/m/n/10 A. Sanchez-Gonzalez, J. God-win, T. Pfaff,
  []
 
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 445.
+[8])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 444.
  [9
 
 ] [10 <./figures/mass_spring_long.pdf> <./figures/mass_spring_forced_1_pred.pdf
@@ -767,27 +690,31 @@ _1_pred.pdf): PDF inclusion: multiple pdfs with page group included in a single
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/mass_spring_forced
 _2_pred.pdf): PDF inclusion: multiple pdfs with page group included in a single
  page
+> <./figures/duffing_1_pred.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/duffing_1_pred.pdf
+): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/relativity_1_pred.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/relativity_1_pred.
+pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 445.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 444.
  (./sample_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 445.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 445.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 444.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 444.
 Package rerunfilecheck Info: File `sample_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 7839C56C3F4F43A25A312F63F8DA3EC9;1315.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 445.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 444.
  ) 
 Here is how much of TeX's memory you used:
- 6511 strings out of 492616
- 97031 string characters out of 6129481
- 197372 words of memory out of 5000000
- 10258 multiletter control sequences out of 15000+600000
+ 6506 strings out of 492616
+ 96766 string characters out of 6129481
+ 198370 words of memory out of 5000000
+ 10254 multiletter control sequences out of 15000+600000
  11544 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,12n,45p,2009b,458s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,12n,45p,2009b,494s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -805,10 +732,10 @@ ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on sample_paper.pdf (10 pages, 1414437 bytes).
+Output written on sample_paper.pdf (10 pages, 1240096 bytes).
 PDF statistics:
- 1380 PDF objects out of 1440 (max. 8388607)
- 474 compressed objects within 5 object streams
+ 1411 PDF objects out of 1440 (max. 8388607)
+ 481 compressed objects within 5 object streams
  83 named destinations out of 1000 (max. 500000)
- 307 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 302 words of extra memory for PDF output out of 10000 (max. 10000000)
 

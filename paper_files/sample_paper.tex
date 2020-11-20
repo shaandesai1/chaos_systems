@@ -346,11 +346,11 @@ Given a set of initial parameters where $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/duffing_1_errors.pdf}
-\includegraphics[width=0.49\textwidth]{figures/duffing_1_pred.pdf}
-\includegraphics[width=0.49\textwidth]{figures/duffing_ham_1.pdf}
-\includegraphics[width=0.49\textwidth]{figures/TDHNN4_duffing_1.pdf}
-\includegraphics[width=0.4\textwidth]{figures/TDHNN4_duffing_damp_1.pdf}
+\includegraphics[width=0.4\textwidth]{figures/duffing_state.pdf}
+\includegraphics[width=0.48\textwidth]{figures/dpdt_duffing.pdf}
+\includegraphics[width=0.48\textwidth]{figures/duffing_errors.pdf}
+%TDHNN4_duffing_1.pdf}
+%\includegraphics[width=0.4\textwidth]{figures/TDHNN4_duffing_damp_1.pdf}
 \caption{baseline NN and TDHNN4 both perform well in this setting. TDHNN4 is also able to extract the ground truth force and damping coefficient. The predicted Hamiltonian also visually appears closer to the ground truth in comparison to HNN or TDHNN.}
 \end{figure}
 
@@ -380,10 +380,9 @@ where c, the speed of light is typically set to 1. For simplicity, we also set $
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/relativity_1_errors.pdf}
-\includegraphics[width=0.49\textwidth]{figures/relativity_1_pred.pdf}
-\includegraphics[width=0.49\textwidth]{figures/relativity_1_true.pdf}
-\includegraphics[width=0.4\textwidth]{figures/relativity_force_1.pdf}
+\includegraphics[width=0.4\textwidth]{figures/relativity_pred.pdf}
+\includegraphics[width=0.48\textwidth]{figures/dpdt_relativity.pdf}
+\includegraphics[width=0.48\textwidth]{figures/relativity_errors.pdf}
 \caption{Learned dynamics of a relativistic duffing system. TDHNN4 recovers a shifted force with the right scaling and the $H_{reg}$ component that illustrates a squashed phase space visible when relativistic kinetic energy is used.}
 \end{figure}
 
