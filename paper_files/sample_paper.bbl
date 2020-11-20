@@ -20,6 +20,13 @@ M.~Cranmer, S.~Greydanus, S.~Hoyer, P.~Battaglia, D.~Spergel, and S.~Ho.
 \newblock {\em arXiv:2003.04630 [physics, stat]}, Mar. 2020.
 \newblock arXiv: 2003.04630.
 
+\bibitem{devlin_bert_2019}
+J.~Devlin, M.-W. Chang, K.~Lee, and K.~Toutanova.
+\newblock {BERT}: {Pre}-training of {Deep} {Bidirectional} {Transformers} for
+  {Language} {Understanding}.
+\newblock {\em arXiv:1810.04805 [cs]}, May 2019.
+\newblock arXiv: 1810.04805.
+
 \bibitem{finzi_generalizing_2020}
 M.~Finzi, S.~Stanton, P.~Izmailov, and A.~G. Wilson.
 \newblock Generalizing {Convolutional} {Neural} {Networks} for {Equivariance}
@@ -35,6 +42,12 @@ S.~Greydanus, M.~Dzamba, and J.~Yosinski.
   {Processing} {Systems} 32}, pages 15379--15389. Curran Associates, Inc.,
   2019.
 
+\bibitem{he_mask_2018}
+K.~He, G.~Gkioxari, P.~Dollár, and R.~Girshick.
+\newblock Mask {R}-{CNN}.
+\newblock {\em arXiv:1703.06870 [cs]}, Jan. 2018.
+\newblock arXiv: 1703.06870.
+
 \bibitem{hornik_multilayer_1989}
 K.~Hornik, M.~Stinchcombe, and H.~White.
 \newblock Multilayer feedforward networks are universal approximators.
@@ -46,6 +59,13 @@ M.~Lutter, C.~Ritter, and J.~Peters.
   for {Deep} {Learning}.
 \newblock {\em arXiv:1907.04490 [cs, eess, stat]}, July 2019.
 \newblock arXiv: 1907.04490.
+
+\bibitem{pukrittayakamee_simultaneous_2009}
+A.~Pukrittayakamee, M.~Malshe, M.~Hagan, L.~M. Raff, R.~Narulkar,
+  S.~Bukkapatnum, and R.~Komanduri.
+\newblock Simultaneous fitting of a potential-energy surface and its
+  corresponding force fields using feedforward neural networks.
+\newblock {\em The Journal of Chemical Physics}, 130(13):134101, Apr. 2009.
 
 \bibitem{raissi_physics_2017}
 M.~Raissi, P.~Perdikaris, and G.~E. Karniadakis.
@@ -81,6 +101,19 @@ A.~Sanchez-Gonzalez, N.~Heess, J.~T. Springenberg, J.~Merel, M.~Riedmiller,
   control.
 \newblock {\em arXiv:1806.01242 [cs, stat]}, June 2018.
 \newblock arXiv: 1806.01242.
+
+\bibitem{toussaint_differentiable_2018}
+M.~Toussaint, K.~Allen, K.~Smith, and J.~Tenenbaum.
+\newblock Differentiable {Physics} and {Stable} {Modes} for {Tool}-{Use} and
+  {Manipulation} {Planning}.
+\newblock In {\em Robotics: {Science} and {Systems} {XIV}}. Robotics: Science
+  and Systems Foundation, June 2018.
+
+\bibitem{yao_tensormol-01_2018}
+K.~Yao, J.~E. Herr, D.~Toth, R.~Mckintyre, and J.~Parkhill.
+\newblock The {TensorMol}-0.1 model chemistry: a neural network augmented with
+  long-range physics.
+\newblock {\em Chemical Science}, 9(8):2261--2269, 2018.
 
 \bibitem{zhong_dissipative_2020}
 Y.~D. Zhong, B.~Dey, and A.~Chakraborty.

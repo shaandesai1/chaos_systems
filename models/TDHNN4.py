@@ -14,10 +14,10 @@ class TDHNN4(base_model):
         self.f1 = nn.Linear(1, hidden_dim)
         self.f2 = nn.Linear(hidden_dim, hidden_dim)
         self.f2_ = nn.Linear(hidden_dim, hidden_dim)
-        self.f3 = nn.Linear(hidden_dim, 1, bias=None)
+        self.f3 = nn.Linear(hidden_dim, 1, bias=False)
         self.nonlin = torch.sin
-        for l in [self.f1, self.f2, self.f2_, self.f3]:
-            torch.nn.init.orthogonal_(l.weight)
+        # for l in [self.f1, self.f2, self.f2_, self.f3]:
+        #     torch.nn.init.orthogonal_(l.weight)
 
         # self.W = nn.Parameter(torch.zeros(1, 1))
         # self.W = nn.init.kaiming_normal_(self.W)

@@ -83,7 +83,7 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         tevals =tevals.to(device)
         q.requires_grad = True
         tevals.requires_grad = True
-
+        tnaught = torch.tensor(0,requires_grad=True,dtype=torch.float32,device=device)
     #iterate over batches - epochs here is proxy for bs
     for epoch in range(num_epochs):
         ixs = torch.randperm(q.shape[0])[:args.batch_size]
@@ -107,8 +107,9 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
         #     loss += 1e-4*torch.mean(torch.abs(model.get_D(q[ixs,0].reshape(-1,1))))
         if model_name =='TDHNN4':
             # print(model.get_weight())
-            loss += 1e-6*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
-            loss += 1e-6*torch.mean(torch.abs(model.get_D()))
+            loss += 1e-8*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
+            # loss += 1e-4**torch.mean(torch.square(model.get_F(tnaught.reshape(-1,1))))
+            loss += 1e-8*torch.mean(torch.abs(model.get_D()))
         loss.backward()
         optimizer.step()
         running_loss += loss.detach().item()
@@ -172,7 +173,7 @@ for model_name, model_type in model_dct.items():
           # {"params": params_b, "lr": 1e-1}
          ],
          args.learning_rate)
-    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft,lr_step, gamma=0.1)
+    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft,lr_step//2, gamma=0.1)
     trained_model = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False)
     parent_dir = os.getcwd()
     path = f"{dataset_name}_{type_vec}/{model_name}"
