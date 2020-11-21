@@ -1,0 +1,72 @@
+\documentclass[twoside]{article}
+
+%\usepackage{aistats2021}
+% If your paper is accepted, change the options for the package
+% aistats2021 as follows:
+%
+\usepackage[accepted]{aistats2021}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{hyperref}
+%
+% This option will print headings for the title of your paper and
+% headings for the authors names, plus a copyright note at the end of
+% the first column of the first page.
+
+% If you set papersize explicitly, activate the following three lines:
+%\special{papersize = 8.5in, 11in}
+%\setlength{\pdfpageheight}{11in}
+%\setlength{\pdfpagewidth}{8.5in}
+
+% If you use natbib package, activate the following three lines:
+\usepackage{natbib}
+%\renewcommand{\bibname}{References}
+%\renewcommand{\bibsection}{\subsubsection*{\bibname}}
+
+% If you use BibTeX in apalike style, activate the following line:
+%\bibliographystyle{apalike}
+
+\begin{document}
+\section{Relativistic System Explained}
+
+In the relativistic regime, we are faced with a problem. Namely, the time variable changes by a factor of $\gamma$. As such, momentum changes.
+
+$$ p = m_0 dr/dt_0 $$
+
+but:
+
+$$ dt = \gamma dt_0$$
+
+therefore:
+
+$$ p = m_0\gamma v$$
+
+Now, we can use this to define our Hamiltonian:
+
+$$ H = c \sqrt{m_0^2c^2 + p^2} + q\phi $$
+
+If we set $\phi = 0$ then $H^2 = E^2$ s.t.:
+
+$$ E^2 = c^2(m_0^2c^2 + p^2) $$
+
+which is the typical form of the relativistic energy of a free particle.
+
+Secondly, we need to confirm that $dH/dp = v = qdot$, so:
+
+$$ dH/dp = cp(m_0^2c^2 + p^2)^{-1/2} $$
+
+Now, we know $ p = m_0 \gamma v $ therefore if we assume $ dH/dp = v $ we get:
+
+$$ \frac{\gamma m_0 vc}{\sqrt{m_0^2c^2 + \gamma^2m_0^2v^2}} = v $$
+
+$$ \gamma^2 c^2 m_0^2 = m_0^2 c^2 + \gamma^2 m_0^2 v^2 $$
+
+simplifying this further:
+
+$$ m_0^2c^2 (\gamma^2 -1) = \gamma^2 m_0^2 v^2/c^2 $$
+
+yields:
+
+$$ \frac{v^2/c^2}{1-v^2/c^2} = \frac{v^2/c^2}{1-v^2/c^2} $$
+\end{document}
