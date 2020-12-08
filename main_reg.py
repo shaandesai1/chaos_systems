@@ -168,17 +168,10 @@ for noise_val in noise_var:
         if model_name != 'TDHNN4':
             model_type = model_type.to(device)
             params_a = list(model_type.parameters())[:]
-            optimizer_ft = torch.optim.Adam([{"params": params_a}],args.learning_rate)
-            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft,lr_step//2, gamma=0.1)
+            optimizer_ft = torch.optim.Adam([{"params": params_a}], args.learning_rate)
+            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step // 2, gamma=0.1)
             trained_model,scores = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False)
             best_scores[model_name] = scores
-            parent_dir = os.getcwd()
-            path = f"{dataset_name}_{type_vec}/{model_name}/noise_{noise_val}"
-            if not os.path.exists(path):
-                os.makedirs(parent_dir+'/'+path)
-            torch.save(trained_model, path+'/'+'model')
-            # test_model(model_name,trained_model)
-            del trained_model
         else:
             a_params = [1e-2,1e-4,1e-6,1e-8]
             b_params = [1e-2,1e-4,1e-6,1e-8]
@@ -189,17 +182,20 @@ for noise_val in noise_var:
             ids = np.unravel_index(results.argmin(), results.shape)
             results = np.array(results)
             np.save(f'results_{dataset_name}_{type_vec}_noise_{noise_val}',results)
-
+            model_type = model_type.to(device)
+            params_a = list(model_type.parameters())[:]
+            optimizer_ft = torch.optim.Adam([{"params": params_a}], args.learning_rate)
+            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step // 2, gamma=0.1)
             trained_model,scores = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False,args_reg=[a_params[ids[0]],b_params[ids[1]]])
             best_scores[model_name] = scores
 
-            parent_dir = os.getcwd()
-            path = f"{dataset_name}_{type_vec}/{model_name}/noise_{noise_val}"
-            if not os.path.exists(path):
-                os.makedirs(parent_dir+'/'+path)
-            torch.save(trained_model, path+'/'+'model')
-            # test_model(model_name,trained_model)
-            del trained_model
+        parent_dir = os.getcwd()
+        path = f"{dataset_name}_{type_vec}/{model_name}/noise_{noise_val}"
+        if not os.path.exists(path):
+            os.makedirs(parent_dir+'/'+path)
+        torch.save(trained_model, path+'/'+'model')
+        # test_model(model_name,trained_model)
+        del trained_model
 
     with open(f'best_score_results_{dataset_name}_{type_vec}_noise_{noise_val}.pkl', 'wb') as f:
         pickle.dump(best_scores, f, pickle.HIGHEST_PROTOCOL)

@@ -9,7 +9,7 @@ def get_models(deltat, type=None, hidden_dim=200):
     # # model_dict['TDHNN1'] = models.TDHNN1(2, hidden_dim, 1, deltat)
     # model_dict['TDHNN2'] = models.TDHNN2(2, hidden_dim, 1, deltat)
     # model_dict['TDHNN3'] = models.TDHNN3(2, hidden_dim, 1, deltat)
-    model_dict['TDHNN4'] = models.TDHNN4(2, hidden_dim, 1, deltat)
+    # model_dict['TDHNN4'] = models.TDHNN4(2, hidden_dim, 1, deltat)
 
     if type is None:
         return model_dict

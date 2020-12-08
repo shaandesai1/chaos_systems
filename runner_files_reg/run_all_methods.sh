@@ -1,9 +1,8 @@
 #!/bin/bash
 
-./runner_files/mass_spring.sh
-./runner_files/forced_mass_spring.sh
-./runner_files/duffing.sh
-./runner_files/pendulum.sh
-./runner_files/forced_pendulum.sh
-./runner_files/painleve.sh
-#./runner_files/heinon.sh
+#./runner_files_reg/mass_spring.sh
+./runner_files_reg/damped.sh
+./runner_files_reg/forced_mass_spring.sh
+./runner_files_reg/forced_mass_spring2.sh
+./runner_files_reg/duffing.sh
+./runner_files_reg/relativity.sh
