@@ -204,7 +204,7 @@ To train the network, we feed in a state-vector $ [\mathbf{q},\mathbf{p},\mathbf
 || \hat{\dot{\mathbf{p}}}_t -\mathbf{\dot{p}}_t ||_2^2 + \alpha|| \mathbf{F}_{\theta_2} (t)||_1 + \beta||\mathbf{D}_{\theta_3}||_1 
 \label{eqn.loss}
 \end{equation}
-We use an L2-norm penalty for the predicted state-vectors and an L1-norm for force and damping to encourage sparsity. We introduce the sparsity-inducing L1-norm on force and damping because we want our network to identify both classical autonomous systems (which may not have force or time-varying components) as well as non-autonomous systems. The choice of hyperparameters $\alpha$ and $\beta$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss. For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a modified classic neural network that takes in an additional time vector and predicts $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. We also take the straightforward extension of HNN to include time as variable input. 
+We use an L2-norm penalty for the predicted state-vectors and an L1-norm for force and damping to encourage sparsity. We introduce the sparsity-inducing L1-norm on force and damping because we want our network to identify both classical autonomous systems (which may not have force or time-varying components) as well as non-autonomous systems. The choice of hyperparameters $\alpha$ and $\beta$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a modified classic neural network that takes in an additional time vector and predicts $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. We also take the straightforward extension of HNN to include time as variable input. 
 
 \subsection*{Testing}
 Once trained, each of the networks in figure  \ref{fig.architecture} can approximate $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. As such, they can be used in a scientific integrator such as a Runge-Kutta 4th order method to integrate initial conditions from $t=0$ to $t=T_{max}$ which we refer to as a state rollout. We measure the performance of the network by comparing the predicted state rollout with the ground truth (measured using a scientific integrator and the ground truth time derivatives). We do this by computing a mean squared error across the state variables and across time. Therefore:
@@ -245,7 +245,7 @@ where $k$ is the spring constant and $m$ is the mass of the block.
 
 \textbf{Training:} Without loss of generalization, we set $k$ and $m$ to 1 for our experiments. We sample 25 initial training conditions $[q_0,p_0]$ that satisfy $q_0^2+p_0^2 = r_0^2$ where $1 \leq r_0 \leq 4.5$ similar to \cite{greydanus_hamiltonian_2019} and integrate each using a 4th order RK method with $\Delta t =0.05$ and $T_{max} = 3.05$. In other words, the initial conditions are sampled in a disc with radii between 1 and 4.5.
 
-\textbf{Test:} At test time, we sample 25 initial conditions not in the training set and evolve them to $T_{max}=6.1$. The test error in fig.\ref{mspring} is measured as the Mean Squared Error (MSE) between the ground truth and predicted state and energy values for a given trajectory. We also show the average state and energy MSE across 50 trajectories. 
+\textbf{Test:} At test time, we sample 25 initial conditions not in the training set and evolve them to $T_{max}=6.1$. The test error in fig.\ref{mspring} is measured as the Mean Squared Error (MSE) between the ground truth and predicted state and energy values for a given trajectory. We also show the average state and energy MSE across 25 trajectories. 
 
 We investigate this simple system to show that learning a separate, regularised forcing term results in much better state and energy predictions in comparison to TDHNN and baseline NN. The main reason for this is that while TDHNN and baseline NN learn dynamics with time-steps within the training regime, they typically cannot generalize to unseen time-steps. Learning a separate forcing term and regularizing it keeps the time component independent of the Hamiltonian and therefore allows us to closely match the performance of classical time-implicit HNN.
 
@@ -255,18 +255,18 @@ We investigate this simple system to show that learning a separate, regularised 
 \captionsetup{justification=centering}
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/mass_spring_long.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_long_0.pdf}
 		\caption{State and energy rollout/MSE of an initial condition in the test set.}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/dpdt_mass_spring.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf}
 		\caption{Learnt force and damping terms and their contribution to $dp/dt$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{figures/mass_spring_errors.pdf}
-		\caption{Rollout state and energy MSE averaged across 50 initial test states}
+		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_errors_0.pdf}
+		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
 \caption{The simple mass spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as HNN. Baseline and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.}
 \label{mspring}
@@ -295,12 +295,12 @@ However, as we saw with Port-Hamiltonians, there is a straightforward way to acc
 %	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/dpdt_damped.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_dpdt_0.pdf}
 		\caption{Learnt Force and Damping terms and their contribution to $dp/dt$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{figures/damped_1_errors.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
 \caption{Damped mass spring setting: Baseline and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.}
@@ -325,12 +325,12 @@ Typically, while we cannot write the Hamiltonian for a damped system, we can wri
 %	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/dpdt_forced_mass_spring_1.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf}
 		\caption{Learnt Force and Damping terms and their contribution to $dp/dt$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{figures/mass_spring_forced_1_errors.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
 \caption{Forced mass spring setting: HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.}
@@ -351,12 +351,12 @@ The second has the Hamiltonian:
 %	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/dpdt_forced_mass_spring_2.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf}
 		\caption{Learnt Force and Damping terms and their contribution to $dp/dt$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{figures/mass_spring_forced_2_errors.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
 \caption{The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.}
@@ -392,12 +392,12 @@ This Hamiltonian therefore has a potential that can either be a single or a doub
 %	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/dpdt_duffing.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_dpdt_0.pdf}
 		\caption{Learnt Force and Damping terms and their contribution to $dp/dt$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{figures/duffing_errors.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
 \caption{Baseline NN and TDHNN4 both perform well in this setting. TDHNN4 is also able to extract the ground truth force and damping coefficient.}
@@ -433,12 +433,12 @@ $\alpha =1,\beta=1,\delta=0.1,\gamma=0.39,\omega=1.4$.
 %	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/dpdt_relativity.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_dpdt_0.pdf}
 		\caption{Learnt Force and Damping terms and their contribution to $dp/dt$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
-		\includegraphics[width=\textwidth]{figures/relativity_errors.pdf}
+		\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
 \caption{Learned dynamics of a relativistic duffing system.}
@@ -446,11 +446,11 @@ $\alpha =1,\beta=1,\delta=0.1,\gamma=0.39,\omega=1.4$.
 \subsection{Relativity}
 We investigate the duffing equation in a special relativistic framework. The Hamiltonian under consideration is:
 \begin{equation}
-\mathcal{H} =  c\sqrt{p^2 +m^2c^2} + \frac{\alpha}{2}q^2 +\frac{\beta}{4}q^4 - q\gamma\sin(\omega t)
+\mathcal{H} =  c\sqrt{p^2 +m_0^2c^2} + \frac{\alpha}{2}q^2 +\frac{\beta}{4}q^4 - q\gamma\sin(\omega t)
 \end{equation}
 where c, the speed of light is typically set to 1. For simplicity, we also set $m=1$ though our framework naturally accounts for other values.
 
-\textbf{Training:} We train on 25 initial conditions, sampled in $[0,2]X[0,2]$ uniformly. $T_{max} = 20.01$ and $\Delta t = 0.01$. We set parameters such that $\alpha =1, \beta =1,\delta =0,\gamma = 0.2,\omega = 1.2$.
+\textbf{Training:} We train on 25 initial conditions, sampled in $[0,2]^2$ uniformly. $T_{max} = 20.01$ and $\Delta t = 0.01$. We set parameters such that $\alpha =1, \beta =1,\delta =0,\gamma = 0.2,\omega = 1.2$.
 
 \textbf{Test:} Using the same parameters as training, we rollout 25 unseen initial conditions and compute their state/energy MSE.
 
@@ -471,7 +471,7 @@ While it may be argued that the method is constrained to learning and prediction
 \section{Conclusion}
 
 We have shown that learning the dynamics of time-dependent non-autonomous systems can be achieved with TDHNN4, a versatile neural network embedded with a port-hamiltonian designed to recover the underlying Hamiltonian, Damping and Forcing terms. We show that such an approach, unique in its own right, outperforms naive extensions of existing methods. We believe this work forms a strong basis for further advances in learning complex systems including, but not limited to, chemical bond forces and controlled dynamics. 
-\section{Questions/Thoughts}
+%\section{Questions/Thoughts}
 
 %\begin{enumerate}
 %\item At present, baseline,HNN and TDHNN all use 3 layers with 200 weights per layer. TDHNN does the same to compute H, but it also has a separate network that learns F. Some could argue this is not fair - so how can we be 'fair' in our comparison?
@@ -482,8 +482,11 @@ We have shown that learning the dynamics of time-dependent non-autonomous system
 %\item can we explain why baseline does surprisingly well with damping and duffing? Somehow dissipation seems to help the baseline. 
 %\end{enumerate}
 
+\pagebreak
 
+\bibliography{references.bib}
 
+\onecolumn
 \section*{Appendix}
 
 \subsection*{A.1}
@@ -510,29 +513,198 @@ However, although we can recover the differential equation for $\ddot{\mathbf{q}
 
 Indeed an alternative formulation that uses exponentiated time can allow us to represent a Hamiltonian for the damped system but this is not within the scope of our study as the formalism does not explain how to include external forcing.
 
-\begin{table*}[ht!]
-\caption{Test Rollout MSE} 
-\centering % centering table
-\resizebox{\textwidth}{!}{\begin{tabular}{c  cc cc cc cc cc} % creating eight columns
-\hline\hline %inserting double-line
-\multirow{2}{*}{Method}&\multicolumn{2}{c}{Ideal Mass Spring}&\multicolumn{2}{c}{Damped Mass Spring} & \multicolumn{2}{c}{Forced Mass Spring (1)} &\multicolumn{2}{c}{Forced Mass Spring (2)} & \multicolumn{2}{c}{Duffing Non-Chaotic} \\
-\cline{2-11} % inserts single-line
- & State & Energy & State & Energy & State & Energy & State & Energy & State & Energy \\
-\hline
-Baseline NN &\\ % Entering row contents
-HNN &\\
-TDHNN &\\
-TDHNN4 &
-\\% [1ex] adds vertical space
-\hline % inserts single-line
-\end{tabular}}
-\label{tab:tests}
-\end{table*}
-
-
-
+%\begin{table*}[ht!]
+%\caption{Test Rollout MSE} 
+%\centering % centering table
+%\resizebox{\textwidth}{!}{\begin{tabular}{c  cc cc cc cc cc} % creating eight columns
+%\hline\hline %inserting double-line
+%\multirow{2}{*}{Method}&\multicolumn{2}{c}{Ideal Mass Spring}&\multicolumn{2}{c}{Damped Mass Spring} & \multicolumn{2}{c}{Forced Mass Spring (1)} &\multicolumn{2}{c}{Forced Mass Spring (2)} & \multicolumn{2}{c}{Duffing Non-Chaotic} \\
+%\cline{2-11} % inserts single-line
+% & State & Energy & State & Energy & State & Energy & State & Energy & State & Energy \\
+%\hline
+%Baseline NN &\\ % Entering row contents
+%HNN &\\
+%TDHNN &\\
+%TDHNN4 &
+%\\% [1ex] adds vertical space
+%\hline % inserts single-line
+%\end{tabular}}
+%\label{tab:tests}
+%\end{table*}
 
 \pagebreak
+\twocolumn
+\subsection*{B}
 
-\bibliography{references.bib}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_long_0.pdf}
+\caption{State and energy rollout of an initial condition from the test set}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_errors_0.pdf}
+\caption{The average state and energy MSE across 25 test points}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_hamiltonian_0.pdf}
+\caption{The learnt Hamiltonian across methods}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf}
+\caption{The learnt force and damping of TDHNN4}
+\end{subfigure}
+\label{mspring_full}
+\end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_long_0.pdf}
+\caption{State and energy rollout of an initial condition from the test set}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_errors_0.pdf}
+\caption{The average state and energy MSE across 25 test points}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_hamiltonian_0.pdf}
+\caption{The learnt Hamiltonian across methods}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_dpdt_0.pdf}
+\caption{The learnt force and damping of TDHNN4}
+\end{subfigure}
+\label{mspring_full}
+\end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_long_0.pdf}
+\caption{State and energy rollout of an initial condition from the test set}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf}
+\caption{The average state and energy MSE across 25 test points}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_hamiltonian_0.pdf}
+\caption{The learnt Hamiltonian across methods}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf}
+\caption{The learnt force and damping of TDHNN4}
+\end{subfigure}
+\label{forced_mspring_1_full}
+\end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_long_0.pdf}
+\caption{State and energy rollout of an initial condition from the test set}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf}
+\caption{The average state and energy MSE across 25 test points}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_hamiltonian_0.pdf}
+\caption{The learnt Hamiltonian across methods}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf}
+\caption{The learnt force and damping of TDHNN4}
+\end{subfigure}
+\label{forced_mpsring_2_full}
+\end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_long_0.pdf}
+\caption{State and energy rollout of an initial condition from the test set}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_errors_0.pdf}
+\caption{The average state and energy MSE across 25 test points}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_hamiltonian_0.pdf}
+\caption{The learnt Hamiltonian across methods}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_dpdt_0.pdf}
+\caption{The learnt force and damping of TDHNN4}
+\end{subfigure}
+\label{duffing_1_full}
+\end{figure}
+\begin{figure}[!htb]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_long_0.pdf}
+\caption{State and energy rollout of an initial condition from the test set}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_errors_0.pdf}
+\caption{The average state and energy MSE across 25 test points}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_ham.pdf}
+\caption{The learnt Hamiltonian across methods}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_dpdt_0.pdf}
+\caption{The learnt force and damping of TDHNN4}
+\end{subfigure}
+\label{duffing_1_full}
+\end{figure}
+
+\pagebreak
+\onecolumn
+\subsection*{C}
+
+During the training of HNN, the authors add gaussian noise with a standard deviation $\sigma=0.1$ to the input state vector data. The reason this is done is to ensure the model is robustly trained. We run a set of experiments to test the robustness to this 'noisy' input. 
+
+\begin{figure}[h!]
+\centering
+\captionsetup{justification=centering}
+\begin{subfigure}[b]{0.42\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf}
+\caption{mass spring}
+\end{subfigure}
+\begin{subfigure}[b]{0.42\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_noise_scaling.pdf}
+\caption{damped}
+\end{subfigure}
+\begin{subfigure}[b]{0.42\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf}
+\caption{forced mass spring (I)}
+\end{subfigure}
+\begin{subfigure}[b]{0.42\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf}
+\caption{forced mass spring (II)}
+\end{subfigure}
+\begin{subfigure}[b]{0.42\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_noise_scaling.pdf}
+\caption{duffing}
+\end{subfigure}
+\begin{subfigure}[b]{0.42\textwidth}
+\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_noise_scaling.pdf}
+\caption{relativity}
+\end{subfigure}
+\end{figure}
+
+\subsection*{D}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.8\textwidth]{figures/forceanddampingregulariseroptimisation.pdf}
+\caption{Hyperparameter Optimization for TDHNN4. We plot, for each system, the validation loss as a function of the $\alpha$ and $\beta$ parameters from the loss in eqn. 5}
+\end{figure}
+
+
 \end{document}
