@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  12 DEC 2020 14:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  12 DEC 2020 14:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -835,7 +835,7 @@ File: figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf Graphic file
 (type pdf)
 <use figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_noise_scalin
-g.pdf  used on input line 676.
+g.pdf  used on input line 674.
 (pdftex.def)             Requested size: 204.88455pt x 98.10931pt.
 <figures/figures/damped/1/damped_noise_scaling.pdf, id=1292, 693.16908pt x 331.
 92445pt>
@@ -843,7 +843,7 @@ File: figures/figures/damped/1/damped_noise_scaling.pdf Graphic file (type pdf)
 
 <use figures/figures/damped/1/damped_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_noise_scaling.pdf  use
-d on input line 680.
+d on input line 678.
 (pdftex.def)             Requested size: 204.88455pt x 98.10931pt.
 <figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf, id=
 1293, 693.16908pt x 331.92445pt>
@@ -852,7 +852,7 @@ File: figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf>
 
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_noise_scaling.pdf  used on input line 684.
+g_noise_scaling.pdf  used on input line 682.
 (pdftex.def)             Requested size: 204.88455pt x 98.10931pt.
 <figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf, id=
 1294, 693.38866pt x 331.92445pt>
@@ -861,7 +861,7 @@ File: figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf
 <use figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf>
 
 Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_noise_scaling.pdf  used on input line 688.
+g_noise_scaling.pdf  used on input line 686.
 (pdftex.def)             Requested size: 204.88455pt x 98.07893pt.
 <figures/figures/duffing/1/duffing_noise_scaling.pdf, id=1295, 693.38866pt x 33
 1.92445pt>
@@ -869,7 +869,7 @@ File: figures/figures/duffing/1/duffing_noise_scaling.pdf Graphic file (type pd
 f)
 <use figures/figures/duffing/1/duffing_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_noise_scaling.pdf  u
-sed on input line 692.
+sed on input line 690.
 (pdftex.def)             Requested size: 204.88455pt x 98.07893pt.
 <figures/figures/relativity/1/relativity_noise_scaling.pdf, id=1296, 693.4357pt
  x 331.92445pt>
@@ -877,22 +877,18 @@ File: figures/figures/relativity/1/relativity_noise_scaling.pdf Graphic file (t
 ype pdf)
 <use figures/figures/relativity/1/relativity_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_noise_scaling.
-pdf  used on input line 696.
+pdf  used on input line 694.
 (pdftex.def)             Requested size: 204.88455pt x 98.0688pt.
-<figures/forceanddampingregulariseroptimisation.pdf, id=1297, 1084.05pt x 722.7
-pt>
+<figures/forceanddampingregulariseroptimisation.pdf, id=1297, 1072.21367pt x 71
+1.45486pt>
 File: figures/forceanddampingregulariseroptimisation.pdf Graphic file (type pdf
 )
 <use figures/forceanddampingregulariseroptimisation.pdf>
 Package pdftex.def Info: figures/forceanddampingregulariseroptimisation.pdf  us
-ed on input line 705.
-(pdftex.def)             Requested size: 390.25948pt x 260.1718pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 710.
-[14
+ed on input line 701.
+(pdftex.def)             Requested size: 243.90445pt x 142.25587pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 705.
+ [14
 
  <./figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf> <./figures/fig
 ures/damped/1/damped_noise_scaling.pdf
@@ -920,23 +916,27 @@ ed in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/figures/relativity
 /1/relativity_noise_scaling.pdf): PDF inclusion: multiple pdfs with page group 
 included in a single page
->] [15 <./figures/forceanddampingregulariseroptimisation.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 710.
+> <./figures/forceanddampingregulariseroptimisation.pdf
 
-(./sample_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 710.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 710.
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/forceanddampingreg
+ulariseroptimisation.pdf): PDF inclusion: multiple pdfs with page group include
+d in a single page
+>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 705.
+ (./sample_paper.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 705.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 705.
 Package rerunfilecheck Info: File `sample_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 7301D68A693114C5D827D32BDF649E53;922.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 710.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 705.
  ) 
 Here is how much of TeX's memory you used:
- 7706 strings out of 492616
- 122741 string characters out of 6129481
+ 7705 strings out of 492616
+ 122734 string characters out of 6129481
  220881 words of memory out of 5000000
  11414 multiletter control sequences out of 15000+600000
  11544 words of font info for 44 fonts, out of 8000000 for 9000
@@ -959,10 +959,10 @@ ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on sample_paper.pdf (15 pages, 1728737 bytes).
+Output written on sample_paper.pdf (14 pages, 1728347 bytes).
 PDF statistics:
- 1631 PDF objects out of 1728 (max. 8388607)
- 568 compressed objects within 6 object streams
- 105 named destinations out of 1000 (max. 500000)
+ 1626 PDF objects out of 1728 (max. 8388607)
+ 564 compressed objects within 6 object streams
+ 104 named destinations out of 1000 (max. 500000)
  299 words of extra memory for PDF output out of 10000 (max. 10000000)
 

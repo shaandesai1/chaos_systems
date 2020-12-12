@@ -666,9 +666,7 @@ Indeed an alternative formulation that uses exponentiated time can allow us to r
 \pagebreak
 \onecolumn
 \subsection*{C}
-
 During the training of HNN, the authors add gaussian noise with a standard deviation $\sigma=0.1$ to the input state vector data. The reason this is done is to ensure the model is robustly trained. We run a set of experiments to test the robustness to this 'noisy' input. 
-
 \begin{figure}[h!]
 \centering
 \captionsetup{justification=centering}
@@ -697,14 +695,11 @@ During the training of HNN, the authors add gaussian noise with a standard devia
 \caption{relativity}
 \end{subfigure}
 \end{figure}
-
 \subsection*{D}
-
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=.8\textwidth]{figures/forceanddampingregulariseroptimisation.pdf}
+\includegraphics[width=.5\textwidth, height=5cm]{figures/forceanddampingregulariseroptimisation.pdf}
 \caption{Hyperparameter Optimization for TDHNN4. We plot, for each system, the validation loss as a function of the $\alpha$ and $\beta$ parameters from the loss in eqn. 5}
 \end{figure}
-
 
 \end{document}
