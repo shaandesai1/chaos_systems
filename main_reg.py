@@ -90,8 +90,8 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
 
         if model_name =='TDHNN4':
             # print(model.get_weight())
-            train_loss += alpha*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
-            train_loss += beta*torch.mean(torch.abs(model.get_D()))
+            train_loss += alpha*torch.mean(torch.square(model.get_F(tevals[ixs].reshape(-1,1))))
+            train_loss += beta*torch.mean(torch.square(model.get_D()))
         train_loss.backward()
         optimizer.step()
 
@@ -142,7 +142,7 @@ def get_model_results(arga,argb):
 
 model_dct = get_models(dt, type=None, hidden_dim=200)
 
-noise_var = [0,0.01,0.1,0.5]
+noise_var = [0]
 
 for noise_val in noise_var:
     # dataset preprocessing

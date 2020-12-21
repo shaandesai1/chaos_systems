@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  12 DEC 2020 14:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  21 DEC 2020 17:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -378,18 +378,19 @@ Package pdftex.def Info: figures/main_fig.pdf  used on input line 70.
 
 ]
 [2 <./figures/main_fig.pdf>]
-<figures/architect.png, id=183, 652.3572pt x 521.7894pt>
-File: figures/architect.png Graphic file (type png)
-<use figures/architect.png>
-Package pdftex.def Info: figures/architect.png  used on input line 188.
-(pdftex.def)             Requested size: 243.91124pt x 195.08932pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 188--189
- [][] 
+Underfull \hbox (badness 2229) in paragraph at lines 151--152
+[]\OT1/cmr/m/n/10 Despite these sig-nif-i-cant break-throughs, there is
  []
 
+<figures/architect.png, id=182, 652.3572pt x 521.7894pt>
+File: figures/architect.png Graphic file (type png)
+<use figures/architect.png>
+Package pdftex.def Info: figures/architect.png  used on input line 189.
+(pdftex.def)             Requested size: 243.91124pt x 195.08932pt.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 189--190
+ [][] 
+ []
 
 
 Package Fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -398,86 +399,66 @@ Package Fancyhdr Warning: \headheight is too small (10.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3 <./figures/architect.png>]
-<figures/figures/mass_spring/1/mass_spring_long_0.pdf, id=212, 691.01602pt x 72
+Underfull \hbox (badness 1286) in paragraph at lines 231--232
+[]\OT1/cmr/m/n/10 Obtain state vari-able data $[\OT1/cmr/bx/n/10 q\OML/cmm/m/it
+/10 ; \OT1/cmr/bx/n/10 p\OML/cmm/m/it/10 ; t\OT1/cmr/m/n/10 ]$ and time
+ []
+
+[4]
+<figures/figures/mass_spring/1/mass_spring_long_0.pdf, id=227, 691.01602pt x 72
 0.33429pt>
 File: figures/figures/mass_spring/1/mass_spring_long_0.pdf Graphic file (type p
 df)
 <use figures/figures/mass_spring/1/mass_spring_long_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_long_0.pdf  
-used on input line 258.
+used on input line 262.
 (pdftex.def)             Requested size: 195.126pt x 203.40688pt.
-<figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf, id=213, 1272.2029pt x 33
+<figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf, id=228, 1272.2029pt x 33
 1.07755pt>
 File: figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf Graphic file (type p
 df)
 <use figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf  
-used on input line 263.
+used on input line 267.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/mass_spring/1/mass_spring_errors_0.pdf, id=214, 1445.4pt x 361
+<figures/figures/mass_spring/1/mass_spring_errors_0.pdf, id=229, 1445.4pt x 361
 .35pt>
 File: figures/figures/mass_spring/1/mass_spring_errors_0.pdf Graphic file (type
  pdf)
 <use figures/figures/mass_spring/1/mass_spring_errors_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_errors_0.pdf
-  used on input line 268.
+  used on input line 272.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[4]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-<figures/figures/damped/1/damped_dpdt_0.pdf, id=230, 1272.2029pt x 331.07755pt>
+<figures/figures/damped/1/damped_dpdt_0.pdf, id=231, 1272.2029pt x 331.07755pt>
 
 File: figures/figures/damped/1/damped_dpdt_0.pdf Graphic file (type pdf)
 <use figures/figures/damped/1/damped_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_dpdt_0.pdf  used on in
-put line 298.
+put line 302.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/damped/1/damped_errors_0.pdf, id=231, 1445.4pt x 361.35pt>
+<figures/figures/damped/1/damped_errors_0.pdf, id=232, 1445.4pt x 361.35pt>
 File: figures/figures/damped/1/damped_errors_0.pdf Graphic file (type pdf)
 <use figures/figures/damped/1/damped_errors_0.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_errors_0.pdf  used on 
-input line 303.
+input line 307.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
-<figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf, id=232, 12
+<figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf, id=233, 12
 72.2029pt x 331.07755pt>
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf Graphi
 c file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_dpdt_0.pdf  used on input line 328.
+g_dpdt_0.pdf  used on input line 332.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf, id=233, 
+<figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf, id=234, 
 1445.4pt x 361.35pt>
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf Grap
 hic file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_errors_0.pdf  used on input line 333.
+g_errors_0.pdf  used on input line 337.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf, id=234, 12
-72.2029pt x 331.07755pt>
-File: figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf Graphi
-c file (type pdf)
-<use figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf>
-Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_dpdt_0.pdf  used on input line 354.
-(pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf, id=235, 
-1445.4pt x 361.35pt>
-File: figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf Grap
-hic file (type pdf)
-<use figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf>
-Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_errors_0.pdf  used on input line 359.
-(pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -503,18 +484,34 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/figures/damped/1/d
 amped_errors_0.pdf): PDF inclusion: multiple pdfs with page group included in a
  single page
 >]
-<figures/figures/duffing/1/duffing_dpdt_0.pdf, id=463, 1272.2029pt x 331.07755p
+<figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf, id=457, 12
+72.2029pt x 331.07755pt>
+File: figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf Graphi
+c file (type pdf)
+<use figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf>
+Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
+g_dpdt_0.pdf  used on input line 358.
+(pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
+<figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf, id=458, 
+1445.4pt x 361.35pt>
+File: figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf Grap
+hic file (type pdf)
+<use figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf>
+Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
+g_errors_0.pdf  used on input line 363.
+(pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
+<figures/figures/duffing/1/duffing_dpdt_0.pdf, id=461, 1272.2029pt x 331.07755p
 t>
 File: figures/figures/duffing/1/duffing_dpdt_0.pdf Graphic file (type pdf)
 <use figures/figures/duffing/1/duffing_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_dpdt_0.pdf  used on 
-input line 395.
+input line 399.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/duffing/1/duffing_errors_0.pdf, id=464, 1445.4pt x 361.35pt>
+<figures/figures/duffing/1/duffing_errors_0.pdf, id=462, 1445.4pt x 361.35pt>
 File: figures/figures/duffing/1/duffing_errors_0.pdf Graphic file (type pdf)
 <use figures/figures/duffing/1/duffing_errors_0.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_errors_0.pdf  used o
-n input line 400.
+n input line 404.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
  [6 <./figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf> <./f
 igures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf
@@ -549,7 +546,7 @@ File: figures/figures/relativity/1/relativity_dpdt_0.pdf Graphic file (type pdf
 )
 <use figures/figures/relativity/1/relativity_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_dpdt_0.pdf  us
-ed on input line 436.
+ed on input line 440.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
 <figures/figures/relativity/1/relativity_errors_0.pdf, id=723, 1445.4pt x 361.3
 5pt>
@@ -557,19 +554,19 @@ File: figures/figures/relativity/1/relativity_errors_0.pdf Graphic file (type p
 df)
 <use figures/figures/relativity/1/relativity_errors_0.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_errors_0.pdf  
-used on input line 441.
+used on input line 445.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
 <figures/duffing_ham_1.pdf, id=724, 1445.4pt x 361.35pt>
 File: figures/duffing_ham_1.pdf Graphic file (type pdf)
 <use figures/duffing_ham_1.pdf>
-Package pdftex.def Info: figures/duffing_ham_1.pdf  used on input line 466.
+Package pdftex.def Info: figures/duffing_ham_1.pdf  used on input line 471.
 (pdftex.def)             Requested size: 439.03726pt x 109.7567pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4927) has occurred while \output is active []
 
  [7 <./figures/figures/relativity/1/relativity_dpdt_0.pdf> <./figures/figures/r
 elativity/1/relativity_errors_0.pdf
@@ -577,7 +574,11 @@ elativity/1/relativity_errors_0.pdf
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/figures/relativity
 /1/relativity_errors_0.pdf): PDF inclusion: multiple pdfs with page group inclu
 ded in a single page
->] (./sample_paper.bbl
+>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+(./sample_paper.bbl
 Underfull \hbox (badness 1635) in paragraph at lines 4--9
 \OT1/cmr/m/n/10 and K. Kavukcuoglu.  In-ter-ac-tion Net-works
  []
@@ -607,14 +608,12 @@ Underfull \hbox (badness 1776) in paragraph at lines 24--29
 \OT1/cmr/m/n/10 Bidi-rec-tional Trans-form-ers for Lan-guage Un-
  []
 
-
+[8 <./figures/duffing_ham_1.pdf>]
 Underfull \hbox (badness 3039) in paragraph at lines 97--102
 []\OT1/cmr/m/n/10 A. Sanchez-Gonzalez, J. God-win, T. Pfaff,
  []
 
-[8 <./figures/duffing_ham_1.pdf>]) [9
-
-]
+) [9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [10
@@ -624,161 +623,161 @@ File: figures/figures/mass_spring/1/mass_spring_long_0.pdf Graphic file (type p
 df)
 <use figures/figures/mass_spring/1/mass_spring_long_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_long_0.pdf  
-used on input line 543.
+used on input line 548.
 (pdftex.def)             Requested size: 234.15271pt x 244.08606pt.
 File: figures/figures/mass_spring/1/mass_spring_errors_0.pdf Graphic file (type
  pdf)
 <use figures/figures/mass_spring/1/mass_spring_errors_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_errors_0.pdf
-  used on input line 547.
+  used on input line 552.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
-<figures/figures/mass_spring/1/mass_spring_hamiltonian_0.pdf, id=858, 1165.9967
+<figures/figures/mass_spring/1/mass_spring_hamiltonian_0.pdf, id=859, 1165.9967
 8pt x 328.85359pt>
 File: figures/figures/mass_spring/1/mass_spring_hamiltonian_0.pdf Graphic file 
 (type pdf)
 <use figures/figures/mass_spring/1/mass_spring_hamiltonian_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_hamiltonian_
-0.pdf  used on input line 551.
+0.pdf  used on input line 556.
 (pdftex.def)             Requested size: 234.15271pt x 66.03549pt.
 File: figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf Graphic file (type p
 df)
 <use figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_dpdt_0.pdf  
-used on input line 555.
+used on input line 560.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/damped/1/damped_long_0.pdf, id=859, 690.96896pt x 720.33429pt>
+<figures/figures/damped/1/damped_long_0.pdf, id=860, 690.96896pt x 720.33429pt>
 
 File: figures/figures/damped/1/damped_long_0.pdf Graphic file (type pdf)
 <use figures/figures/damped/1/damped_long_0.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_long_0.pdf  used on in
-put line 564.
+put line 569.
 (pdftex.def)             Requested size: 234.15271pt x 244.10805pt.
 File: figures/figures/damped/1/damped_errors_0.pdf Graphic file (type pdf)
 <use figures/figures/damped/1/damped_errors_0.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_errors_0.pdf  used on 
-input line 568.
+input line 573.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
-<figures/figures/damped/1/damped_hamiltonian_0.pdf, id=860, 1165.99678pt x 328.
+<figures/figures/damped/1/damped_hamiltonian_0.pdf, id=861, 1165.99678pt x 328.
 85359pt>
 File: figures/figures/damped/1/damped_hamiltonian_0.pdf Graphic file (type pdf)
 
 <use figures/figures/damped/1/damped_hamiltonian_0.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_hamiltonian_0.pdf  use
-d on input line 572.
+d on input line 577.
 (pdftex.def)             Requested size: 234.15271pt x 66.03549pt.
 File: figures/figures/damped/1/damped_dpdt_0.pdf Graphic file (type pdf)
 <use figures/figures/damped/1/damped_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_dpdt_0.pdf  used on in
-put line 576.
+put line 581.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/forced_mass_spring/1/forced_mass_spring_long_0.pdf, id=861, 69
+<figures/figures/forced_mass_spring/1/forced_mass_spring_long_0.pdf, id=862, 69
 1.01602pt x 720.33429pt>
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_long_0.pdf Graphi
 c file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_long_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_long_0.pdf  used on input line 585.
+g_long_0.pdf  used on input line 590.
 (pdftex.def)             Requested size: 234.15271pt x 244.08606pt.
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf Grap
 hic file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_errors_0.pdf  used on input line 589.
+g_errors_0.pdf  used on input line 594.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
 <figures/figures/forced_mass_spring/1/forced_mass_spring_hamiltonian_0.pdf, id=
-862, 1165.99678pt x 328.85359pt>
+863, 1165.99678pt x 328.85359pt>
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_hamiltonian_0.pdf
  Graphic file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_hamiltonian_0.pdf>
 
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_hamiltonian_0.pdf  used on input line 593.
+g_hamiltonian_0.pdf  used on input line 598.
 (pdftex.def)             Requested size: 234.15271pt x 66.03549pt.
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf Graphi
 c file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_dpdt_0.pdf  used on input line 597.
+g_dpdt_0.pdf  used on input line 602.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/forced_mass_spring/2/forced_mass_spring_long_0.pdf, id=863, 69
+<figures/figures/forced_mass_spring/2/forced_mass_spring_long_0.pdf, id=864, 69
 1.01602pt x 720.33429pt>
 File: figures/figures/forced_mass_spring/2/forced_mass_spring_long_0.pdf Graphi
 c file (type pdf)
 <use figures/figures/forced_mass_spring/2/forced_mass_spring_long_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_long_0.pdf  used on input line 606.
+g_long_0.pdf  used on input line 611.
 (pdftex.def)             Requested size: 234.15271pt x 244.08606pt.
 File: figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf Grap
 hic file (type pdf)
 <use figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_errors_0.pdf  used on input line 610.
+g_errors_0.pdf  used on input line 615.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
 <figures/figures/forced_mass_spring/2/forced_mass_spring_hamiltonian_0.pdf, id=
-864, 1165.99678pt x 328.85359pt>
+865, 1165.99678pt x 328.85359pt>
 File: figures/figures/forced_mass_spring/2/forced_mass_spring_hamiltonian_0.pdf
  Graphic file (type pdf)
 <use figures/figures/forced_mass_spring/2/forced_mass_spring_hamiltonian_0.pdf>
 
 Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_hamiltonian_0.pdf  used on input line 614.
+g_hamiltonian_0.pdf  used on input line 619.
 (pdftex.def)             Requested size: 234.15271pt x 66.03549pt.
 File: figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf Graphi
 c file (type pdf)
 <use figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_dpdt_0.pdf  used on input line 618.
+g_dpdt_0.pdf  used on input line 623.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/duffing/1/duffing_long_0.pdf, id=865, 691.01602pt x 720.33429p
+<figures/figures/duffing/1/duffing_long_0.pdf, id=866, 691.01602pt x 720.33429p
 t>
 File: figures/figures/duffing/1/duffing_long_0.pdf Graphic file (type pdf)
 <use figures/figures/duffing/1/duffing_long_0.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_long_0.pdf  used on 
-input line 627.
+input line 632.
 (pdftex.def)             Requested size: 234.15271pt x 244.08606pt.
 File: figures/figures/duffing/1/duffing_errors_0.pdf Graphic file (type pdf)
 <use figures/figures/duffing/1/duffing_errors_0.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_errors_0.pdf  used o
-n input line 631.
+n input line 636.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
-<figures/figures/duffing/1/duffing_hamiltonian_0.pdf, id=866, 1165.99678pt x 32
+<figures/figures/duffing/1/duffing_hamiltonian_0.pdf, id=867, 1165.99678pt x 32
 8.85359pt>
 File: figures/figures/duffing/1/duffing_hamiltonian_0.pdf Graphic file (type pd
 f)
 <use figures/figures/duffing/1/duffing_hamiltonian_0.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_hamiltonian_0.pdf  u
-sed on input line 635.
+sed on input line 640.
 (pdftex.def)             Requested size: 234.15271pt x 66.03549pt.
 File: figures/figures/duffing/1/duffing_dpdt_0.pdf Graphic file (type pdf)
 <use figures/figures/duffing/1/duffing_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_dpdt_0.pdf  used on 
-input line 639.
+input line 644.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
-<figures/figures/relativity/1/relativity_long_0.pdf, id=867, 693.16908pt x 720.
+<figures/figures/relativity/1/relativity_long_0.pdf, id=868, 693.16908pt x 720.
 33429pt>
 File: figures/figures/relativity/1/relativity_long_0.pdf Graphic file (type pdf
 )
 <use figures/figures/relativity/1/relativity_long_0.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_long_0.pdf  us
-ed on input line 648.
+ed on input line 653.
 (pdftex.def)             Requested size: 234.15271pt x 243.32765pt.
 File: figures/figures/relativity/1/relativity_errors_0.pdf Graphic file (type p
 df)
 <use figures/figures/relativity/1/relativity_errors_0.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_errors_0.pdf  
-used on input line 652.
+used on input line 657.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
-<figures/figures/relativity/1/relativity_ham.pdf, id=868, 1445.4pt x 361.35pt>
+<figures/figures/relativity/1/relativity_ham.pdf, id=869, 1445.4pt x 361.35pt>
 File: figures/figures/relativity/1/relativity_ham.pdf Graphic file (type pdf)
 <use figures/figures/relativity/1/relativity_ham.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_ham.pdf  used 
-on input line 656.
+on input line 661.
 (pdftex.def)             Requested size: 234.15271pt x 58.53397pt.
 File: figures/figures/relativity/1/relativity_dpdt_0.pdf Graphic file (type pdf
 )
 <use figures/figures/relativity/1/relativity_dpdt_0.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_dpdt_0.pdf  us
-ed on input line 660.
+ed on input line 665.
 (pdftex.def)             Requested size: 234.15271pt x 60.93517pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -829,65 +828,65 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/figures/relativity
 /1/relativity_ham.pdf): PDF inclusion: multiple pdfs with page group included i
 n a single page
 >]
-<figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf, id=1291, 693.1690
+<figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf, id=1292, 693.1690
 8pt x 331.92445pt>
 File: figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf Graphic file 
 (type pdf)
 <use figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/mass_spring/1/mass_spring_noise_scalin
-g.pdf  used on input line 674.
+g.pdf  used on input line 679.
 (pdftex.def)             Requested size: 204.88455pt x 98.10931pt.
-<figures/figures/damped/1/damped_noise_scaling.pdf, id=1292, 693.16908pt x 331.
+<figures/figures/damped/1/damped_noise_scaling.pdf, id=1293, 693.16908pt x 331.
 92445pt>
 File: figures/figures/damped/1/damped_noise_scaling.pdf Graphic file (type pdf)
 
 <use figures/figures/damped/1/damped_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/damped/1/damped_noise_scaling.pdf  use
-d on input line 678.
+d on input line 683.
 (pdftex.def)             Requested size: 204.88455pt x 98.10931pt.
 <figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf, id=
-1293, 693.16908pt x 331.92445pt>
+1294, 693.16908pt x 331.92445pt>
 File: figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf
  Graphic file (type pdf)
 <use figures/figures/forced_mass_spring/1/forced_mass_spring_noise_scaling.pdf>
 
 Package pdftex.def Info: figures/figures/forced_mass_spring/1/forced_mass_sprin
-g_noise_scaling.pdf  used on input line 682.
+g_noise_scaling.pdf  used on input line 687.
 (pdftex.def)             Requested size: 204.88455pt x 98.10931pt.
 <figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf, id=
-1294, 693.38866pt x 331.92445pt>
+1295, 693.38866pt x 331.92445pt>
 File: figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf
  Graphic file (type pdf)
 <use figures/figures/forced_mass_spring/2/forced_mass_spring_noise_scaling.pdf>
 
 Package pdftex.def Info: figures/figures/forced_mass_spring/2/forced_mass_sprin
-g_noise_scaling.pdf  used on input line 686.
+g_noise_scaling.pdf  used on input line 691.
 (pdftex.def)             Requested size: 204.88455pt x 98.07893pt.
-<figures/figures/duffing/1/duffing_noise_scaling.pdf, id=1295, 693.38866pt x 33
+<figures/figures/duffing/1/duffing_noise_scaling.pdf, id=1296, 693.38866pt x 33
 1.92445pt>
 File: figures/figures/duffing/1/duffing_noise_scaling.pdf Graphic file (type pd
 f)
 <use figures/figures/duffing/1/duffing_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/duffing/1/duffing_noise_scaling.pdf  u
-sed on input line 690.
+sed on input line 695.
 (pdftex.def)             Requested size: 204.88455pt x 98.07893pt.
-<figures/figures/relativity/1/relativity_noise_scaling.pdf, id=1296, 693.4357pt
+<figures/figures/relativity/1/relativity_noise_scaling.pdf, id=1297, 693.4357pt
  x 331.92445pt>
 File: figures/figures/relativity/1/relativity_noise_scaling.pdf Graphic file (t
 ype pdf)
 <use figures/figures/relativity/1/relativity_noise_scaling.pdf>
 Package pdftex.def Info: figures/figures/relativity/1/relativity_noise_scaling.
-pdf  used on input line 694.
+pdf  used on input line 699.
 (pdftex.def)             Requested size: 204.88455pt x 98.0688pt.
-<figures/forceanddampingregulariseroptimisation.pdf, id=1297, 1072.21367pt x 71
+<figures/forceanddampingregulariseroptimisation.pdf, id=1298, 1072.21367pt x 71
 1.45486pt>
 File: figures/forceanddampingregulariseroptimisation.pdf Graphic file (type pdf
 )
 <use figures/forceanddampingregulariseroptimisation.pdf>
 Package pdftex.def Info: figures/forceanddampingregulariseroptimisation.pdf  us
-ed on input line 701.
+ed on input line 706.
 (pdftex.def)             Requested size: 243.90445pt x 142.25587pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 705.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 710.
  [14
 
  <./figures/figures/mass_spring/1/mass_spring_noise_scaling.pdf> <./figures/fig
@@ -922,26 +921,26 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/forceanddampingreg
 ulariseroptimisation.pdf): PDF inclusion: multiple pdfs with page group include
 d in a single page
 >]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 705.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 710.
  (./sample_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 705.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 705.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 710.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 710.
 Package rerunfilecheck Info: File `sample_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 7301D68A693114C5D827D32BDF649E53;922.
+(rerunfilecheck)             Checksum: A778FCC1097F52884F828FD16E1D46FB;966.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 705.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 710.
  ) 
 Here is how much of TeX's memory you used:
- 7705 strings out of 492616
- 122734 string characters out of 6129481
- 220881 words of memory out of 5000000
+ 7706 strings out of 492616
+ 122745 string characters out of 6129481
+ 219881 words of memory out of 5000000
  11414 multiletter control sequences out of 15000+600000
  11544 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,45p,2118b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,13n,45p,2131b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -959,10 +958,10 @@ ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on sample_paper.pdf (14 pages, 1728347 bytes).
+Output written on sample_paper.pdf (14 pages, 1730278 bytes).
 PDF statistics:
- 1626 PDF objects out of 1728 (max. 8388607)
- 564 compressed objects within 6 object streams
- 104 named destinations out of 1000 (max. 500000)
+ 1627 PDF objects out of 1728 (max. 8388607)
+ 565 compressed objects within 6 object streams
+ 105 named destinations out of 1000 (max. 500000)
  299 words of extra memory for PDF output out of 10000 (max. 10000000)
 

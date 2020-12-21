@@ -58,7 +58,7 @@
 \bibliographystyle{abbrv}
 \begin{abstract}
 
-Learning the dynamics of complex physical systems requires models with well chosen inductive biases. Recently, it was shown that neural networks designed to learn a Hamiltonian and exploit Hamilton's equations significantly outperform existing approaches in predicting trajectories of autonomous systems that depend implicitly on time. Despite this success, many real world physical systems are non-autonomous and depend explicitly on time. In this paper, we address this challenge by embedding a modified Port-Hamiltonian into our neural networks that extends the general Hamiltonian to capture damped and forced systems alike. We show that our network can learn systems as complex as the duffing equation in the chaotic regime and recover the underlying Hamiltonian, force and damping terms. For such a system, we are also able to visually recover its Poincar\'e section - a crucial map in identifying chaotic trajectories.
+Learning the dynamics of complex physical systems requires models with well chosen inductive biases. Recently, it was shown that neural networks designed to learn a Hamiltonian and exploit Hamilton's equations significantly outperform existing approaches in predicting trajectories of autonomous systems that depend implicitly on time. Despite this success, many real world physical systems are non-autonomous and depend explicitly on time. In this paper, we address this challenge by embedding a modified Port-Hamiltonian into our neural networks that extends the general Hamiltonian to capture damped and forced systems alike. We show that our network can learn systems as complex as the Duffing equation in the chaotic regime and recover the underlying Hamiltonian, force and damping terms. For such a system, we are also able to visually recover its Poincar\'e section - a crucial map in identifying chaotic trajectories.
 
 %Unlike vanilla Artificial Neural Networks, Neural Networks embedded with physically-informed priors achieve remarkable results in accurately learning and predicting non-linear dynamical systems.
 % despite this success, their generalization is often limited by the available training data which in practice only consists of a few short-range trajectories. naturally we might ask how we can generalize to unseen timesteps better?
@@ -68,35 +68,35 @@ Learning the dynamics of complex physical systems requires models with well chos
 \begin{figure*}[ht!]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/main_fig.pdf}
-\caption{Poincar\'e Sections of a duffing oscillator in a chaotic regime. Both Baseline NN and TDHNN4 are trained for 20000 iterations with 2000 data points. TDHNN4 significantly outperforms Baseline NN at recovering the ground truth Poincar\'e section of a test point not in the training set.}
+\caption{Poincar\'e Sections of a Duffing oscillator in a chaotic regime. Both Baseline NN and TDHNN4 are trained for 20000 iterations with 2000 data points. TDHNN4 significantly outperforms Baseline NN at recovering the ground truth Poincar\'e section of a test point not in the training set.}
 \label{fig.chaos1}
 \end{figure*}
 
 \section{Introduction}
 
-Neural networks (NNs), as universal function approximators \cite{hornik_multilayer_1989}, have shown resounding success across a host of domains including image segmentation, machine translation and material property predictions. \cite{he_mask_2018,devlin_bert_2019,toussaint_differentiable_2018,yao_tensormol-01_2018}. However, their performance in learning physical systems has often been limited \cite{greydanus_hamiltonian_2019,pukrittayakamee_simultaneous_2009}. New research in \textit{scientific machine learning} - a field that tackles scientific problems with domain-specific machine learning methods, is paving a way to address these challenges. For example, it has been shown that physically informed inductive biases embedded in networks, such as Hamiltonian mechanics \cite{mattheakis_hamiltonian_2020, greydanus_hamiltonian_2019}, Lagrangians \cite{cranmer_lagrangian_2020, lutter_deep_2019}, Ordinary Differential Equations (ODEs) \cite{chen_neural_2018}, physics-informed networks \cite{raissi_physics_2017} and Graph Neural Networks \cite{battaglia_interaction_2016,sanchez-gonzalez_hamiltonian_2019} can significantly improve learning over vanilla neural networks in complex physical domains. Furthermore, it has also been shown that such systems can be adapted to learn trajectories of controlled dynamics \cite{lutter_deep_2019,zhong_dissipative_2020}. Despite this extensive research, there is no method that accounts for explicit-time dependence, a crucial component in forced dynamical systems. Additionally, many of the existing approaches do not outline how to account for energy dissipation. Inspired by \cite{zhong_dissipative_2020}, we show that by embedding a Port-Hamiltonian into a neural network we can learn the dynamics of explicit time-dependent physical systems. We benchmark our network on a range of tasks from the simple mass-spring system to a chaotic duffing equation for a relativistic particle. Our network consistently outperforms other approaches while actively learning both the driving force and damping coefficient. 
+Neural networks (NNs), as universal function approximators \cite{hornik_multilayer_1989}, have shown resounding success across a host of domains including image segmentation, machine translation and material property predictions. \cite{he_mask_2018,devlin_bert_2019,toussaint_differentiable_2018,yao_tensormol-01_2018}. However, their performance in learning physical systems has often been limited \cite{greydanus_hamiltonian_2019,pukrittayakamee_simultaneous_2009}. New research in \textit{scientific machine learning} - a field that tackles scientific problems with domain-specific machine learning methods, is paving a way to address these challenges. For example, it has been shown that physically informed inductive biases embedded in networks, such as Hamiltonian mechanics \cite{mattheakis_hamiltonian_2020, greydanus_hamiltonian_2019}, Lagrangians \cite{cranmer_lagrangian_2020, lutter_deep_2019}, Ordinary Differential Equations (ODEs) \cite{chen_neural_2018}, physics-informed networks \cite{raissi_physics_2017} and Graph Neural Networks \cite{battaglia_interaction_2016,sanchez-gonzalez_hamiltonian_2019} can significantly improve learning over vanilla neural networks in complex physical domains. Furthermore, it has also been shown that such systems can be adapted to learn trajectories of controlled dynamics \cite{lutter_deep_2019,zhong_dissipative_2020}. Despite this extensive research, there is no method that accounts for explicit-time dependence, a crucial component in forced dynamical systems. Additionally, many of the existing approaches do not outline how to account for energy dissipation. Inspired by \cite{zhong_dissipative_2020}, we show that by embedding a Port-Hamiltonian into a neural network we can learn the dynamics of explicit time-dependent physical systems. We benchmark our network on a range of tasks from the simple mass-spring system to a chaotic Duffing equation for a relativistic particle. The proposed network consistently outperforms other approaches while actively learning both the driving force and the damping coefficient. 
 
 \section{Background}
 
 \subsection{Hamiltonian Neural Networks}
 
-Recently, the authors of \cite{greydanus_hamiltonian_2019} demonstrate that the dynamics of an energy conserving autonomous system can be accurately learned by guiding a neural network to predict a Hamiltonian - an important representation of a dynamical system that generalizes classical mechanics. The Hamiltonian $\mathcal{H}$ is a scalar function of a position vector $\mathbf{q} = (q_1,q_2,....,q_M)$ and momentum vector $\mathbf{p} = (p_1,p_2,....,p_M)$ of a given system that obeys Hamilton's equations eqn.\ref{eqn.hamiltonian}.
+Recently, the authors of \cite{greydanus_hamiltonian_2019} demonstrate that the dynamics of an energy conserving autonomous system can be accurately learned by guiding a neural network to predict a Hamiltonian - an important representation of a dynamical system that generalizes classical mechanics. Considering dynamical systems of M objects, the Hamiltonian $\mathcal{H}$ is a scalar function of a position vector $\mathbf{q} = (q_1,q_2,....,q_M)$ and momentum vector $\mathbf{p} = (p_1,p_2,....,p_M)$ of a given system that obeys Hamilton's equations (\ref{eqn.hamiltonian}).
 \begin{equation}
 \dot{\mathbf{q}}= \frac{\partial \mathcal{H}}{\partial \mathbf{p}}, ~~~
 \dot{\mathbf{p}}= -\frac{\partial \mathcal{H}}{\partial \mathbf{q}}
 \label{eqn.hamiltonian}
 \end{equation}
 
-As such, it is noted in \cite{greydanus_hamiltonian_2019} that by parametrizing the Hamiltonian with a neural network e.g. $H_{\theta}(\mathbf{q},\mathbf{p})$ where $\theta$ represents the parameters of a deep neural network and $\mathbf{q},\mathbf{p}$ are the inputs to the network, one can easily obtain the system's dynamics by differentiating (via autograd) the Hamiltonian with its inputs. In other words, the derivatives of the Hamiltonian with respect to the input $\left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ]$ provide us with time derivatives of the input state vector $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. Once trained, this network therefore yields an approximate time derivative generator for the state $[\mathbf{q},\mathbf{p}]$ and as such can be used in a numerical integrator to evolve an initial condition $[\mathbf{q}_t,\mathbf{p}_t]$ as in \ref{eqn.action_int}.
+As such, it is noted in \cite{greydanus_hamiltonian_2019} that by parametrizing the Hamiltonian with a neural network e.g. $H_{\theta}(\mathbf{q},\mathbf{p})$ where $\theta$ represents the parameters of a deep neural network and $\mathbf{q},\mathbf{p}$ are the inputs to the network, one can learn the system's dynamics by differentiating (via autograd) the Hamiltonian with respect to its inputs. The derivatives of the Hamiltonian $\left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ]$ provide us with time derivatives of the input state vector $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. Once trained, this network therefore yields an approximate time derivative generator for the state $[\mathbf{q},\mathbf{p}]$ and as such can be used in a numerical integrator to evolve an initial condition $[\mathbf{q}_t,\mathbf{p}_t]$, as in Eq.\ref{eqn.action_int}.
 \begin{equation}
-(\mathbf{q},\mathbf{p})_{t+1} = (\mathbf{q},\mathbf{p})_t + \int_t^{t+1} \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ] \mathrm{d}t
+(\mathbf{q},\mathbf{p})_{t+1} = (\mathbf{q},\mathbf{p})_t + \int_t^{t+1} \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ] \mathrm{d}t.
 \label{eqn.action_int}
 \end{equation}
-In addition, the vector field $\mathbf{S} = \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ]$ is a symplectic gradient. This means that $\mathcal{H}$ remains constant as long as the state vectors are integrated along $\mathbf{S}$. This result links the Hamiltonian with the total energy of the system such that $\mathcal{H}(\mathbf{q},\mathbf{p}) = E_{tot}$ for many autonomous physical systems. Therefore, the Hamiltonian is a powerful inductive bias that can be utilised to evolve a physical state while maintaining energy conservation. However, this formulation does not readily generalize to damped or forced system.
+In addition, the vector field $\mathbf{S} = \left [ \frac{\partial \mathcal{H}}{\partial \mathbf{p}},-\frac{\partial \mathcal{H}}{\partial \mathbf{q}} \right ]$ is a symplectic gradient. This means that $\mathcal{H}$ remains constant as long as the state vectors are integrated along $\mathbf{S}$. This result links the Hamiltonian with the total energy of the system such that $\mathcal{H}(\mathbf{q},\mathbf{p}) = E_{\mathrm{tot}}$ for many autonomous physical systems. Therefore, the Hamiltonian is a powerful inductive bias that can be utilized to evolve a physical state while maintaining energy conservation. However, this formulation does not readily generalize to damped or forced system.
 
 \subsection{Port-Hamiltonians}
 
-The Port-Hamiltonian is a formalism that allows us to generalize Hamilton's equations to incorporate damping and forcing terms. The first method to embed the Port-Hamiltonian in a neural network \cite{zhong_dissipative_2020} shows how to represent a general form for such a system. In \cite{zhong_dissipative_2020} the Port-Hamiltonian is represented as:
+The Port-Hamiltonian is a formalism that allows us to generalize Hamilton's equations to incorporate damping and forcing terms. A well known method that embeds the Port-Hamiltonian in a neural network \cite{zhong_dissipative_2020} shows how to represent a general form for such a system. In \cite{zhong_dissipative_2020} the Port-Hamiltonian is represented as:
 \begin{equation}
 \resizebox{0.9\linewidth}{!}{$%
 \begin{bmatrix}
@@ -116,43 +116,44 @@ The Port-Hamiltonian is a formalism that allows us to generalize Hamilton's equa
 \end{bmatrix}
 +
 \begin{bmatrix}
-0 \\
-\mathbf{g}(\mathbf{q})
+\mathbf{0} \\
+\mathbf{G}(\mathbf{q})
 \end{bmatrix}
-u
+\mathbf{u},
 $%
 }%
 \label{eqn.pham}
 \end{equation}
-where $\mathbf{D}(\mathbf{q})$ is a matrix to account for damping and $g(q)u$ is an external constant control term. 
+where $\mathbf{D}(\mathbf{q})$ is a matrix to account for damping and $\mathbf{G}(\mathbf{q})\mathbf{u}$ is an external control term where $\mathbf{u}$ is a temporal control input and $\mathbf{G}(\mathbf{q})$ is a spatial matrix. 
 
-This general formalism allows us to collapse to a classical Hamiltonian system by simply setting $\mathbf{D}$ and $u$ to zero. Note here that the authors of \cite{zhong_dissipative_2020} assume the vector $[\mathbf{q},\mathbf{p},u]$ is provided as input to the system. The matrix $\mathbf{D}(\mathbf{q})$ is assumed to be semi-positive definite and $g(\mathbf{q})$ is typically a non-linear scaling of $\mathbf{q}$.
+This general formalism allows us to collapse to a classical Hamiltonian system by simply setting $\mathbf{D}$ and $\mathbf{u}$ to zero. In this setting, the vector $[\mathbf{q},\mathbf{p},\mathbf{u}]$ is provided as input to the system. The matrix $\mathbf{D}(\mathbf{q})$ is assumed to be semi-positive definite and $\mathbf{G}(\mathbf{q})$ is typically a non-linear scaling of $\mathbf{q}$.
 
 \section{Related Work}
 
-Numerous recent methods highlight how to connect physically-informed inductive biases with neural networks.
+Numerous recent methods highlight how incorporating physically-informed inductive biases into neural networks.
 
 \subsection*{Functional Priors}
-Functional priors, for example, embed the full functional form of an equation into the neural network. Physics-informed Neural Networks (PINNs) \cite{raissi_physics_2017,raissi_physics-informed_2019} and Hamiltonian Nets \cite{mattheakis_hamiltonian_2020} look at directly embedding the equations of motion into the loss function. While PINNs is a data-driven approach that relies on autograd to compute partial-derivatives of a hidden state, Hamiltonian Nets is a data-independent approach that pre-specifies the full equation form in the loss function.
+Functional priors, for example, embed the full functional form of an equation into the neural network. Physics-informed Neural Networks (PINNs) \cite{raissi_physics_2017,raissi_physics-informed_2019} and Hamiltonian Nets \cite{mattheakis_hamiltonian_2020} look at directly embedding the equations of motion into the loss function. While PINNs are data-driven approaches that rely on autograd to compute partial-derivatives of a hidden state, Hamiltonian Nets are data-independent approaches that pre-specify the full functional form of a system-specific Hamiltonian in the loss function.
 
 \subsection*{Integrator Priors}
-Many recent methods seek to use a NN to parametrize the time derivatives of a state vector and then use this learned parametrization in a scientific integrator such as a Runge-Kutta method. The authors of NeuralODE \cite{chen_neural_2018} show that embedding the integrator into the learning process induces a continuous depth neural network for large time-step predictions. As such, the number of gradient computations scales exponentially with the number of integrative time steps. The paper re-introduces the adjoint method to ensure linear scaling of the gradient computations. Other work such as \cite{zhu_deep_2020} shows the need for symplectic integrators 
+Many recent methods seek to use a NN to parametrize the time derivatives of a state vector and then use this learned parametrization in a numerical integrator such as a Runge-Kutta method. The authors of NeuralODE \cite{chen_neural_2018} show that embedding the integrator into the learning process induces a continuous depth neural network for large time-step predictions. As such, the number of gradient computations scales exponentially with the number of integrative time steps. This study re-introduces the adjoint method to ensure linear scaling of the gradient computations. Other work such as \cite{zhu_deep_2020}, theoretically shows the importance of using symplectic integrators over Runge-Kutta methods to evolve Hamiltonian systems.
 
 \subsection*{Graph based methods}
-In \cite{battaglia_interaction_2016}, the authors show how a Graph Neural Network, designed to capture the relational structure of systems, can be used to learn interacting particle systems. This work has been exploited in numerous advances \cite{sanchez-gonzalez_graph_2018,sanchez-gonzalez_learning_2020,cranmer_lagrangian_2020}.
+In \cite{battaglia_interaction_2016}, the authors detail how a Graph Neural Network, designed to capture the relational structure of systems, can be used to learn interacting particle systems. This work has been exploited in numerous advances \cite{sanchez-gonzalez_graph_2018,sanchez-gonzalez_learning_2020,cranmer_lagrangian_2020}.
 
 \subsection*{Lagrangian/Hamiltonian Methods}
 While \cite{cranmer_lagrangian_2020} and \cite{greydanus_hamiltonian_2019} propose to explicitly learn Hamiltonian and Lagrangian functions, \cite{lutter_deep_2019} shows how one can exploit the Lagrangian equation to learn both a function which can predict the generalized forces as well as use generalized forces and coordinate information to predict the next state. The authors show that their inverse model can accurately predict a controlled double pendulum, which is pertinent for controlled robots.
 
 
 \subsection*{Latest Advances}
-Constrained HNN \cite{finzi_generalizing_2020}, one of the most recent advances published as a spotlight in NeurIPS 2020, looks at enforcing cartesian coordinates in Hamiltonians and Lagrangians with holonomic constraints. The paper emphasises that such a framework works significantly better at learning deeply complex physical systems such as the 5-pendulum. 
+Recent work, studies Constrained HNN \cite{finzi_generalizing_2020}, an approach that looks at enforcing Cartesian coordinates in Hamiltonians and Lagrangians with holonomic constraints. The paper emphasises that such a framework works significantly better at learning deeply complex physical systems such as the 5-pendulum. 
 
+Despite these significant breakthroughs, there is no existing method that investigates explicit time-dependence and damping in such systems, elements that are often found in real world problems. As such, we outline a novel technique to address this challenge.
 
 \section{Method}
 
 \subsection*{Theory}
-Our method, TDHNN4, takes the form of the Port-Hamiltonian described earlier with two modifications. First, our approach exploits the fact that most damped systems consist of a non-zero, state-independent term in the lower right quadrant, so we replace the damping matrix $\mathbf{D}(\mathbf{q})$ with a single parameter independent of $\mathbf{q}$ in the lower right half of the matrix. Secondly, in order to generalize to time dependent forcing, we replace $g(\mathbf{q})u$ with $F(t)$. The resulting representation, as highlighted in eqn.\ref{eqn.pham1}, is now general enough to handle many well-known forced systems but also specific enough to tackle learning in complex physical domains.
+Our method, TDHNN4, takes the form of the Port-Hamiltonian described earlier with two modifications. First, our approach exploits the fact that most damped systems consist of a non-zero, state-independent term in the lower right quadrant, so we replace the damping matrix $\mathbf{D}(\mathbf{q})$ with a single parameter independent of $\mathbf{q}$ in the lower right half of the matrix. Secondly, in order to generalize to time dependent forcing, we replace $\mathbf{G}(\mathbf{q})\mathbf{u}$ with $\mathbf{F}(t)$. The resulting representation, as highlighted in Eq.(\ref{eqn.pham1}), is now general enough to handle many well-known forced systems but also specific enough to tackle learning in complex physical domains.
 
 \begin{equation}
 \resizebox{0.9\linewidth}{!}{$%
@@ -178,7 +179,7 @@ Our method, TDHNN4, takes the form of the Port-Hamiltonian described earlier wit
 \begin{bmatrix}
 0 \\
 \mathbf{F}(t)
-\end{bmatrix}
+\end{bmatrix}.
 $%
 }%
 \label{eqn.pham1}
@@ -190,7 +191,7 @@ $%
 \label{fig.architecture}
 \end{figure}
 
-The architecture for our method can be seen in figure \ref{fig.architecture}. We embed the port-hamiltonian by learning 3 main components: the Hamiltonian $H$, the driving force $F$ and the damping term $D$ each parametrized by a neural network.
+The architecture for our method is shown in Figure \ref{fig.architecture}. We embed the Port-Hamiltonian by learning 3 main components: the Hamiltonian $\mathcal{H}$, the driving force $\mathbf{F}$ and the damping term $\mathbf{D}$ each parametrized by a neural network.
 %We define the loss function for our architecture as follows:
 %\begin{multline}
 %\mathcal{L} =\left\| \frac{\partial \mathbf{p}}{\partial t} +\frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{q}} -\mathbf{D}_{\theta_3}\frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{p}} - \mathbf{F}_{\theta_2}(t) \right\|_2^2 +
@@ -198,56 +199,59 @@ The architecture for our method can be seen in figure \ref{fig.architecture}. We
 %\left\|\frac{\partial \mathbf{q}}{\partial t} - \frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{p}} \right\|_2^2+ \alpha_{reg}|| \mathbf{F}_{\theta_2} (t)||_1 + \beta_{reg}||\mathbf{D}_{\theta_3}||_1 
 %\end{multline}
 \subsection*{Training}
-To train the network, we feed in a state-vector $ [\mathbf{q},\mathbf{p},\mathbf{t}]$ to our model. The first component $\mathcal{H}_{\theta_1}$ consists of 3 hidden layers designed to predict $\mathcal{H}$ from $[\mathbf{q},\mathbf{p}]$ input data. The second component $\mathbf{D}_{\theta_3}$ consists of a single weight parameter (i.e. $\theta_3$ is a single node) designed to learn the damping $\mathbf{D}$ and the third neural-network consists of 3 hidden layers designed to predict $\mathbf{F}(t)$. The output of each component is combined as in the equation in fig.\ref{fig.architecture} to obtain predictions of the state time derivatives $[\hat{\dot{\mathbf{q}}},\hat{\dot{\mathbf{p}}}]$. Note that the Hamiltonian learned is a single value for each input that is differentiated (via autograd) with respect to the input $[\mathbf{q},\mathbf{p}]$ to obtain components of the predicted time derivative. We can think of these as being the state time derivatives in the unforced and undamped setting. Using these predictions, we define our loss function as:
+To train the network, we feed in a state-vector $ [\mathbf{q},\mathbf{p},t]$ to our model. The first component, $\mathcal{H}_{\theta_1}$, consists of three hidden layers designed to predict $\mathcal{H}$ from $[\mathbf{q},\mathbf{p}]$ input data. The second component, $\mathbf{D}_{\theta_3}$, consists of a single weight parameter (i.e. $\theta_3$ is a single node) designed to learn the damping $\mathbf{D}$. The third neural-network consists of three hidden layers designed to predict $\mathbf{F}(t)$. The output of each component is combined as per the equations in Fig.\ref{fig.architecture} to obtain predictions of the state time derivatives $[\hat{\dot{\mathbf{q}}},\hat{\dot{\mathbf{p}}}]$. Note that the Hamiltonian learned is a single value for each input that is differentiated (via autograd) with respect to the input $[\mathbf{q},\mathbf{p}]$ to obtain components of the predicted time derivative. We can think of these as being the state time derivatives in the unforced and undamped setting. Using these predictions, we define our loss function as:
 \begin{equation}
 \mathcal{L} =|| \hat{\dot{\mathbf{q}}}_t - \mathbf{\dot{q}}_t ||_2^2 +
-|| \hat{\dot{\mathbf{p}}}_t -\mathbf{\dot{p}}_t ||_2^2 + \alpha|| \mathbf{F}_{\theta_2} (t)||_1 + \beta||\mathbf{D}_{\theta_3}||_1 
+|| \hat{\dot{\mathbf{p}}}_t -\mathbf{\dot{p}}_t ||_2^2 + \lambda_F|| \mathbf{F}_{\theta_2} (t)||_2^2 + \lambda_D||\mathbf{D}_{\theta_3}||_2^2
 \label{eqn.loss}
 \end{equation}
-We use an L2-norm penalty for the predicted state-vectors and an L1-norm for force and damping to encourage sparsity. We introduce the sparsity-inducing L1-norm on force and damping because we want our network to identify both classical autonomous systems (which may not have force or time-varying components) as well as non-autonomous systems. The choice of hyperparameters $\alpha$ and $\beta$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a modified classic neural network that takes in an additional time vector and predicts $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. We also take the straightforward extension of HNN to include time as variable input. 
+The choice of hyper-parameters $\lambda_F$ and $\lambda_D$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a simple MLP with position,momentum and time as input which is designed to predict the state time derivatives (see Fig.\ref{fig.architecture}). We also take the straightforward extension of HNN to include time as variable input. 
+\subsubsection*{Training Dataset}
+
+The training dataset for each of the systems later described is carried out by sampling initial conditions $\mathbf{q},\mathbf{p}$ and using a 4th order Runge-Kutta integrator to evolve the system from time $t=0$ to $t=T_{\max}$. At each iteration, the next state as well as the state derivatives are recorded. This is typically done for multiple initial conditions and then passed to the network for training. Details for how initial conditions are sampled are described independently for each system in the results section.
 
 \subsection*{Testing}
-Once trained, each of the networks in figure  \ref{fig.architecture} can approximate $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. As such, they can be used in a scientific integrator such as a Runge-Kutta 4th order method to integrate initial conditions from $t=0$ to $t=T_{max}$ which we refer to as a state rollout. We measure the performance of the network by comparing the predicted state rollout with the ground truth (measured using a scientific integrator and the ground truth time derivatives). We do this by computing a mean squared error across the state variables and across time. Therefore:
+Once trained, each of the networks in Fig.\ref{fig.architecture} can approximate $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$. As such, they can be used in a scientific integrator such as a Runge-Kutta 4th order method to integrate initial conditions not in the training dataset from $t=0$ to $t=T_{\max}$ which we refer to as a state rollout. We measure the performance of the network by comparing the predicted state rollout with the ground truth (measured using a 4th order Runge-Kutta integrator and the ground truth time derivatives). We do this by computing a mean squared error across the state variables and across time. Therefore:
 
 \begin{equation}
-MSE_{state} = \frac{1}{2N} (\sum_{i=1}^N (\mathbf{q}_i-\hat{\mathbf{q}}_i)^2 + \sum_{i=1}^N (\mathbf{p}_i - \hat{\mathbf{p}}_i)^2)
+\mathrm{MSE}_{\mathrm{state}} = \frac{1}{2N} \left(\sum_{i=1}^N (\mathbf{q}_i-\hat{\mathbf{q}}_i)^2 + \sum_{i=1}^N (\mathbf{p}_i - \hat{\mathbf{p}}_i)^2\right),
 \end{equation}
 
 \begin{equation}
-MSE_{energy} = \frac{1}{N} \sum_{i=1}^N (\mathcal{H}(\mathbf{q}_i,\mathbf{p}_i)-\mathcal{H}(\hat{\mathbf{q}}_i,\hat{\mathbf{p}}_i))^2
+\mathrm{MSE}_{\mathrm{energy}} = \frac{1}{N} \sum_{i=1}^N \left(\mathcal{H}(\mathbf{q}_i,\mathbf{p}_i)-\mathcal{H}(\hat{\mathbf{q}}_i,\hat{\mathbf{p}}_i)\right)^2,
 \end{equation}
 
-where $N = T_{max}/\Delta t $. We typically compute these terms for multiple different initial conditions during inference and average across them (see Fig. \ref{mspring} c).
+where $N = T_{\max}/\Delta t $. We typically compute these terms for multiple different initial conditions during inference and average across them (see Fig. \ref{mspring} c).
 
 
 
 \subsection*{Procedure}
 
 \begin{enumerate}
-\item collect state variable data $[\mathbf{q},\mathbf{p},t]$ and time derivatives $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$ from trajectories of a given system.
-\item Feed state-variable information into TDHNN4 which will learn a Hamiltonian, force and damping term to predict $[\hat{\dot{\mathbf{q}}},\hat{\dot{\mathbf{p}}}]$.
-\item minimize predictions with ground truth time-derivatives as in equation \ref{eqn.loss}.
+\item Obtain state variable data $[\mathbf{q},\mathbf{p},t]$ and time derivatives $[\dot{\mathbf{q}},\dot{\mathbf{p}}]$ from trajectories of a given system.
+\item Provide state-variable information to TDHNN4 which learns a Hamiltonian, force and damping term to predict $[\hat{\dot{\mathbf{q}}},\hat{\dot{\mathbf{p}}}]$.
+\item Minimize predictions with ground truth time-derivatives as in Eqn.(\ref{eqn.loss}).
 \item Once trained, use the network as a time-derivative generator in a scientific integrator to integrate a set of initial conditions $[q_0,p_0]$ to $[q_T,p_T]$.
 \end{enumerate}
 
 
 \section{Results}
 
-We benchmark the performance of our models on numerous datasets that canvas time-independent systems to complex chaotic forced systems. 
+We benchmark the performance of our models on numerous datasets that cover time-independent systems to complex chaotic forced systems. 
 
-\subsection{Simple Mass Spring}
+\subsection{Simple Mass-Spring System}
 
-We begin our analysis with a simple mass spring system which is a well known system from classical physics that obeys Hooke's Law. The Hamiltonian for a simple mass spring system is written as:
+We begin our analysis with a simple mass-spring system, obeying Hooke's Law from classical physics. The Hamiltonian for this is written as:
 \begin{equation}
 \mathcal{H} = \frac{1}{2}kq^2 + \frac{1}{2m}p^2 
 \end{equation}
-where $k$ is the spring constant and $m$ is the mass of the block. 
+where $k$ is the spring constant and $m$ is the mass of the object. 
 
-\textbf{Training:} Without loss of generalization, we set $k$ and $m$ to 1 for our experiments. We sample 25 initial training conditions $[q_0,p_0]$ that satisfy $q_0^2+p_0^2 = r_0^2$ where $1 \leq r_0 \leq 4.5$ similar to \cite{greydanus_hamiltonian_2019} and integrate each using a 4th order RK method with $\Delta t =0.05$ and $T_{max} = 3.05$. In other words, the initial conditions are sampled in a disc with radii between 1 and 4.5.
+\textbf{Training:} Without loss of generalization, we set $k$ and $m$ to 1 for our experiments. We randomly sample 25 initial training conditions $[q_0,p_0]$ that satisfy $q_0^2+p_0^2 = r_0^2$ where $1 \leq r_0 \leq 4.5$ similar to \cite{greydanus_hamiltonian_2019} and integrate each using a 4th order RK method with $\Delta t =0.05$ and $T_{\max} = 3.05$. The initial conditions are sampled in a disc with radii between 1 and 4.5 to sample energies within a range.
 
-\textbf{Test:} At test time, we sample 25 initial conditions not in the training set and evolve them to $T_{max}=6.1$. The test error in fig.\ref{mspring} is measured as the Mean Squared Error (MSE) between the ground truth and predicted state and energy values for a given trajectory. We also show the average state and energy MSE across 25 trajectories. 
+\textbf{Test:} At test time, we sample 25 initial conditions, not in the training set, and evolve them to $T_{\max}=6.1$. The test error in Fig.\ref{mspring} is measured as the MSE between the ground truth and predicted state and energy values for a given trajectory. We also show the average state and energy MSE across 25 trajectories. 
 
-We investigate this simple system to show that learning a separate, regularised forcing term results in much better state and energy predictions in comparison to TDHNN and baseline NN. The main reason for this is that while TDHNN and baseline NN learn dynamics with time-steps within the training regime, they typically cannot generalize to unseen time-steps. Learning a separate forcing term and regularizing it keeps the time component independent of the Hamiltonian and therefore allows us to closely match the performance of classical time-implicit HNN.
+We investigate this simple system to show that learning a separate, regularized forcing term results in much better state and energy predictions in comparison to TDHNN and the baseline NN. The main reason for this is that, while TDHNN and the baseline NN learn dynamics with time-steps within the training regime, they typically cannot generalize to unseen time-steps. Learning a separate forcing term and regularizing it keeps the time component independent of the Hamiltonian and therefore allows us to closely match the performance of classical time-implicit HNN.
 
 \begin{figure}[h!]
 \centering
@@ -273,13 +277,13 @@ We investigate this simple system to show that learning a separate, regularised 
 \end{figure}
 
 
-\subsection{Damped Mass Spring}
+\subsection{Damped Mass-Spring System}
 
-We extend the simple mass spring system to include a damping term that reduces the initial energy of the system over time. Of course the inclusion of this term violates energy conservation and therefore we cannot write a Hamiltonian for such a system (see Appendix A.1 for details). 
+We extend the simple mass-spring system to include a damping term that reduces the initial energy of the system over time. Of course, the inclusion of this term violates energy conservation and therefore we cannot write a Hamiltonian for such a system (see Appendix A.1 for details). 
 
-However, as we saw with Port-Hamiltonians, there is a straightforward way to account for the damping term without explicitly defining a full Hamiltonian. By combining a regular Hamiltonian $\mathcal{H}_{reg}$ with an additional term that learns the damping, we can disentangle the two terms for learning. Indeed, there are alternative methods to do this, including generalised Hamiltonian decomposition which we do not explore here.
+However, using Port-Hamiltonians, it is straightforward to account for the damping term without explicitly defining a full Hamiltonian. By combining a regular mass-spring Hamiltonian $\mathcal{H}_{\mathrm{reg}}$ with an additional term that learns the damping, we can disentangle the two terms for learning. Indeed, there are alternative methods to do this, including generalised Hamiltonian decomposition which we do not explore here.
 
-\textbf{Training:} We have 20 initial training conditions, with position and momentum uniformly sampled in $[-1,1]^2$. Each trajectory is evolved until $T_{max} = 30.1$ with a $\Delta t = 0.1$. We fix the damping coefficient $\delta = 0.3$.
+\textbf{Training:} We have 20 initial training conditions, with position and momentum uniformly sampled in $[-1,1]^2$. Each trajectory is evolved until $T_{\max} = 30.1$ with a $\Delta t = 0.1$. We fix the damping coefficient $\delta = 0.3$.
 
 \textbf{Test:} At inference, we compute the average rollout MSE of 25 unseen initial conditions sampled and evaluated the same way as training, and report the average state and energy rollout MSE for initial conditions that are not in the training set (see Fig.\ref{damped}).
 
@@ -309,9 +313,9 @@ However, as we saw with Port-Hamiltonians, there is a straightforward way to acc
 
 We can see that both baseline NN and TDHNN4 recover the dynamics well, whereas HNN and TDHNN struggle to learn the damping as there is no direct way of learning a Hamiltonian with damping.
 
-\subsection{Forced Mass Spring}
+\subsection{Forced Mass-Spring System}
 
-Typically, while we cannot write the Hamiltonian for a damped system, we can write one for a forced system. Here, we study 2 types of forced mass-spring systems. The first has the following Hamiltonian form:
+Typically, while we cannot write the Hamiltonian for a damped system, we can write one for a forced system. Here, we study two types of forced mass-spring systems. The first has the following Hamiltonian form:
 \begin{equation}
 \mathcal{H} = \frac{1}{2}kq^2 + \frac{1}{2m}p^2 - qF_0\sin(\omega t) 
 \end{equation}
@@ -368,19 +372,19 @@ The second has the Hamiltonian:
 
 \subsection{Duffing Equation}
 
-The general duffing equation combines both the force and damping terms discussed previously and has a non-linear potential function $V(q)$. Typically the equation is written as:
+The general Duffing equation combines both the force and damping terms discussed previously and has a non-linear potential function $V(q)$. Typically the equation is written as:
 
 \begin{equation}
 \ddot{q} = -\delta \dot{q} -\alpha q -\beta q^3 +\gamma \sin(\omega t) 
 \end{equation}
 
-One can see that the unforced and undamped regular Hamiltonian $\mathcal{H}_{reg}$ of the duffing system is:
+We note that the unforced and undamped regular Hamiltonian $\mathcal{H}_{reg}$ of the Duffing system is:
 
 \begin{equation}
 \mathcal{H}_{reg} = \frac{p^2}{2m}+ \alpha \frac{q^2}{2} + \beta \frac{q^4}{4}
 \end{equation}
 
-This Hamiltonian therefore has a potential that can either be a single or a double well depending on the coefficients $\alpha$ and $\beta$. A combination of parameters $\alpha,\beta,\delta,\gamma,\omega$ will make the duffing system either chaotic or non-chaotic. We study both regimes.
+This Hamiltonian therefore has a potential that can either be a single or a double well depending on the coefficients $\alpha$ and $\beta$. A combination of parameters $\alpha,\beta,\delta,\gamma,\omega$ will make the Duffing system either chaotic or non-chaotic. We study both regimes.
 
 \begin{figure}[h!]
 \centering
@@ -404,24 +408,24 @@ This Hamiltonian therefore has a potential that can either be a single or a doub
 \label{fig.duffing}
 \end{figure}
 
-\subsubsection{Non-Chaotic}
+\subsubsection{Non-Chaotic Regime}
 
-Given a set of initial parameters for the duffing equation: $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.2,\omega=1.2$ we can obtain training data for the non-chaotic regime of the duffing equation. 
+Given a set of initial parameters for the Duffing equation: $\alpha =-1,\beta=1,\delta=0.3,\gamma=0.2,\omega=1.2$ we can obtain training data for the non-chaotic regime of the Duffing equation. 
 
-\textbf{Training:} We uniformly sample initial conditions in $[-1,1]^2$. We use 25 initial conditions for training, rolled out to $T_{max}=10.01$ and $\Delta t =0.01$ for the non-chaotic regime. 
+\textbf{Training:} We uniformly sample initial conditions in $[-1,1]^2$. We use 25 initial conditions for training, rolled out to $T_{\max}=10.01$ and $\Delta t =0.01$ for the non-chaotic regime. 
 
 \textbf{Test:} We integrate 25 unseen initial conditions at inference using the same conditions as above and evaluate both energy and state MSE (see Fig.\ref{fig.duffing}).
 
 In addition to learning the force and damping terms accurately, inspecting the predicted Hamiltonian over a 2-D grid of position and momentum values shows that TDHNN4 can also accurately learn the $\mathcal{H}_{reg}$ term (see Fig.\ref{duffing_ham}).
 
-\subsubsection{Chaotic}
+\subsubsection{Chaotic Regime}
 
 In the chaotic regime we use the following parameters:
 $\alpha =1,\beta=1,\delta=0.1,\gamma=0.39,\omega=1.4$. 
 
 \textbf{Training:} 20 initial conditions, sampled uniformly in $[-1,1]^2$ each rolled out for one period $T=2\pi/\omega$ where $\Delta t = T/100$. This results in 2000 training points.
 
-\textbf{Test:} We test our system by assessing whether it is visually able to recover the ground truth Poincar\'e section of an initial condition. The Poincar\'e map of a trajectory is measured by plotting the position and momentum values at regular intervals governed by the period of the forcing term. For example, a simple mass spring will generate a single dot in phase space when measured at regular intervals. To visually asses the performance of our network through a Poincare map, we test the system on a single initial condition not in the training set rolled out to $T_{max} = 18,000$ with the same $\Delta t$ as training. In order to integrate our system to such a large $T_{max}$ we work under the assumption that we have explicit knowledge of the period, and as such, we modulo the time variable with the period. This is necessary as the models are not explicitly trained on time steps beyond $2\pi/\omega$. Our results are visually presented in Fig.\ref{fig.chaos1}. The outcome suggests that TDHNN4 can indeed be used to identify chaos even after being trained with only a few data points from a chaotic trajectory. We believe this is a deeply powerful result in helping us identify chaotic trajectories.
+\textbf{Test:} We test our system by assessing whether it is visually able to recover the ground truth Poincar\'e section of an initial condition. The Poincar\'e map of a trajectory is measured by plotting the position and momentum values at regular intervals governed by the period of the forcing term. For example, a simple mass-spring system will generate a single point in phase space when measured at regular intervals. To visually asses the performance of our network through a Poincare map, we test the system on a single initial condition not in the training set rolled out to $T_{\max} = 18,000$ with the same $\Delta t$ as training. In order to integrate our system to such a large $T_{\max}$ we work under the assumption that we have explicit knowledge of the period, and as such, we modulo the time variable with the period. This is necessary as the models are not explicitly trained on time steps beyond $2\pi/\omega$. Our results are visually presented in Fig.\ref{fig.chaos1}. The outcome suggests that TDHNN4 can indeed be used to identify chaos even after being trained with only a few data points from a chaotic trajectory. We believe this is a deeply powerful result in helping us identify chaotic trajectories.
 
 \begin{figure}[h!]
 \centering
@@ -441,22 +445,23 @@ $\alpha =1,\beta=1,\delta=0.1,\gamma=0.39,\omega=1.4$.
 		\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{Learned dynamics of a relativistic duffing system.}
+\caption{Learned dynamics of a relativistic Duffing system.}
 \end{figure}
-\subsection{Relativity}
-We investigate the duffing equation in a special relativistic framework. The Hamiltonian under consideration is:
+\subsection{Relativistic System}
+We investigate the Duffing equation in a special relativistic framework. The Hamiltonian under consideration is:
 \begin{equation}
 \mathcal{H} =  c\sqrt{p^2 +m_0^2c^2} + \frac{\alpha}{2}q^2 +\frac{\beta}{4}q^4 - q\gamma\sin(\omega t)
 \end{equation}
-where c, the speed of light is typically set to 1. For simplicity, we also set $m=1$ though our framework naturally accounts for other values.
+where $c$, the speed of light is typically set to 1. For simplicity, we also set the rest mass $m_0=1$ though our framework naturally accounts for other values.
 
-\textbf{Training:} We train on 25 initial conditions, sampled in $[0,2]^2$ uniformly. $T_{max} = 20.01$ and $\Delta t = 0.01$. We set parameters such that $\alpha =1, \beta =1,\delta =0,\gamma = 0.2,\omega = 1.2$.
+\textbf{Training:} We train on 25 initial conditions, sampled in $[0,2]^2$ uniformly. $T_{\max} = 20.01$ and $\Delta t = 0.01$. We set parameters such that $\alpha =1, \beta =1,\delta =0,\gamma = 0.2,\omega = 1.2$.
 
 \textbf{Test:} Using the same parameters as training, we rollout 25 unseen initial conditions and compute their state/energy MSE.
 
 \section{Discussion}
 
-We have shown that TDHNN4 can not only outperform other approaches in learning complex physical systems but can also help us recover the underlying force and damping terms of non-autonomous systems. One challenge in achieving this result is fine-tuning the $\alpha$ and $\beta$ regularisation coefficients for the force and damping. In the duffing setting where we have both terms, it is possible to learn a shifted force i.e. $F = F_0 + \epsilon$. Upon inspection we find that such a shift is induced by heavy regularisation of the forcing term. In other words, the Hamiltonian absorbs some of the information of the forcing term. We mitigate this problem by setting small $< 10^{-8}$ regularisation coefficients in settings where we do identify a significant non-zero forcing and damping term.
+We have shown that TDHNN4 can not only outperform other approaches in learning complex physical systems but can also help us recover the underlying force and damping terms of non-autonomous systems. One challenge in achieving this result is fine-tuning the $\lambda_F$ and $\lambda_D$ regularisation coefficients for the force and damping. In the Duffing setting where we have both terms, it is possible to learn a shifted force i.e. $F = F_0 + \epsilon$. The reason this is possible is because the state-vectors $\mathbf{q},\mathbf{p}$ do not provide enough information to simultaneously identify both the Hamiltonian and the force. As such it is possible that our hyper-parameter selection routine will pick coefficients that maintain a force or damping term in settings where they might not exist. However, we do find that in general a reasonable force and damping term are learnt so as to reveal the underlying dynamics.
+
 
 In many settings we find that the classic Hamiltonian Neural Network approach or its time-dependent variant simply do not perform as well as TDHNN4 or baseline. We believe this is predominantly due to the fact that HNN and TDHNN attempt to enforce Hamilton's equations in settings where they cannot be satisfied.
 
@@ -464,13 +469,13 @@ While it may be argued that the method is constrained to learning and prediction
 \begin{figure*}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/duffing_ham_1.pdf}
-\caption{Learnt $\mathcal{H}_{reg}$ components across methods in the non-chaotic duffing setting. HNN and TDHNN learn distorted Hamiltonians that strongly depend on the input time-variable.}
+\caption{Learnt $\mathcal{H}_{reg}$ components across methods in the non-chaotic Duffing setting. HNN and TDHNN learn distorted Hamiltonians that strongly depend on the input time-variable.}
 \label{duffing_ham}
 \end{figure*}
 
 \section{Conclusion}
 
-We have shown that learning the dynamics of time-dependent non-autonomous systems can be achieved with TDHNN4, a versatile neural network embedded with a port-hamiltonian designed to recover the underlying Hamiltonian, Damping and Forcing terms. We show that such an approach, unique in its own right, outperforms naive extensions of existing methods. We believe this work forms a strong basis for further advances in learning complex systems including, but not limited to, chemical bond forces and controlled dynamics. 
+We have shown that learning the dynamics of time-dependent non-autonomous systems can be achieved with TDHNN4, a versatile neural network embedded with a Port-Hamiltonian designed to recover the underlying Hamiltonian, damping and forcing terms. We show that such an approach, unique in its own right, outperforms naive extensions of existing methods. We believe this work forms a strong basis for further advances in learning complex systems including, but not limited to, chemical bond forces and controlled dynamics. 
 %\section{Questions/Thoughts}
 
 %\begin{enumerate}
