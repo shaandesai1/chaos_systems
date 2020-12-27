@@ -54,25 +54,25 @@
 \citation{finzi_generalizing_2020}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Method}{3}{section.4}\protected@file@percent }
 \newlabel{eqn.pham1}{{4}{3}{Theory}{equation.4.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping coefficient $D_{\theta _3}$.\relax }}{3}{figure.caption.9}\protected@file@percent }
-\newlabel{fig.architecture}{{2}{3}{Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping coefficient $D_{\theta _3}$.\relax }{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping coefficient $\nu _{\theta _3}$.\relax }}{3}{figure.caption.9}\protected@file@percent }
+\newlabel{fig.architecture}{{2}{3}{Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping coefficient $\nu _{\theta _3}$.\relax }{figure.caption.9}{}}
 \citation{greydanus_hamiltonian_2019}
 \newlabel{eqn.loss}{{5}{4}{Training}{equation.4.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Results}{4}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Simple Mass-Spring System}{4}{subsection.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The simple mass spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as HNN. Baseline and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.\relax }}{5}{figure.caption.14}\protected@file@percent }
-\newlabel{mspring}{{3}{5}{The simple mass spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as HNN. Baseline and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.\relax }}{5}{figure.caption.14}\protected@file@percent }
+\newlabel{mspring}{{3}{5}{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.\relax }{figure.caption.14}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Damped Mass-Spring System}{5}{subsection.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Damped mass spring setting: Baseline and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }}{5}{figure.caption.15}\protected@file@percent }
-\newlabel{damped}{{4}{5}{Damped mass spring setting: Baseline and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }}{5}{figure.caption.15}\protected@file@percent }
+\newlabel{damped}{{4}{5}{Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }{figure.caption.15}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Forced Mass-Spring System}{5}{subsection.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Forced mass spring setting: HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.\relax }}{6}{figure.caption.16}\protected@file@percent }
-\newlabel{fig.fmspring1}{{5}{6}{Forced mass spring setting: HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.\relax }{figure.caption.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.\relax }}{6}{figure.caption.17}\protected@file@percent }
-\newlabel{fig.fmspring2}{{6}{6}{The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Forced mass-spring (I): HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.\relax }}{6}{figure.caption.16}\protected@file@percent }
+\newlabel{fig.fmspring1}{{5}{6}{Forced mass-spring (I): HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.\relax }{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Forced mass-spring (II):The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.\relax }}{6}{figure.caption.17}\protected@file@percent }
+\newlabel{fig.fmspring2}{{6}{6}{Forced mass-spring (II):The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.\relax }{figure.caption.17}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Duffing Equation}{6}{subsection.5.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Baseline NN and TDHNN4 both perform well in this setting. TDHNN4 is also able to extract the ground truth force and damping coefficient.\relax }}{6}{figure.caption.18}\protected@file@percent }
-\newlabel{fig.duffing}{{7}{6}{Baseline NN and TDHNN4 both perform well in this setting. TDHNN4 is also able to extract the ground truth force and damping coefficient.\relax }{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Duffing equation: TDHNN4 significantly outperforms the other methods and is able to extract the ground truth force and damping coefficient.\relax }}{6}{figure.caption.18}\protected@file@percent }
+\newlabel{fig.duffing}{{7}{6}{Duffing equation: TDHNN4 significantly outperforms the other methods and is able to extract the ground truth force and damping coefficient.\relax }{figure.caption.18}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}Non-Chaotic Regime}{6}{subsubsection.5.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}Chaotic Regime}{7}{subsubsection.5.4.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Learned dynamics of a relativistic Duffing system.\relax }}{7}{figure.caption.19}\protected@file@percent }
@@ -102,11 +102,11 @@
 \bibcite{yao_tensormol-01_2018}{{18}{}{{}}{{}}}
 \bibcite{zhong_dissipative_2020}{{19}{}{{}}{{}}}
 \bibcite{zhu_deep_2020}{{20}{}{{}}{{}}}
-\newlabel{mspring_full}{{\caption@xref {mspring_full}{ on input line 563}}{11}{B}{figure.caption.25}{}}
-\newlabel{mspring_full}{{\caption@xref {mspring_full}{ on input line 584}}{11}{B}{figure.caption.26}{}}
-\newlabel{forced_mspring_1_full}{{\caption@xref {forced_mspring_1_full}{ on input line 605}}{12}{B}{figure.caption.27}{}}
-\newlabel{forced_mpsring_2_full}{{\caption@xref {forced_mpsring_2_full}{ on input line 626}}{12}{B}{figure.caption.28}{}}
-\newlabel{duffing_1_full}{{\caption@xref {duffing_1_full}{ on input line 647}}{13}{B}{figure.caption.29}{}}
-\newlabel{duffing_1_full}{{\caption@xref {duffing_1_full}{ on input line 668}}{13}{B}{figure.caption.30}{}}
+\newlabel{mspring_full}{{\caption@xref {mspring_full}{ on input line 568}}{11}{B}{figure.caption.25}{}}
+\newlabel{mspring_full}{{\caption@xref {mspring_full}{ on input line 589}}{11}{B}{figure.caption.26}{}}
+\newlabel{forced_mspring_1_full}{{\caption@xref {forced_mspring_1_full}{ on input line 610}}{12}{B}{figure.caption.27}{}}
+\newlabel{forced_mpsring_2_full}{{\caption@xref {forced_mpsring_2_full}{ on input line 631}}{12}{B}{figure.caption.28}{}}
+\newlabel{duffing_1_full}{{\caption@xref {duffing_1_full}{ on input line 652}}{13}{B}{figure.caption.29}{}}
+\newlabel{duffing_1_full}{{\caption@xref {duffing_1_full}{ on input line 673}}{13}{B}{figure.caption.30}{}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
 \@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Hyperparameter Optimization for TDHNN4. We plot, for each system, the validation loss as a function of the $\alpha $ and $\beta $ parameters from the loss in eqn. 5\relax }}{14}{figure.caption.34}\protected@file@percent }

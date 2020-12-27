@@ -168,7 +168,7 @@ Our method, TDHNN4, takes the form of the Port-Hamiltonian described earlier wit
 \end{bmatrix} +
 \begin{bmatrix}
 0 & 0 \\
-0 & \mathbf{D}
+0 & \boldsymbol\nu
 \end{bmatrix}
  \Bigg)
  \begin{bmatrix}
@@ -177,7 +177,7 @@ Our method, TDHNN4, takes the form of the Port-Hamiltonian described earlier wit
 \end{bmatrix}
 +
 \begin{bmatrix}
-0 \\
+\mathbf{0} \\
 \mathbf{F}(t)
 \end{bmatrix}.
 $%
@@ -186,12 +186,12 @@ $%
 \end{equation}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/architect.png}
-\caption{Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta_2}$ as well as the damping coefficient $D_{\theta_3}$.}
+\includegraphics[width=0.5\textwidth]{figures/architecture1.pdf}
+\caption{Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta_2}$ as well as the damping coefficient $\nu_{\theta_3}$.}
 \label{fig.architecture}
 \end{figure}
 
-The architecture for our method is shown in Figure \ref{fig.architecture}. We embed the Port-Hamiltonian by learning 3 main components: the Hamiltonian $\mathcal{H}$, the driving force $\mathbf{F}$ and the damping term $\mathbf{D}$ each parametrized by a neural network.
+The architecture for our method is shown in Figure \ref{fig.architecture}. We embed the Port-Hamiltonian by learning 3 main components: the Hamiltonian, $\mathcal{H}$, the driving force, $\mathbf{F}$, and the damping term, $\boldsymbol\nu$, each parametrized by a neural network.
 %We define the loss function for our architecture as follows:
 %\begin{multline}
 %\mathcal{L} =\left\| \frac{\partial \mathbf{p}}{\partial t} +\frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{q}} -\mathbf{D}_{\theta_3}\frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{p}} - \mathbf{F}_{\theta_2}(t) \right\|_2^2 +
@@ -199,13 +199,16 @@ The architecture for our method is shown in Figure \ref{fig.architecture}. We em
 %\left\|\frac{\partial \mathbf{q}}{\partial t} - \frac{\partial \mathcal{H}_{\theta_1}}{\partial \mathbf{p}} \right\|_2^2+ \alpha_{reg}|| \mathbf{F}_{\theta_2} (t)||_1 + \beta_{reg}||\mathbf{D}_{\theta_3}||_1 
 %\end{multline}
 \subsection*{Training}
-To train the network, we feed in a state-vector $ [\mathbf{q},\mathbf{p},t]$ to our model. The first component, $\mathcal{H}_{\theta_1}$, consists of three hidden layers designed to predict $\mathcal{H}$ from $[\mathbf{q},\mathbf{p}]$ input data. The second component, $\mathbf{D}_{\theta_3}$, consists of a single weight parameter (i.e. $\theta_3$ is a single node) designed to learn the damping $\mathbf{D}$. The third neural-network consists of three hidden layers designed to predict $\mathbf{F}(t)$. The output of each component is combined as per the equations in Fig.\ref{fig.architecture} to obtain predictions of the state time derivatives $[\hat{\dot{\mathbf{q}}},\hat{\dot{\mathbf{p}}}]$. Note that the Hamiltonian learned is a single value for each input that is differentiated (via autograd) with respect to the input $[\mathbf{q},\mathbf{p}]$ to obtain components of the predicted time derivative. We can think of these as being the state time derivatives in the unforced and undamped setting. Using these predictions, we define our loss function as:
+To train the network, we feed in a state-vector $ [\mathbf{q},\mathbf{p},t]$ to our model. The first component, $\mathcal{H}_{\theta_1}$, consists of three hidden layers designed to predict $\mathcal{H}$ from $[\mathbf{q},\mathbf{p}]$ input data. The second component, $\boldsymbol\nu_{\theta_3}$, consists of a single weight parameter (i.e. $\theta_3$ is a single node) designed to learn the damping $\boldsymbol\nu$. The third neural-network consists of three hidden layers designed to predict $\mathbf{F}(t)$. The output of each component is combined as per the equations in Fig.\ref{fig.architecture} to obtain predictions of the state time derivatives $[\hat{\dot{\mathbf{q}}},\hat{\dot{\mathbf{p}}}]$. Note that the Hamiltonian learned is a single value for each input that is differentiated (via autograd) with respect to the input $[\mathbf{q},\mathbf{p}]$ to obtain components of the predicted time derivative. We can think of these as being the state time derivatives in the unforced and undamped setting. Using these predictions, we define our loss function as:
 \begin{equation}
-\mathcal{L} =|| \hat{\dot{\mathbf{q}}}_t - \mathbf{\dot{q}}_t ||_2^2 +
-|| \hat{\dot{\mathbf{p}}}_t -\mathbf{\dot{p}}_t ||_2^2 + \lambda_F|| \mathbf{F}_{\theta_2} (t)||_2^2 + \lambda_D||\mathbf{D}_{\theta_3}||_2^2
 \label{eqn.loss}
+\resizebox{0.9\columnwidth}{!}{%
+  $\mathcal{L} =|| \hat{\dot{\mathbf{q}}}_t - \mathbf{\dot{q}}_t ||_2^2 +
+|| \hat{\dot{\mathbf{p}}}_t -\mathbf{\dot{p}}_t ||_2^2 + \lambda_F|| \hat{\mathbf{F}}_{\theta_2} (t)||_2^2 + \lambda_\nu||\hat{\boldsymbol\nu}_{\theta_3}||_2^2$%
+}
 \end{equation}
-The choice of hyper-parameters $\lambda_F$ and $\lambda_D$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a simple MLP with position,momentum and time as input which is designed to predict the state time derivatives (see Fig.\ref{fig.architecture}). We also take the straightforward extension of HNN to include time as variable input. 
+
+The choice of hyper-parameters $\lambda_F$ and $\lambda_{\nu}$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a simple MLP with position,momentum and time as input which is designed to predict the state time derivatives (see Fig.\ref{fig.architecture}). We also take the straightforward extension of HNN to include time as variable input. 
 \subsubsection*{Training Dataset}
 
 The training dataset for each of the systems later described is carried out by sampling initial conditions $\mathbf{q},\mathbf{p}$ and using a 4th order Runge-Kutta integrator to evolve the system from time $t=0$ to $t=T_{\max}$. At each iteration, the next state as well as the state derivatives are recorded. This is typically done for multiple initial conditions and then passed to the network for training. Details for how initial conditions are sampled are described independently for each system in the results section.
@@ -259,8 +262,8 @@ We investigate this simple system to show that learning a separate, regularized 
 \captionsetup{justification=centering}
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_long_0.pdf}
-		\caption{State and energy rollout/MSE of an initial condition in the test set.}
+		\includegraphics[width=\textwidth, trim={0 0 0 12cm},clip]{figures/figures/mass_spring/1/mass_spring_long_0.pdf}
+		\caption{State and energy MSE as a function of time of an initial condition in the test set.}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
@@ -270,9 +273,9 @@ We investigate this simple system to show that learning a separate, regularized 
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
 		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_errors_0.pdf}
-		\caption{Rollout state and energy MSE averaged across 25 initial test states}
+		\caption{State and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{The simple mass spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as HNN. Baseline and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.}
+\caption{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.}
 \label{mspring}
 \end{figure}
 
@@ -305,13 +308,13 @@ However, using Port-Hamiltonians, it is straightforward to account for the dampi
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
 		\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_errors_0.pdf}
-		\caption{Rollout state and energy MSE averaged across 25 initial test states}
+		\caption{State and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{Damped mass spring setting: Baseline and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.}
+\caption{Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.}
 \label{damped}
 \end{figure}
 
-We can see that both baseline NN and TDHNN4 recover the dynamics well, whereas HNN and TDHNN struggle to learn the damping as there is no direct way of learning a Hamiltonian with damping.
+We can see that both baseline NN and TDHNN4 recover the dynamics well, whereas HNN and TDHNN struggle to learn the damping. The main reason for this latter result is that there is no direct way of learning a Hamiltonian with damping.
 
 \subsection{Forced Mass-Spring System}
 
@@ -337,7 +340,7 @@ Typically, while we cannot write the Hamiltonian for a damped system, we can wri
 		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{Forced mass spring setting: HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.}
+\caption{Forced mass-spring (I): HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.}
 \label{fig.fmspring1}
 \end{figure}
 
@@ -363,12 +366,14 @@ The second has the Hamiltonian:
 		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_errors_0.pdf}
 		\caption{Rollout state and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.}
+\caption{Forced mass-spring (II):The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.}
 \label{fig.fmspring2}
 \end{figure}
 \textbf{Training:} In both settings, we use 20 initial conditions, where the initial state $[q_0,p_0]$ is sampled such that $q_0^2 +p_0^2 =r_0^2$ where $1 \leq r_0 \leq 4.5$. The states are rolled out to $T_{max}=10.01$ at a $\Delta t = 0.01$. $k$, $m$ and $F_0$ are all set to 1 without loss of generality. The forcing coefficient term $\omega$ is set to 3. 
 
-\textbf{Test:} At inference, we compute the rollout of 25 unseen initial conditions, and report the average state and energy rollout MSE in the figures \ref{fig.fmspring1} and \ref{fig.fmspring2}.
+\textbf{Test:} At inference, we compute the rollout of 25 unseen initial conditions, and report the average state and energy rollout MSE in the Fig. \ref{fig.fmspring1} and Fig. \ref{fig.fmspring2}.
+
+We study both systems here to illustrate that while the baseline NN is able to do relatively well in comparison to TDHNN4 with a simple force, a more complex force significantly hurts its performance in terms of state/energy MSE.
 
 \subsection{Duffing Equation}
 
@@ -402,9 +407,9 @@ This Hamiltonian therefore has a potential that can either be a single or a doub
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
 		\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_errors_0.pdf}
-		\caption{Rollout state and energy MSE averaged across 25 initial test states}
+		\caption{State and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{Baseline NN and TDHNN4 both perform well in this setting. TDHNN4 is also able to extract the ground truth force and damping coefficient.}
+\caption{Duffing equation: TDHNN4 significantly outperforms the other methods and is able to extract the ground truth force and damping coefficient.}
 \label{fig.duffing}
 \end{figure}
 
