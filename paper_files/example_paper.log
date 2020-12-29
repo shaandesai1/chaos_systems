@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  29 DEC 2020 14:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  29 DEC 2020 15:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -751,11 +751,7 @@ luded in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/figures/relativity
 /1/relativity_errors_0.pdf): PDF inclusion: multiple pdfs with page group inclu
 ded in a single page
->]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-(./example_paper.bbl
+>] (./example_paper.bbl
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 14.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/ot1pcr.fd
@@ -802,7 +798,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--82
 [][]$\OT1/pcr/m/n/10 http : / / www . sciencedirect . com / science /
  []
 
-[8]
+
 Underfull \hbox (badness 1762) in paragraph at lines 113--119
 \OT1/ptm/m/n/10 (+20) In-formed Deep Learn-ing (Part I): Data-driven So-
  []
@@ -813,7 +809,7 @@ Underfull \hbox (badness 1867) in paragraph at lines 113--119
 ns.
  []
 
-
+[8]
 Underfull \hbox (badness 1377) in paragraph at lines 145--150
 []\OT1/ptm/m/n/10 (+20) Sanchez-Gonzalez, A., Bapst, V., Cran-mer, K., and
  []
@@ -840,20 +836,22 @@ Underfull \hbox (badness 1205) in paragraph at lines 182--188
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 537.
- [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 537.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 535.
+ [9
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 535.
  (./example_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 537.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 537.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 535.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 535.
 Package rerunfilecheck Info: File `example_paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 537.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 535.
  ) 
 Here is how much of TeX's memory you used:
  10125 strings out of 492616
  158103 string characters out of 6129481
- 291777 words of memory out of 5000000
+ 293777 words of memory out of 5000000
  13538 multiletter control sequences out of 15000+600000
  44692 words of font info for 228 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -878,7 +876,7 @@ ts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1
 /urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on example_paper.pdf (9 pages, 785408 bytes).
+Output written on example_paper.pdf (9 pages, 785567 bytes).
 PDF statistics:
  1019 PDF objects out of 1200 (max. 8388607)
  466 compressed objects within 5 object streams

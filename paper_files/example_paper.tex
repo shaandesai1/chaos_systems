@@ -234,7 +234,7 @@ To train the network, we feed in a state-vector $ [\mathbf{q},\mathbf{p},t]$ to 
 }
 \end{equation}
 
-The choice of hyper-parameters $\lambda_F$ and $\lambda_{\nu}$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a simple MLP with position,momentum and time as input which is designed to predict the state time derivatives (see Fig.\ref{fig.architecture}). We also take the straightforward extension of HNN to include time as variable input. 
+The choice of hyper-parameters $\lambda_F$ and $\lambda_{\nu}$ is made via a grid search across $[10^{-2},10^{-4},10^{-6},10^{-8}]$, for each parameter, that generates the lowest validation loss (details in Appendix D). For our experiments we use 200 nodes per layer and find that most activations, including tanh, sin and cos yield comparable results. To benchmark our method, we use a simple MLP with position,momentum and time as input, referred to as the baseline NN, that is designed to predict the state time derivatives directly (see Fig.\ref{fig.architecture}). We also take the straightforward extension of HNN to include time as an additional input which we call Time-Dependent HNN (TDHNN). 
 \subsubsection{Training Dataset}
 
 The training dataset for each of the systems later described is carried out by sampling initial conditions $\mathbf{q},\mathbf{p}$ and using a 4th order Runge-Kutta integrator to evolve the system from time $t=0$ to $t=T_{\max}$. At each iteration, the next state as well as the state derivatives are recorded. This is typically done for multiple initial conditions and then passed to the network for training. Details for how initial conditions are sampled are described independently for each system in the results section.
@@ -529,8 +529,6 @@ While it may be argued that the method is constrained to learning and prediction
 We have shown that learning the dynamics of time-dependent non-autonomous systems can be achieved with TDHNN4, a versatile neural network embedded with a Port-Hamiltonian designed to recover the underlying Hamiltonian, damping and forcing terms. We show that such an approach, unique in its own right, outperforms naive extensions of existing methods. We believe this work forms a strong basis for further advances in learning complex systems including, but not limited to, chemical bond forces and controlled dynamics. 
 
 
-
-\pagebreak
 
 \bibliography{references.bib}
 
