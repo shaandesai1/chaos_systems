@@ -1,0 +1,196 @@
+\begin{thebibliography}{20}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Battaglia et~al.(2016)Battaglia, Pascanu, Lai, Rezende, and
+  Kavukcuoglu]{battaglia_interaction_2016}
+Battaglia, P.~W., Pascanu, R., Lai, M., Rezende, D., and Kavukcuoglu, K.
+\newblock Interaction {Networks} for {Learning} about {Objects}, {Relations}
+  and {Physics}.
+\newblock \emph{arXiv:1612.00222 [cs]}, December 2016.
+\newblock URL \url{http://arxiv.org/abs/1612.00222}.
+\newblock arXiv: 1612.00222.
+
+\bibitem[Chen et~al.(2018)Chen, Rubanova, Bettencourt, and
+  Duvenaud]{chen_neural_2018}
+Chen, R. T.~Q., Rubanova, Y., Bettencourt, J., and Duvenaud, D.~K.
+\newblock Neural {Ordinary} {Differential} {Equations}.
+\newblock In Bengio, S., Wallach, H., Larochelle, H., Grauman, K.,
+  Cesa-Bianchi, N., and Garnett, R. (eds.), \emph{Advances in {Neural}
+  {Information} {Processing} {Systems} 31}, pp.\  6571--6583. Curran
+  Associates, Inc., 2018.
+\newblock URL
+  \url{http://papers.nips.cc/paper/7892-neural-ordinary-differential-equations.pdf}.
+
+\bibitem[Cranmer et~al.(2020)Cranmer, Greydanus, Hoyer, Battaglia, Spergel, and
+  Ho]{cranmer_lagrangian_2020}
+Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., and Ho, S.
+\newblock Lagrangian {Neural} {Networks}.
+\newblock \emph{arXiv:2003.04630 [physics, stat]}, March 2020.
+\newblock URL \url{http://arxiv.org/abs/2003.04630}.
+\newblock arXiv: 2003.04630.
+
+\bibitem[Devlin et~al.(2019)Devlin, Chang, Lee, and
+  Toutanova]{devlin_bert_2019}
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K.
+\newblock {BERT}: {Pre}-training of {Deep} {Bidirectional} {Transformers} for
+  {Language} {Understanding}.
+\newblock \emph{arXiv:1810.04805 [cs]}, May 2019.
+\newblock URL \url{http://arxiv.org/abs/1810.04805}.
+\newblock arXiv: 1810.04805.
+
+\bibitem[Finzi et~al.(2020)Finzi, Stanton, Izmailov, and
+  Wilson]{finzi_generalizing_2020}
+Finzi, M., Stanton, S., Izmailov, P., and Wilson, A.~G.
+\newblock Generalizing {Convolutional} {Neural} {Networks} for {Equivariance}
+  to {Lie} {Groups} on {Arbitrary} {Continuous} {Data}.
+\newblock \emph{arXiv:2002.12880 [cs, stat]}, May 2020.
+\newblock URL \url{http://arxiv.org/abs/2002.12880}.
+\newblock arXiv: 2002.12880.
+
+\bibitem[Greydanus et~al.(2019)Greydanus, Dzamba, and
+  Yosinski]{greydanus_hamiltonian_2019}
+Greydanus, S., Dzamba, M., and Yosinski, J.
+\newblock Hamiltonian {Neural} {Networks}.
+\newblock In Wallach, H., Larochelle, H., Beygelzimer, A., Alché-Buc, F.~d.,
+  Fox, E., and Garnett, R. (eds.), \emph{Advances in {Neural} {Information}
+  {Processing} {Systems} 32}, pp.\  15379--15389. Curran Associates, Inc.,
+  2019.
+\newblock URL
+  \url{http://papers.nips.cc/paper/9672-hamiltonian-neural-networks.pdf}.
+
+\bibitem[He et~al.(2018)He, Gkioxari, Dollár, and Girshick]{he_mask_2018}
+He, K., Gkioxari, G., Dollár, P., and Girshick, R.
+\newblock Mask {R}-{CNN}.
+\newblock \emph{arXiv:1703.06870 [cs]}, January 2018.
+\newblock URL \url{http://arxiv.org/abs/1703.06870}.
+\newblock arXiv: 1703.06870.
+
+\bibitem[Hornik et~al.(1989)Hornik, Stinchcombe, and
+  White]{hornik_multilayer_1989}
+Hornik, K., Stinchcombe, M., and White, H.
+\newblock Multilayer feedforward networks are universal approximators.
+\newblock \emph{Neural Networks}, 2\penalty0 (5):\penalty0 359--366, January
+  1989.
+\newblock ISSN 0893-6080.
+\newblock \doi{10.1016/0893-6080(89)90020-8}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/0893608089900208}.
+
+\bibitem[Lutter et~al.(2019)Lutter, Ritter, and Peters]{lutter_deep_2019}
+Lutter, M., Ritter, C., and Peters, J.
+\newblock Deep {Lagrangian} {Networks}: {Using} {Physics} as {Model} {Prior}
+  for {Deep} {Learning}.
+\newblock \emph{arXiv:1907.04490 [cs, eess, stat]}, July 2019.
+\newblock URL \url{http://arxiv.org/abs/1907.04490}.
+\newblock arXiv: 1907.04490.
+
+\bibitem[Mattheakis et~al.(2020)Mattheakis, Sondak, Dogra, and
+  Protopapas]{mattheakis_hamiltonian_2020}
+Mattheakis, M., Sondak, D., Dogra, A.~S., and Protopapas, P.
+\newblock Hamiltonian {Neural} {Networks} for solving differential equations.
+\newblock \emph{arXiv:2001.11107 [physics]}, February 2020.
+\newblock URL \url{http://arxiv.org/abs/2001.11107}.
+\newblock arXiv: 2001.11107.
+
+\bibitem[Pukrittayakamee et~al.(2009)Pukrittayakamee, Malshe, Hagan, Raff,
+  Narulkar, Bukkapatnum, and Komanduri]{pukrittayakamee_simultaneous_2009}
+Pukrittayakamee, A., Malshe, M., Hagan, M., Raff, L.~M., Narulkar, R.,
+  Bukkapatnum, S., and Komanduri, R.
+\newblock Simultaneous fitting of a potential-energy surface and its
+  corresponding force fields using feedforward neural networks.
+\newblock \emph{The Journal of Chemical Physics}, 130\penalty0 (13):\penalty0
+  134101, April 2009.
+\newblock ISSN 0021-9606, 1089-7690.
+\newblock \doi{10.1063/1.3095491}.
+\newblock URL \url{http://aip.scitation.org/doi/10.1063/1.3095491}.
+
+\bibitem[Raissi et~al.(2017)Raissi, Perdikaris, and
+  Karniadakis]{raissi_physics_2017}
+Raissi, M., Perdikaris, P., and Karniadakis, G.~E.
+\newblock Physics {Informed} {Deep} {Learning} ({Part} {I}): {Data}-driven
+  {Solutions} of {Nonlinear} {Partial} {Differential} {Equations}.
+\newblock \emph{arXiv:1711.10561 [cs, math, stat]}, November 2017.
+\newblock URL \url{http://arxiv.org/abs/1711.10561}.
+\newblock arXiv: 1711.10561.
+
+\bibitem[Raissi et~al.(2019)Raissi, Perdikaris, and
+  Karniadakis]{raissi_physics-informed_2019}
+Raissi, M., Perdikaris, P., and Karniadakis, G.~E.
+\newblock Physics-informed neural networks: {A} deep learning framework for
+  solving forward and inverse problems involving nonlinear partial differential
+  equations.
+\newblock \emph{Journal of Computational Physics}, 378:\penalty0 686--707,
+  February 2019.
+\newblock ISSN 0021-9991.
+\newblock \doi{10.1016/j.jcp.2018.10.045}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0021999118307125}.
+
+\bibitem[Sanchez-Gonzalez et~al.(2018)Sanchez-Gonzalez, Heess, Springenberg,
+  Merel, Riedmiller, Hadsell, and Battaglia]{sanchez-gonzalez_graph_2018}
+Sanchez-Gonzalez, A., Heess, N., Springenberg, J.~T., Merel, J., Riedmiller,
+  M., Hadsell, R., and Battaglia, P.
+\newblock Graph networks as learnable physics engines for inference and
+  control.
+\newblock \emph{arXiv:1806.01242 [cs, stat]}, June 2018.
+\newblock URL \url{http://arxiv.org/abs/1806.01242}.
+\newblock arXiv: 1806.01242.
+
+\bibitem[Sanchez-Gonzalez et~al.(2019)Sanchez-Gonzalez, Bapst, Cranmer, and
+  Battaglia]{sanchez-gonzalez_hamiltonian_2019}
+Sanchez-Gonzalez, A., Bapst, V., Cranmer, K., and Battaglia, P.
+\newblock Hamiltonian {Graph} {Networks} with {ODE} {Integrators}.
+\newblock \emph{arXiv:1909.12790 [physics]}, September 2019.
+\newblock URL \url{http://arxiv.org/abs/1909.12790}.
+\newblock arXiv: 1909.12790.
+
+\bibitem[Sanchez-Gonzalez et~al.(2020)Sanchez-Gonzalez, Godwin, Pfaff, Ying,
+  Leskovec, and Battaglia]{sanchez-gonzalez_learning_2020}
+Sanchez-Gonzalez, A., Godwin, J., Pfaff, T., Ying, R., Leskovec, J., and
+  Battaglia, P.~W.
+\newblock Learning to {Simulate} {Complex} {Physics} with {Graph} {Networks}.
+\newblock \emph{arXiv:2002.09405 [physics, stat]}, February 2020.
+\newblock URL \url{http://arxiv.org/abs/2002.09405}.
+\newblock arXiv: 2002.09405.
+
+\bibitem[Toussaint et~al.(2018)Toussaint, Allen, Smith, and
+  Tenenbaum]{toussaint_differentiable_2018}
+Toussaint, M., Allen, K., Smith, K., and Tenenbaum, J.
+\newblock Differentiable {Physics} and {Stable} {Modes} for {Tool}-{Use} and
+  {Manipulation} {Planning}.
+\newblock In \emph{Robotics: {Science} and {Systems} {XIV}}. Robotics: Science
+  and Systems Foundation, June 2018.
+\newblock ISBN 978-0-9923747-4-7.
+\newblock \doi{10.15607/RSS.2018.XIV.044}.
+\newblock URL \url{http://www.roboticsproceedings.org/rss14/p44.pdf}.
+
+\bibitem[Yao et~al.(2018)Yao, Herr, Toth, Mckintyre, and
+  Parkhill]{yao_tensormol-01_2018}
+Yao, K., Herr, J.~E., Toth, D., Mckintyre, R., and Parkhill, J.
+\newblock The {TensorMol}-0.1 model chemistry: a neural network augmented with
+  long-range physics.
+\newblock \emph{Chemical Science}, 9\penalty0 (8):\penalty0 2261--2269, 2018.
+\newblock ISSN 2041-6520, 2041-6539.
+\newblock \doi{10.1039/C7SC04934J}.
+\newblock URL \url{http://xlink.rsc.org/?DOI=C7SC04934J}.
+
+\bibitem[Zhong et~al.(2020)Zhong, Dey, and Chakraborty]{zhong_dissipative_2020}
+Zhong, Y.~D., Dey, B., and Chakraborty, A.
+\newblock Dissipative {SymODEN}: {Encoding} {Hamiltonian} {Dynamics} with
+  {Dissipation} and {Control} into {Deep} {Learning}.
+\newblock \emph{arXiv:2002.08860 [cs, eess, stat]}, April 2020.
+\newblock URL \url{http://arxiv.org/abs/2002.08860}.
+\newblock arXiv: 2002.08860.
+
+\bibitem[Zhu et~al.(2020)Zhu, Jin, and Tang]{zhu_deep_2020}
+Zhu, A., Jin, P., and Tang, Y.
+\newblock Deep {Hamiltonian} networks based on symplectic integrators.
+\newblock \emph{arXiv:2004.13830 [cs, math]}, April 2020.
+\newblock URL \url{http://arxiv.org/abs/2004.13830}.
+\newblock arXiv: 2004.13830.
+
+\end{thebibliography}

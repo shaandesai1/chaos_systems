@@ -90,8 +90,8 @@ def train_model(model_name,model, optimizer, lr_sched, num_epochs=1, integrator_
 
         if model_name =='TDHNN4':
             # print(model.get_weight())
-            train_loss += alpha*torch.mean(torch.square(model.get_F(tevals[ixs].reshape(-1,1))))
-            train_loss += beta*torch.mean(torch.square(model.get_D()))
+            train_loss += alpha*torch.mean(torch.abs(model.get_F(tevals[ixs].reshape(-1,1))))
+            train_loss += beta*torch.mean(torch.abs(model.get_D()))
         train_loss.backward()
         optimizer.step()
 
@@ -135,7 +135,7 @@ def get_model_results(arga,argb):
     optimizer_ft = torch.optim.Adam([{"params": params_a},
                                     ],
                                     args.learning_rate)
-    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step // 2, gamma=0.1)
+    lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step//2, gamma=0.1)
     _,losses = train_model(model_name, model_type, optimizer_ft, lr_sched, num_epochs=iters,
                              integrator_embedded=False,args_reg=args_reg)
     return losses['valid'][-1]
@@ -169,7 +169,7 @@ for noise_val in noise_var:
             model_type = model_type.to(device)
             params_a = list(model_type.parameters())[:]
             optimizer_ft = torch.optim.Adam([{"params": params_a}], args.learning_rate)
-            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step // 2, gamma=0.1)
+            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step//2, gamma=0.1)
             trained_model,scores = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False)
             best_scores[model_name] = scores
         else:
@@ -185,7 +185,7 @@ for noise_val in noise_var:
             model_type = model_type.to(device)
             params_a = list(model_type.parameters())[:]
             optimizer_ft = torch.optim.Adam([{"params": params_a}], args.learning_rate)
-            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step // 2, gamma=0.1)
+            lr_sched = torch.optim.lr_scheduler.StepLR(optimizer_ft, lr_step//2, gamma=0.1)
             trained_model,scores = train_model(model_name,model_type, optimizer_ft, lr_sched, num_epochs=iters, integrator_embedded=False,args_reg=[a_params[ids[0]],b_params[ids[1]]])
             best_scores[model_name] = scores
 
