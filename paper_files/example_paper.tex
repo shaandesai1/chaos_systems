@@ -295,17 +295,16 @@ We investigate this simple system to show that learning a separate, regularized 
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_dpdt_new_0.pdf}
-		\caption{Learnt force and damping terms}
+		\caption{Learnt force and damping terms by TDHNN4}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
 		\includegraphics[width=\textwidth]{figures/figures/mass_spring/1/mass_spring_errors_0.pdf}
 		\caption{State and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime.}
+\caption{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime. While TDHNN4 does learn a non-zero force and damping term, their contribution to $\frac{dp}{dt}$ is negligible.}
 \label{mspring}
 \end{figure}
-
 
 \subsection{Damped Mass-Spring System}
 
@@ -330,18 +329,18 @@ However, using Port-Hamiltonians, it is straightforward to account for the dampi
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_dpdt_new_0.pdf}
-		\caption{Learnt Force and Damping terms}
+		\caption{Learnt Force and Damping terms by TDHNN4}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
 		\includegraphics[width=\textwidth]{figures/figures/damped/1/damped_errors_0.pdf}
 		\caption{State and energy MSE averaged across 25 initial test states}
 	\end{subfigure}
-\caption{Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.}
+\caption{Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics well. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.}
 \label{damped}
 \end{figure}
 
-We can see that both baseline NN and TDHNN4 recover the dynamics well, whereas HNN and TDHNN struggle to learn the damping. The main reason for this latter result is that there is no direct way of learning a Hamiltonian with damping.
+We can see that both baseline NN and TDHNN4 recover the dynamics well, whereas HNN and TDHNN struggle to learn the damping. The main reason for this latter result is that there is no direct way of writing a Hamiltonian with damping so forcing the network to do so results in unreliable test results. In addition, we see that TDHNN4 learns a non-zero, but constant force. This can happen within our system because the network is not guaranteed to find the global optima and it is indeed possible for information from the Hamiltonian, $\mathcal{H}$, to leak into the force and vice-versa. This is because there is an identifiability challenge in attempting to uncover the damping and force exclusively from the state data we provide. In spite of this challenge, we find that our networks converge to reasonable forces and damping terms that can inform us of the underlying dynamics as well as help us make predictions.
 
 \subsection{Forced Mass-Spring System}
 
@@ -360,7 +359,7 @@ Typically, while we cannot write the Hamiltonian for a damped system, we can wri
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/1/forced_mass_spring_dpdt_new_0.pdf}
-		\caption{Learnt Force and Damping terms}
+		\caption{Learnt Force and Damping terms by TDHNN4}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
@@ -385,7 +384,7 @@ The second has the Hamiltonian:
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figures/figures/forced_mass_spring/2/forced_mass_spring_dpdt_new_0.pdf}
-		\caption{Learnt Force and Damping terms}
+		\caption{Learnt Force and Damping terms by TDHNN4}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
@@ -395,7 +394,7 @@ The second has the Hamiltonian:
 \caption{Forced mass-spring (II):The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.}
 \label{fig.fmspring2}
 \end{figure}
-\textbf{Training:} In both settings, we use 20 initial conditions, where the initial state $[q_0,p_0]$ is sampled such that $q_0^2 +p_0^2 =r_0^2$ where $1 \leq r_0 \leq 4.5$. The states are rolled out to $T_{max}=10.01$ at a $\Delta t = 0.01$. $k$, $m$ and $F_0$ are all set to 1 without loss of generality. The forcing coefficient term $\omega$ is set to 3. 
+\textbf{Training:} In both settings, we use 20 initial conditions, where the initial state $[q_0,p_0]$ is sampled such that $q_0^2 +p_0^2 =r_0^2$ where $1 \leq r_0 \leq 4.5$. The states are rolled out to $T_{\max}=10.01$ at a $\Delta t = 0.01$. $k$, $m$ and $F_0$ are all set to 1 without loss of generality. The forcing coefficient term $\omega$ is set to 3. 
 
 \textbf{Test:} At inference, we compute the rollout of 25 unseen initial conditions, and report the average state and energy rollout MSE in the Fig. \ref{fig.fmspring1} and Fig. \ref{fig.fmspring2}.
 
@@ -404,17 +403,13 @@ We study both systems here to illustrate that while the baseline NN is able to d
 \subsection{Duffing Equation}
 
 The general Duffing equation combines both the force and damping terms discussed previously and has a non-linear potential function $V(q)$. Typically the equation is written as:
-
 \begin{equation}
 \ddot{q} = -\delta \dot{q} -\alpha q -\beta q^3 +\gamma \sin(\omega t). 
 \end{equation}
-
 We note that the unforced and undamped regular Hamiltonian $\mathcal{H}_{reg}$ of the Duffing system is:
-
 \begin{equation}
 \mathcal{H}_{reg} = \frac{p^2}{2m}+ \alpha \frac{q^2}{2} + \beta \frac{q^4}{4}.
 \end{equation}
-
 This Hamiltonian therefore has a potential that can either be a single or a double well depending on the coefficients $\alpha$ and $\beta$. A combination of parameters $\alpha,\beta,\delta,\gamma,\omega$ will make the Duffing system either chaotic or non-chaotic. We study both regimes.
 
 \begin{figure}[h!]
@@ -428,7 +423,7 @@ This Hamiltonian therefore has a potential that can either be a single or a doub
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figures/figures/duffing/1/duffing_dpdt_new_0.pdf}
-		\caption{Learnt Force and Damping terms}
+		\caption{Learnt Force and Damping terms of TDHNN4}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
@@ -476,7 +471,7 @@ $\alpha =1,\beta=1,\delta=0.1,\gamma=0.39,\omega=1.4$.
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figures/figures/relativity/1/relativity_dpdt_new_0.pdf}
-		\caption{Learnt Force and Damping terms}
+		\caption{Learnt Force and Damping terms of TDHNN4}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	    \centering
