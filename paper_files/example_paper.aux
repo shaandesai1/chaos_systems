@@ -26,36 +26,34 @@
 \citation{raissi_physics_2017}
 \citation{battaglia_interaction_2016,sanchez-gonzalez_hamiltonian_2019}
 \citation{lutter_deep_2019,zhong_dissipative_2020}
-\citation{zhong_dissipative_2020}
 \citation{greydanus_hamiltonian_2019}
 \citation{greydanus_hamiltonian_2019}
-\newlabel{eqn.hamiltonian}{{1}{1}{}{equation.2.1}{}}
 \citation{zhong_dissipative_2020}
 \citation{zhong_dissipative_2020}
 \citation{raissi_physics_2017,raissi_physics-informed_2019}
 \citation{mattheakis_hamiltonian_2020}
-\citation{chen_neural_2018}
-\citation{zhu_deep_2020}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig.chaos1}{{1}{2}{Poincar\'e Sections of a Duffing oscillator in a chaotic regime. Both Baseline NN and TDHNN4 are trained for 20000 iterations with 2000 data points. TDHNN4 significantly outperforms Baseline NN at recovering the ground truth Poincar\'e section of a test point not in the training set.\relax }{figure.caption.1}{}}
+\newlabel{eqn.hamiltonian}{{1}{2}{}{equation.2.1}{}}
 \newlabel{eqn.action_int}{{2}{2}{}{equation.2.2}{}}
 \newlabel{eqn.pham}{{3}{2}{}{equation.2.3}{}}
+\citation{chen_neural_2018}
+\citation{zhu_deep_2020}
 \citation{battaglia_interaction_2016}
 \citation{sanchez-gonzalez_graph_2018,sanchez-gonzalez_learning_2020,cranmer_lagrangian_2020}
 \citation{cranmer_lagrangian_2020}
 \citation{greydanus_hamiltonian_2019}
 \citation{lutter_deep_2019}
 \citation{finzi_generalizing_2020}
-\newlabel{eqn.pham1}{{4}{3}{Latest Advances}{equation.4.4}{}}
-\newlabel{fig.architecture}{{2}{3}{Architectures used to learn dynamics in this paper. The naive extension of classic NN and Hamiltonian NN (top left) is to incorporate time as an additional input variable (top right). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping coefficient $\nu _{\theta _3}$.\relax }{figure.caption.7}{}}
-\newlabel{eqn.loss}{{5}{3}{Latest Advances}{equation.4.5}{}}
 \citation{greydanus_hamiltonian_2019}
-\newlabel{mspring}{{3}{5}{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime. While TDHNN4 does learn a non-zero force and damping term, their contribution to $\frac {dp}{dt}$ is negligible.\relax }{figure.caption.8}{}}
+\newlabel{eqn.pham1}{{4}{3}{Latest Advances}{equation.4.4}{}}
+\newlabel{fig.architecture}{{2}{3}{Architectures used to learn dynamics in this paper. The naive extension of classic NN (a) and Hamiltonian NN (c) is to incorporate time as an additional input variable (b and d). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping term $N_{\theta _3}$ (e).\relax }{figure.caption.7}{}}
+\newlabel{eqn.loss}{{5}{4}{Latest Advances}{equation.4.5}{}}
+\newlabel{mspring}{{3}{5}{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime. While TDHNN4 does learn a non-zero force and damping term, their contribution to $\frac {dp}{dt}$ is small.\relax }{figure.caption.8}{}}
 \newlabel{damped}{{4}{5}{Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics well. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }{figure.caption.9}{}}
 \newlabel{fig.fmspring1}{{5}{6}{Forced mass-spring (I): HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.\relax }{figure.caption.10}{}}
 \newlabel{fig.fmspring2}{{6}{6}{Forced mass-spring (II):The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.\relax }{figure.caption.11}{}}
 \newlabel{fig.duffing}{{7}{6}{Duffing equation: TDHNN4 significantly outperforms the other methods and is able to extract the ground truth force and damping coefficient.\relax }{figure.caption.12}{}}
-\newlabel{duffing_ham}{{8}{7}{Learnt $\mathcal {H}_{reg}$ components across methods in the non-chaotic Duffing setting. HNN and TDHNN learn distorted Hamiltonians that strongly depend on the input time-variable.\relax }{figure.caption.13}{}}
 \bibdata{references.bib}
 \bibcite{battaglia_interaction_2016}{{1}{2016}{{Battaglia et~al.}}{{Battaglia, Pascanu, Lai, Rezende, and Kavukcuoglu}}}
 \bibcite{chen_neural_2018}{{2}{2018}{{Chen et~al.}}{{Chen, Rubanova, Bettencourt, and Duvenaud}}}
@@ -66,6 +64,7 @@
 \bibcite{he_mask_2018}{{7}{2018}{{He et~al.}}{{He, Gkioxari, Doll\IeC {\'a}r, and Girshick}}}
 \bibcite{hornik_multilayer_1989}{{8}{1989}{{Hornik et~al.}}{{Hornik, Stinchcombe, and White}}}
 \bibcite{lutter_deep_2019}{{9}{2019}{{Lutter et~al.}}{{Lutter, Ritter, and Peters}}}
+\newlabel{duffing_ham}{{8}{8}{Learnt $\mathcal {H}_{reg}$ components across methods in the non-chaotic Duffing setting. HNN and TDHNN learn distorted Hamiltonians that strongly depend on the input time-variable.\relax }{figure.caption.13}{}}
 \bibcite{mattheakis_hamiltonian_2020}{{10}{2020}{{Mattheakis et~al.}}{{Mattheakis, Sondak, Dogra, and Protopapas}}}
 \bibcite{pukrittayakamee_simultaneous_2009}{{11}{2009}{{Pukrittayakamee et~al.}}{{Pukrittayakamee, Malshe, Hagan, Raff, Narulkar, Bukkapatnum, and Komanduri}}}
 \bibcite{raissi_physics_2017}{{12}{2017}{{Raissi et~al.}}{{Raissi, Perdikaris, and Karniadakis}}}
