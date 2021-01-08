@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  7 JAN 2021 21:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.17)  8 JAN 2021 11:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -534,11 +534,6 @@ Underfull \hbox (badness 1655) in paragraph at lines 167--168
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \hbox (badness 1430) in paragraph at lines 183--184
-[]\OT1/ptm/m/n/10 (+20) Our method, Time De-pen-dent Port Hamil-to-nian NN
- []
-
 <figures/architecture2.pdf, id=165, 655.44875pt x 520.94624pt>
 File: figures/architecture2.pdf Graphic file (type pdf)
 <use figures/architecture2.pdf>
@@ -887,7 +882,7 @@ ts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1
 /urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on example_paper.pdf (10 pages, 754975 bytes).
+Output written on example_paper.pdf (10 pages, 754906 bytes).
 PDF statistics:
  1039 PDF objects out of 1200 (max. 8388607)
  489 compressed objects within 5 object streams

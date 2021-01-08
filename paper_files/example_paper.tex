@@ -180,7 +180,7 @@ Despite these significant breakthroughs, there is no existing method that invest
 \section{Method}
 
 \subsection{Theory}
-Our method, Time Dependent Port Hamiltonian NN (pHNN), takes the form of the Port-Hamiltonian with two modifications. First, our approach exploits the fact that many damped systems consist of a non-zero, state-independent damping term in the lower right quadrant, so we replace the damping matrix $\mathbf{D}(\mathbf{q})$ with a state independent lower right matrix $\mathbf{N}$. Secondly, in order to generalize to time dependent forcing, we replace $\mathbf{G}(\mathbf{q})\mathbf{u}$ with $\mathbf{F}(t)$. The resulting representation, as highlighted in Eq.(\ref{eqn.pham1}), is now general enough to handle many well-known forced systems but also specific enough to tackle learning in physical domains of practical importance such as the Duffing equation.
+Our method, port-Hamiltonian Neural Network (pHNN), takes the form of the Port-Hamiltonian with two modifications. First, our approach exploits the fact that many damped systems consist of a non-zero, state-independent damping term in the lower right quadrant, so we replace the damping matrix $\mathbf{D}(\mathbf{q})$ with a state independent lower right matrix $\mathbf{N}$. Secondly, in order to generalize to time dependent forcing, we replace $\mathbf{G}(\mathbf{q})\mathbf{u}$ with $\mathbf{F}(t)$. The resulting representation, as highlighted in Eq.(\ref{eqn.pham1}), is now general enough to handle many well-known forced systems but also specific enough to tackle learning in physical domains of practical importance such as the Duffing equation.
 \begin{equation}
 \resizebox{0.9\linewidth}{!}{$%
 \begin{bmatrix}
