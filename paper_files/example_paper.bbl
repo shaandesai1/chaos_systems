@@ -1,9 +1,20 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{25}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Acosta et~al.(2005)Acosta, Ortega, Astolfi, and
+  Mahindrakar]{acosta_interconnection_2005}
+Acosta, J.~A., Ortega, R., Astolfi, A., and Mahindrakar, A.~D.
+\newblock Interconnection and damping assignment passivity-based control of
+  mechanical systems with underactuation degree one.
+\newblock \emph{IEEE Transactions on Automatic Control}, 50\penalty0
+  (12):\penalty0 1936--1955, December 2005.
+\newblock ISSN 1558-2523.
+\newblock \doi{10.1109/TAC.2005.860292}.
+\newblock Conference Name: IEEE Transactions on Automatic Control.
 
 \bibitem[Battaglia et~al.(2016)Battaglia, Pascanu, Lai, Rezende, and
   Kavukcuoglu]{battaglia_interaction_2016}
@@ -25,6 +36,17 @@ Chen, R. T.~Q., Rubanova, Y., Bettencourt, J., and Duvenaud, D.~K.
 \newblock URL
   \url{http://papers.nips.cc/paper/7892-neural-ordinary-differential-equations.pdf}.
 
+\bibitem[Cherifi(2020)]{cherifi_overview_2020}
+Cherifi, K.
+\newblock An overview on recent machine learning techniques for {Port}
+  {Hamiltonian} systems.
+\newblock \emph{Physica D: Nonlinear Phenomena}, 411:\penalty0 132620, October
+  2020.
+\newblock ISSN 0167-2789.
+\newblock \doi{10.1016/j.physd.2020.132620}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0167278919307705}.
+
 \bibitem[Cranmer et~al.(2020)Cranmer, Greydanus, Hoyer, Battaglia, Spergel, and
   Ho]{cranmer_lagrangian_2020}
 Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., and Ho, S.
@@ -41,6 +63,13 @@ Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K.
 \newblock \emph{arXiv:1810.04805 [cs]}, May 2019.
 \newblock URL \url{http://arxiv.org/abs/1810.04805}.
 \newblock arXiv: 1810.04805.
+
+\bibitem[Dupont et~al.(2019)Dupont, Doucet, and Teh]{dupont_augmented_2019}
+Dupont, E., Doucet, A., and Teh, Y.~W.
+\newblock Augmented {Neural} {ODEs}.
+\newblock \emph{arXiv:1904.01681 [cs, stat]}, October 2019.
+\newblock URL \url{http://arxiv.org/abs/1904.01681}.
+\newblock arXiv: 1904.01681.
 
 \bibitem[Finzi et~al.(2020)Finzi, Stanton, Izmailov, and
   Wilson]{finzi_generalizing_2020}
@@ -168,6 +197,17 @@ Toussaint, M., Allen, K., Smith, K., and Tenenbaum, J.
 \newblock \doi{10.15607/RSS.2018.XIV.044}.
 \newblock URL \url{http://www.roboticsproceedings.org/rss14/p44.pdf}.
 
+\bibitem[van~der Schaft(2007)]{sanz-sole_port-hamiltonian_2007}
+van~der Schaft, A.
+\newblock Port-{Hamiltonian} systems: an introductory survey.
+\newblock In Sanz-Solé, M., Soria, J., Varona, J.~L., and Verdera, J. (eds.),
+  \emph{Proceedings of the {International} {Congress} of {Mathematicians}
+  {Madrid}, {August} 22–30, 2006}, pp.\  1339--1365. European Mathematical
+  Society Publishing House, Zuerich, Switzerland, May 2007.
+\newblock ISBN 978-3-03719-022-7.
+\newblock \doi{10.4171/022-3/65}.
+\newblock URL \url{http://www.ems-ph.org/doi/10.4171/022-3/65}.
+
 \bibitem[Yao et~al.(2018)Yao, Herr, Toth, Mckintyre, and
   Parkhill]{yao_tensormol-01_2018}
 Yao, K., Herr, J.~E., Toth, D., Mckintyre, R., and Parkhill, J.
@@ -177,6 +217,13 @@ Yao, K., Herr, J.~E., Toth, D., Mckintyre, R., and Parkhill, J.
 \newblock ISSN 2041-6520, 2041-6539.
 \newblock \doi{10.1039/C7SC04934J}.
 \newblock URL \url{http://xlink.rsc.org/?DOI=C7SC04934J}.
+
+\bibitem[Zheng et~al.(2018)Zheng, Yuan, and Huang]{zheng_time-varying_2018}
+Zheng, M., Yuan, T., and Huang, T.
+\newblock Time-{Varying} {Impedance} {Control} of {Port} {Hamiltonian} {System}
+  with a {New} {Energy}-{Storing} {Tank}, November 2018.
+\newblock URL \url{https://www.hindawi.com/journals/complexity/2018/8134230/}.
+\newblock ISSN: 1076-2787 Pages: e8134230 Publisher: Hindawi Volume: 2018.
 
 \bibitem[Zhong et~al.(2020)Zhong, Dey, and Chakraborty]{zhong_dissipative_2020}
 Zhong, Y.~D., Dey, B., and Chakraborty, A.

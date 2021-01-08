@@ -18,7 +18,9 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \bibstyle{icml2021}
 \citation{hornik_multilayer_1989}
-\citation{he_mask_2018,devlin_bert_2019,toussaint_differentiable_2018,yao_tensormol-01_2018}
+\citation{he_mask_2018}
+\citation{devlin_bert_2019}
+\citation{toussaint_differentiable_2018,yao_tensormol-01_2018}
 \citation{greydanus_hamiltonian_2019,pukrittayakamee_simultaneous_2009}
 \citation{mattheakis_hamiltonian_2020,greydanus_hamiltonian_2019}
 \citation{cranmer_lagrangian_2020,lutter_deep_2019}
@@ -28,16 +30,18 @@
 \citation{lutter_deep_2019,zhong_dissipative_2020}
 \citation{greydanus_hamiltonian_2019}
 \citation{greydanus_hamiltonian_2019}
+\citation{sanz-sole_port-hamiltonian_2007,acosta_interconnection_2005,zheng_time-varying_2018,cherifi_overview_2020}
 \citation{zhong_dissipative_2020}
 \citation{zhong_dissipative_2020}
-\citation{raissi_physics_2017,raissi_physics-informed_2019}
-\citation{mattheakis_hamiltonian_2020}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig.chaos1}{{1}{2}{Poincar\'e Sections of a Duffing oscillator in a chaotic regime. Both Baseline NN and TDHNN4 are trained for 20000 iterations with 2000 data points. TDHNN4 significantly outperforms Baseline NN at recovering the ground truth Poincar\'e section of a test point not in the training set.\relax }{figure.caption.1}{}}
+\newlabel{fig.chaos1}{{1}{2}{Poincar\'e Sections of a Duffing oscillator in a chaotic regime. Both Baseline NN and pHNN are trained for 20000 iterations with 2000 data points. pHNN significantly outperforms Baseline NN at recovering the ground truth Poincar\'e section of a test point not in the training set.\relax }{figure.caption.1}{}}
 \newlabel{eqn.hamiltonian}{{1}{2}{}{equation.2.1}{}}
 \newlabel{eqn.action_int}{{2}{2}{}{equation.2.2}{}}
 \newlabel{eqn.pham}{{3}{2}{}{equation.2.3}{}}
+\citation{raissi_physics_2017,raissi_physics-informed_2019}
+\citation{mattheakis_hamiltonian_2020}
 \citation{chen_neural_2018}
+\citation{dupont_augmented_2019}
 \citation{zhu_deep_2020}
 \citation{battaglia_interaction_2016}
 \citation{sanchez-gonzalez_graph_2018,sanchez-gonzalez_learning_2020,cranmer_lagrangian_2020}
@@ -47,32 +51,38 @@
 \citation{finzi_generalizing_2020}
 \citation{greydanus_hamiltonian_2019}
 \newlabel{eqn.pham1}{{4}{3}{Latest Advances}{equation.4.4}{}}
-\newlabel{fig.architecture}{{2}{3}{Architectures used to learn dynamics in this paper. The naive extension of classic NN (a) and Hamiltonian NN (c) is to incorporate time as an additional input variable (b and d). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping term $N_{\theta _3}$ (e).\relax }{figure.caption.7}{}}
+\newlabel{fig.architecture}{{2}{4}{Architectures used to learn dynamics in this paper. The naive extension of classic NN (a) and Hamiltonian NN (c) is to incorporate time as an additional input variable (b and d). Our innovation, which exploits Port-Hamiltonians, explicitly learns the force $F_{\theta _2}$ as well as the damping term $N_{\theta _3}$ (e).\relax }{figure.caption.7}{}}
 \newlabel{eqn.loss}{{5}{4}{Latest Advances}{equation.4.5}{}}
-\newlabel{mspring}{{3}{5}{The simple mass-spring system has no explicit time dependence. We see that TDHNN4 can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime. While TDHNN4 does learn a non-zero force and damping term, their contribution to $\frac {dp}{dt}$ is small.\relax }{figure.caption.8}{}}
-\newlabel{damped}{{4}{5}{Damped mass-spring setting: The baseline NN and TDHNN4 recover the underlying dynamics well. TDHNN4 is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }{figure.caption.9}{}}
-\newlabel{fig.fmspring1}{{5}{6}{Forced mass-spring (I): HNN cannot learn the underlying dynamics as it has no explicit-time dependence. TDHNN4 shows the best performance as it explicitly learns a time-dependent force.\relax }{figure.caption.10}{}}
-\newlabel{fig.fmspring2}{{6}{6}{Forced mass-spring (II):The time dependent force here is non-trivial, but TDHNN4 shows it can recover it.\relax }{figure.caption.11}{}}
-\newlabel{fig.duffing}{{7}{6}{Duffing equation: TDHNN4 significantly outperforms the other methods and is able to extract the ground truth force and damping coefficient.\relax }{figure.caption.12}{}}
+\newlabel{mspring}{{3}{5}{The simple mass-spring system has no explicit time dependence. We see that pHNN can almost recover the dynamics as well as in HNN. The baseline NN and TDHNN are unable to achieve the same test state error as they are only reliable for time steps that are within the training regime. While pHNN does learn a non-zero force and damping term, their contribution to $\frac {dp}{dt}$ is small.\relax }{figure.caption.8}{}}
+\newlabel{damped}{{4}{6}{Damped mass-spring setting: The baseline NN and pHNN recover the underlying dynamics well. pHNN is also able to accurately learn the damping coefficient since the predicted damping is indistinguishable from the ground truth.\relax }{figure.caption.9}{}}
+\newlabel{fig.fmspring1}{{5}{6}{Forced mass-spring (I): HNN cannot learn the underlying dynamics as it has no explicit-time dependence. pHNN shows the best performance as it explicitly learns a time-dependent force.\relax }{figure.caption.10}{}}
+\newlabel{fig.fmspring2}{{6}{6}{Forced mass-spring (II):The time dependent force here is non-trivial, but pHNN shows it can recover it.\relax }{figure.caption.11}{}}
+\newlabel{fig.duffing}{{7}{7}{Duffing equation (non-chaotic): pHNN significantly outperforms the other methods and is able to extract the ground truth force and damping coefficient.\relax }{figure.caption.12}{}}
+\newlabel{duffing_ham}{{9}{8}{Learnt $\mathcal {H}_{reg}$ components across methods in the non-chaotic Duffing setting. HNN and TDHNN learn distorted Hamiltonians that strongly depend on the input time-variable.\relax }{figure.caption.14}{}}
+\newlabel{tab.table1}{{\caption@xref {tab.table1}{ on input line 471}}{8}{Latest Advances}{table.caption.15}{}}
 \bibdata{references.bib}
-\bibcite{battaglia_interaction_2016}{{1}{2016}{{Battaglia et~al.}}{{Battaglia, Pascanu, Lai, Rezende, and Kavukcuoglu}}}
-\bibcite{chen_neural_2018}{{2}{2018}{{Chen et~al.}}{{Chen, Rubanova, Bettencourt, and Duvenaud}}}
-\bibcite{cranmer_lagrangian_2020}{{3}{2020}{{Cranmer et~al.}}{{Cranmer, Greydanus, Hoyer, Battaglia, Spergel, and Ho}}}
-\bibcite{devlin_bert_2019}{{4}{2019}{{Devlin et~al.}}{{Devlin, Chang, Lee, and Toutanova}}}
-\bibcite{finzi_generalizing_2020}{{5}{2020}{{Finzi et~al.}}{{Finzi, Stanton, Izmailov, and Wilson}}}
-\bibcite{greydanus_hamiltonian_2019}{{6}{2019}{{Greydanus et~al.}}{{Greydanus, Dzamba, and Yosinski}}}
-\bibcite{he_mask_2018}{{7}{2018}{{He et~al.}}{{He, Gkioxari, Doll\IeC {\'a}r, and Girshick}}}
-\bibcite{hornik_multilayer_1989}{{8}{1989}{{Hornik et~al.}}{{Hornik, Stinchcombe, and White}}}
-\bibcite{lutter_deep_2019}{{9}{2019}{{Lutter et~al.}}{{Lutter, Ritter, and Peters}}}
-\newlabel{duffing_ham}{{8}{8}{Learnt $\mathcal {H}_{reg}$ components across methods in the non-chaotic Duffing setting. HNN and TDHNN learn distorted Hamiltonians that strongly depend on the input time-variable.\relax }{figure.caption.13}{}}
-\bibcite{mattheakis_hamiltonian_2020}{{10}{2020}{{Mattheakis et~al.}}{{Mattheakis, Sondak, Dogra, and Protopapas}}}
-\bibcite{pukrittayakamee_simultaneous_2009}{{11}{2009}{{Pukrittayakamee et~al.}}{{Pukrittayakamee, Malshe, Hagan, Raff, Narulkar, Bukkapatnum, and Komanduri}}}
-\bibcite{raissi_physics_2017}{{12}{2017}{{Raissi et~al.}}{{Raissi, Perdikaris, and Karniadakis}}}
-\bibcite{raissi_physics-informed_2019}{{13}{2019}{{Raissi et~al.}}{{Raissi, Perdikaris, and Karniadakis}}}
-\bibcite{sanchez-gonzalez_graph_2018}{{14}{2018}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Heess, Springenberg, Merel, Riedmiller, Hadsell, and Battaglia}}}
-\bibcite{sanchez-gonzalez_hamiltonian_2019}{{15}{2019}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Bapst, Cranmer, and Battaglia}}}
-\bibcite{sanchez-gonzalez_learning_2020}{{16}{2020}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec, and Battaglia}}}
-\bibcite{toussaint_differentiable_2018}{{17}{2018}{{Toussaint et~al.}}{{Toussaint, Allen, Smith, and Tenenbaum}}}
-\bibcite{yao_tensormol-01_2018}{{18}{2018}{{Yao et~al.}}{{Yao, Herr, Toth, Mckintyre, and Parkhill}}}
-\bibcite{zhong_dissipative_2020}{{19}{2020}{{Zhong et~al.}}{{Zhong, Dey, and Chakraborty}}}
-\bibcite{zhu_deep_2020}{{20}{2020}{{Zhu et~al.}}{{Zhu, Jin, and Tang}}}
+\bibcite{acosta_interconnection_2005}{{1}{2005}{{Acosta et~al.}}{{Acosta, Ortega, Astolfi, and Mahindrakar}}}
+\bibcite{battaglia_interaction_2016}{{2}{2016}{{Battaglia et~al.}}{{Battaglia, Pascanu, Lai, Rezende, and Kavukcuoglu}}}
+\bibcite{chen_neural_2018}{{3}{2018}{{Chen et~al.}}{{Chen, Rubanova, Bettencourt, and Duvenaud}}}
+\bibcite{cherifi_overview_2020}{{4}{2020}{{Cherifi}}{{}}}
+\bibcite{cranmer_lagrangian_2020}{{5}{2020}{{Cranmer et~al.}}{{Cranmer, Greydanus, Hoyer, Battaglia, Spergel, and Ho}}}
+\bibcite{devlin_bert_2019}{{6}{2019}{{Devlin et~al.}}{{Devlin, Chang, Lee, and Toutanova}}}
+\bibcite{dupont_augmented_2019}{{7}{2019}{{Dupont et~al.}}{{Dupont, Doucet, and Teh}}}
+\bibcite{finzi_generalizing_2020}{{8}{2020}{{Finzi et~al.}}{{Finzi, Stanton, Izmailov, and Wilson}}}
+\bibcite{greydanus_hamiltonian_2019}{{9}{2019}{{Greydanus et~al.}}{{Greydanus, Dzamba, and Yosinski}}}
+\bibcite{he_mask_2018}{{10}{2018}{{He et~al.}}{{He, Gkioxari, Doll\IeC {\'a}r, and Girshick}}}
+\bibcite{hornik_multilayer_1989}{{11}{1989}{{Hornik et~al.}}{{Hornik, Stinchcombe, and White}}}
+\bibcite{lutter_deep_2019}{{12}{2019}{{Lutter et~al.}}{{Lutter, Ritter, and Peters}}}
+\bibcite{mattheakis_hamiltonian_2020}{{13}{2020}{{Mattheakis et~al.}}{{Mattheakis, Sondak, Dogra, and Protopapas}}}
+\bibcite{pukrittayakamee_simultaneous_2009}{{14}{2009}{{Pukrittayakamee et~al.}}{{Pukrittayakamee, Malshe, Hagan, Raff, Narulkar, Bukkapatnum, and Komanduri}}}
+\bibcite{raissi_physics_2017}{{15}{2017}{{Raissi et~al.}}{{Raissi, Perdikaris, and Karniadakis}}}
+\bibcite{raissi_physics-informed_2019}{{16}{2019}{{Raissi et~al.}}{{Raissi, Perdikaris, and Karniadakis}}}
+\bibcite{sanchez-gonzalez_graph_2018}{{17}{2018}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Heess, Springenberg, Merel, Riedmiller, Hadsell, and Battaglia}}}
+\bibcite{sanchez-gonzalez_hamiltonian_2019}{{18}{2019}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Bapst, Cranmer, and Battaglia}}}
+\bibcite{sanchez-gonzalez_learning_2020}{{19}{2020}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec, and Battaglia}}}
+\bibcite{toussaint_differentiable_2018}{{20}{2018}{{Toussaint et~al.}}{{Toussaint, Allen, Smith, and Tenenbaum}}}
+\bibcite{sanz-sole_port-hamiltonian_2007}{{21}{2007}{{van~der Schaft}}{{}}}
+\bibcite{yao_tensormol-01_2018}{{22}{2018}{{Yao et~al.}}{{Yao, Herr, Toth, Mckintyre, and Parkhill}}}
+\bibcite{zheng_time-varying_2018}{{23}{2018}{{Zheng et~al.}}{{Zheng, Yuan, and Huang}}}
+\bibcite{zhong_dissipative_2020}{{24}{2020}{{Zhong et~al.}}{{Zhong, Dey, and Chakraborty}}}
+\bibcite{zhu_deep_2020}{{25}{2020}{{Zhu et~al.}}{{Zhu, Jin, and Tang}}}
